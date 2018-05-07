@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.moderndeveloper.fllawi">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:name=".app.FllawiApplication"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".activities.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".permissionManagerViews.PermissionManagerActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Transparent" />
+
+        <activity
+            android:name=".activities.IntroductionActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.SearchResultActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.FilterHotelActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.SearchHotelActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.SortHotelActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.SignUpActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.BookHotelActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.SearchActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.HotelDetailMapActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.MediaFullScreenActvity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.BillingInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.BookingFeedbackActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.HotelDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.SignInActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+
+        <activity
+            android:name=".activities.NotificationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+
+        <activity
+            android:name=".activities.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+    </application>
+
+</manifest>

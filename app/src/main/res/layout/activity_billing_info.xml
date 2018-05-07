@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_3sdp"
+        app:cardMaxElevation="@dimen/_8sdp"
+        android:visibility="gone"
+        app:cardElevation="@dimen/_8sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/First"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/_4sdp"
+                android:drawableLeft="@drawable/ic_right_tick_mark"
+                android:drawableStart="@drawable/ic_right_tick_mark"
+                android:background="@drawable/booking_step_white"
+                android:gravity="start|center"
+                android:text="Review Booking"
+                android:textColor="@color/black_dark"
+                android:textSize="@dimen/_8ssp" />
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/Second"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:background="@drawable/booking_step_white"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/_4sdp"
+                android:drawableLeft="@drawable/ic_right_tick_mark"
+                android:drawableStart="@drawable/ic_right_tick_mark"
+                android:gravity="start|center"
+                android:text="Passenger Info"
+                android:textColor="@color/black_dark"
+                android:textSize="@dimen/_8ssp" />
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/Third"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:background="@drawable/booking_step_green"
+                android:layout_gravity="center"
+                android:padding="@dimen/_4sdp"
+                android:gravity="start|center"
+                android:text="Billing Info"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <com.customviews.CustomRomanTextView
+        android:id="@+id/tvTotalPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp"
+        android:gravity="start"
+        android:text="Total Payment to be made SR130"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_3sdp"
+        app:cardMaxElevation="@dimen/_8sdp"
+        app:cardElevation="@dimen/_8sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvBankDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="Bank Details"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/light_gray"
+                android:layout_height="0.5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvCheckIn"
+                    android:layout_width="wrap_content"
+                    android:minWidth="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="Book Name"
+                    android:textColor="@color/app_blue"
+                    android:textSize="@dimen/_12ssp" />
+
+                <com.customviews.CustomRomanTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=":"
+                    android:textColor="@color/app_blue"
+                    android:textSize="@dimen/_12ssp" />
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvCheckInDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="Smith patel"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/light_gray"
+                android:layout_height="0.5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvAccountNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/_120sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="Account Number"
+                    android:textColor="@color/app_blue"
+                    android:textSize="@dimen/_12ssp" />
+
+                <com.customviews.CustomRomanTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=":"
+                    android:textColor="@color/app_blue"
+                    android:textSize="@dimen/_12ssp" />
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvCheckOutDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="00454523454454"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/light_gray"
+                android:layout_height="0.5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvGuest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/_120sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="IBAN"
+                    android:textColor="@color/app_blue"
+                    android:textSize="@dimen/_12ssp" />
+
+                <com.customviews.CustomRomanTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=":"
+                    android:textColor="@color/app_blue"
+                    android:textSize="@dimen/_12ssp" />
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvGuestPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="SA4353566557876"
+                    android:layout_weight="4"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Private"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_18sdp"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:text="Public"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.customviews.CustomRomanTextView
+            android:id="@+id/tvContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_corner_app_blue_rect"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:textAllCaps="true"
+            android:text="CONTINUE BOOKING"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

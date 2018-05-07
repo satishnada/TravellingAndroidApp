@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/ic_profile_top_bg"
+        android:id="@+id/green_gradient"
+        android:top="@dimen/_30sdp" />
+
+    <item
+        android:drawable="@color/white"
+        android:id="@+id/half_overlay_middle"
+        android:bottom="@dimen/_40sdp" />
+
+    <item
+        android:drawable="@drawable/ic_profile_bottom_bg"
+        android:id="@+id/half_overlay"
+        android:bottom="@dimen/_30sdp" />
+</layer-list>

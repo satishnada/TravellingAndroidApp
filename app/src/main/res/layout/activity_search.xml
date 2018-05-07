@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/menu_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
+
+                <LinearLayout
+                    android:id="@+id/llCoupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:orientation="vertical">
+
+                    <com.customviews.CustomRomanTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name"
+                        android:textColor="@color/app_blue"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <com.customviews.CustomRomanEditText
+                        android:id="@+id/edtCouponName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:background="@drawable/edit_text_blue_bg"
+                        android:hint="@string/enter_name"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/app_blue2"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxTickets"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:textColor="@color/white"
+                            android:textIsSelectable="true"
+                            android:text="@string/tickets"/>
+
+                        <CheckBox
+                            android:id="@+id/checkBoxCoupons"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textIsSelectable="true"
+                            android:text="@string/coupons"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:orientation="vertical">
+
+                    <com.customviews.CustomRomanTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location"
+                        android:textColor="@color/app_blue"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <com.customviews.CustomRomanEditText
+                        android:id="@+id/edtLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:background="@drawable/edit_text_blue_bg"
+                        android:hint="@string/enter_address"
+                        android:maxLength="200"
+                        android:maxLines="1"
+                        android:inputType="textPostalAddress"
+                        android:paddingBottom="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/app_blue2"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llCheckIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llLocation"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:orientation="vertical">
+
+                    <com.customviews.CustomRomanTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/check_in"
+                        android:textColor="@color/app_blue"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <com.customviews.CustomRomanTextView
+                        android:id="@+id/tvCheckInDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_calendar"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:background="@drawable/edit_text_blue_bg"
+                        android:hint="@string/select_chech_in_date"
+                        android:inputType="date"
+                        android:paddingBottom="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/app_blue2"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llCheckOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llCheckIn"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:visibility="gone"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:orientation="vertical">
+
+                    <com.customviews.CustomRomanTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/check_out"
+                        android:textColor="@color/app_blue"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <com.customviews.CustomRomanTextView
+                        android:id="@+id/tvCheckOutDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_calendar"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:background="@drawable/edit_text_blue_bg"
+                        android:inputType="date"
+                        android:hint="@string/select_check_out_date"
+                        android:paddingBottom="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/app_blue2"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llRoom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llCheckOut"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:visibility="gone"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.customviews.CustomRomanTextView
+                            android:id="@+id/tvNumberOfRoom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/room"
+                            android:textColor="@color/app_blue"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <com.customviews.CustomRomanEditText
+                            android:id="@+id/edtNumberOfRoom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_15sdp"
+                            android:background="@drawable/edit_text_blue_bg"
+                            android:hint="@string/enter_number_of_room"
+                            android:maxLength="5"
+                            android:inputType="number"
+                            android:paddingBottom="@dimen/_6sdp"
+                            android:paddingTop="@dimen/_6sdp"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/app_blue2"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.customviews.CustomRomanTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/select_member"
+                            android:textColor="@color/app_blue"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <com.customviews.CustomRomanEditText
+                            android:id="@+id/edtNumberMember"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_15sdp"
+                            android:background="@drawable/edit_text_blue_bg"
+                            android:hint="@string/enter_number_of_member"
+                            android:maxLength="5"
+                            android:inputType="number"
+                            android:paddingBottom="@dimen/_6sdp"
+                            android:paddingTop="@dimen/_6sdp"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/app_blue2"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.customviews.CustomRomanTextView
+            android:id="@+id/tvSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_corner_app_blue_rect"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/search"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
