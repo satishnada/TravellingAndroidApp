@@ -59,11 +59,11 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
         //ImageLoader.getInstance().displayImage(Utility.BASE_URL+"/"+searchResultList.get(position).getImage(),holder.ivHotel);
         holder.tvHotelAddress.setText(datum.getAddress());
-        holder.rattingBarReview.setRating(3);
-        holder.tvReviewCount.setText("23 Reviews");
+        holder.rattingBarReview.setRating(datum.getAvrageUserRatting());
+        holder.tvReviewCount.setText(datum.getTotalReview()+" Reviews");
         holder.tvFullAddress.setText(datum.getAddress());
         holder.tvHotelName.setText(datum.getTitle());
-        holder.tvHotelPrice.setText("$"+datum.getMaxPrice()+"");
+        holder.tvHotelPrice.setText("SAR "+datum.getMaxPrice()+" Per unit");
         holder.tvFullAddress.setText(datum.getDescription());
     }
 

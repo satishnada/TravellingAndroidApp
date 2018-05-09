@@ -9,6 +9,8 @@ public class AppConstant {
     public static final int IS_FROM_ACCOMMODATION = 1; // FROM Accommodation
     public static final int IS_FROM_COUPON = 2; // FROM COUPON
     public static final int IS_FROM_THING_TO_DO = 3; // FROM THING TO DO
+    public static final int IS_FROM_TRANSPORTATION = 4; // FROM TRANSPORTATION
+    public static final int IS_FROM_EVENT = 5; // FROM EVENT
     public static final String EXT_IS_FROM = "IS_FROM";
     public static final String EXT_HOTEL_IMAGE = "HOTEL_IMAGE";
     public static final String EXT_HOTEL_NAME = "HOTEL_NAME";

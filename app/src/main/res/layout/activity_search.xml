@@ -20,22 +20,21 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_centerInParent="true">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/llCoupon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:layout_marginRight="@dimen/_15sdp"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <com.customviews.CustomRomanTextView
                         android:layout_width="wrap_content"
@@ -92,9 +91,8 @@
                     android:id="@+id/llLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_gravity="center"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:layout_marginRight="@dimen/_15sdp"
@@ -128,10 +126,123 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/llScheduleDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:visibility="visible"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:orientation="vertical">
+
+                    <com.customviews.CustomRomanTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/schedule_date"
+                        android:textColor="@color/app_blue"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <com.customviews.CustomRomanTextView
+                        android:id="@+id/tvScheduleDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_calendar"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:background="@drawable/edit_text_blue_bg"
+                        android:hint="@string/select_chech_in_date"
+                        android:inputType="date"
+                        android:paddingBottom="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/app_blue2"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:visibility="visible"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:orientation="vertical">
+
+                    <com.customviews.CustomRomanTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/category"
+                        android:textColor="@color/app_blue"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <com.customviews.CustomRomanTextView
+                        android:id="@+id/tvCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_down_arrow"
+                        android:drawableRight="@drawable/ic_down_arrow"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:background="@drawable/edit_text_blue_bg"
+                        android:hint="@string/select_category"
+                        android:inputType="text"
+                        android:paddingBottom="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/app_blue2"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSubCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:visibility="visible"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:orientation="vertical">
+
+                    <com.customviews.CustomRomanTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/sub_category"
+                        android:textColor="@color/app_blue"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <com.customviews.CustomRomanTextView
+                        android:id="@+id/tvSubCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_down_arrow"
+                        android:drawableRight="@drawable/ic_down_arrow"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:background="@drawable/edit_text_blue_bg"
+                        android:hint="@string/select_sub_category"
+                        android:inputType="text"
+                        android:paddingBottom="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/app_blue2"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/llCheckIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/llLocation"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:visibility="gone"
                     android:layout_marginLeft="@dimen/_15sdp"
@@ -170,7 +281,6 @@
                     android:id="@+id/llCheckOut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/llCheckIn"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:visibility="gone"
@@ -209,7 +319,6 @@
                     android:id="@+id/llRoom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/llCheckOut"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:visibility="gone"

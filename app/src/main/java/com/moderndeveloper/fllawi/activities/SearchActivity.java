@@ -21,6 +21,7 @@ import com.moderndeveloper.fllawi.R;
 import com.moderndeveloper.fllawi.model.Coupons.GetCouponRequestResponse;
 import com.moderndeveloper.fllawi.model.SearchHotel.SearchRequestResponse;
 import com.moderndeveloper.fllawi.model.SearchHotel.SearchResultMainData;
+import com.moderndeveloper.fllawi.model.ThingToDo.GetThingToDoCategoryRequestResponse;
 import com.moderndeveloper.fllawi.retrofit.WebServiceCaller;
 import com.moderndeveloper.fllawi.retrofit.WebUtility;
 import com.moderndeveloper.fllawi.utils.AppConstant;
@@ -38,14 +39,20 @@ import retrofit2.Response;
 
 public class SearchActivity extends BaseActivity {
 
+    private int DATE_PICKER_TYPE_CHECK_OUT = 1;
+    private int DATE_PICKER_TYPE_CHECK_IN = 2;
+    private int DATE_PICKER_TYPE_SCHEDULE = 3;
     private View view;
     private TextView tvSearch;
     private SimpleDateFormat dateFormatter;
-    private TextView tvCheckInDate, tvCheckOutDate;
-    private EditText edtNumberOfRoom, edtNumberMember, edtLocation, edtCouponName;
-    private String minPrice = "100";
-    private String maxPrice = "10000";
-    private LinearLayout llLocation, llCheckIn, llCheckOut, llRoom, llCoupon;
+    private TextView tvCheckInDate, tvCheckOutDate,
+            tvScheduleDate, tvCategory, tvSubCategory;
+    private EditText edtNumberOfRoom, edtNumberMember,
+            edtLocation, edtCouponName;
+    private String minPrice = "";
+    private String maxPrice = "";
+    private LinearLayout llLocation, llCheckIn, llCheckOut, llRoom,
+            llCoupon, llScheduleDate, llCategory, llSubCategory;
     private int isFrom = 1;
     private CheckBox checkBoxTickets, checkBoxCoupons;
     private boolean isTicketSelected = true;
@@ -56,6 +63,13 @@ public class SearchActivity extends BaseActivity {
         view = LayoutInflater.from(this).inflate(R.layout.activity_search, llContainer);
         tvSearch = view.findViewById(R.id.tvSearch);
         tvSearch.setOnClickListener(this);
+
+        llScheduleDate = view.findViewById(R.id.llScheduleDate);
+        tvScheduleDate = view.findViewById(R.id.tvScheduleDate);
+        llCategory = view.findViewById(R.id.llCategory);
+        tvCategory = view.findViewById(R.id.tvCategory);
+        tvSubCategory = view.findViewById(R.id.tvSubCategory);
+        llSubCategory = view.findViewById(R.id.llSubCategory);
 
         llLocation = view.findViewById(R.id.llLocation);
         llCheckIn = view.findViewById(R.id.llCheckIn);
@@ -89,6 +103,9 @@ public class SearchActivity extends BaseActivity {
 
         tvCheckInDate.setOnClickListener(this);
         tvCheckOutDate.setOnClickListener(this);
+        tvScheduleDate.setOnClickListener(this);
+        tvCategory.setOnClickListener(this);
+        tvSubCategory.setOnClickListener(this);
         isHomeRunning = false;
 
         Bundle bundle = getIntent().getExtras();
@@ -100,14 +117,33 @@ public class SearchActivity extends BaseActivity {
             llLocation.setVisibility(View.VISIBLE);
             llCheckIn.setVisibility(View.VISIBLE);
             llCheckOut.setVisibility(View.VISIBLE);
+            llScheduleDate.setVisibility(View.GONE);
             llRoom.setVisibility(View.VISIBLE);
             llCoupon.setVisibility(View.GONE);
+            llCategory.setVisibility(View.GONE);
+            llSubCategory.setVisibility(View.GONE);
         } else if (isFrom == AppConstant.IS_FROM_COUPON) {
             llCoupon.setVisibility(View.VISIBLE);
+            llScheduleDate.setVisibility(View.GONE);
             llLocation.setVisibility(View.GONE);
             llCheckIn.setVisibility(View.GONE);
             llCheckOut.setVisibility(View.GONE);
             llRoom.setVisibility(View.GONE);
+            llCategory.setVisibility(View.GONE);
+            llSubCategory.setVisibility(View.GONE);
+        } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+            llCategory.setVisibility(View.VISIBLE);
+            llSubCategory.setVisibility(View.VISIBLE);
+            llLocation.setVisibility(View.VISIBLE);
+            llScheduleDate.setVisibility(View.VISIBLE);
+            llCheckIn.setVisibility(View.GONE);
+            llCheckOut.setVisibility(View.GONE);
+            llRoom.setVisibility(View.GONE);
+
+        } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
+
+        } else if (isFrom == AppConstant.IS_FROM_EVENT) {
+
         }
 
     }
@@ -156,14 +192,23 @@ public class SearchActivity extends BaseActivity {
 
                 }
                 break;
+            case R.id.tvCategory:
+
+                break;
+            case R.id.tvSubCategory:
+
+                break;
+            case R.id.tvScheduleDate:
+                showDatePickerDialog(DATE_PICKER_TYPE_SCHEDULE);
+                break;
             case R.id.tvCheckInDate:
-                showDatePickerDialog(true);
+                showDatePickerDialog(DATE_PICKER_TYPE_CHECK_IN);
                 break;
             case R.id.tvCheckOutDate:
                 if (tvCheckInDate.getText().toString().length() == 0) {
                     Utility.showError(getString(R.string.valid_check_out_date));
                 } else {
-                    showDatePickerDialog(false);
+                    showDatePickerDialog(DATE_PICKER_TYPE_CHECK_OUT);
                 }
                 break;
             case R.id.ivTopBack:
@@ -172,7 +217,7 @@ public class SearchActivity extends BaseActivity {
         }
     }
 
-    private void showDatePickerDialog(final boolean isFromCheckInData) {
+    private void showDatePickerDialog(final int isFromCheckInData) {
         Calendar newCalendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
 
@@ -180,19 +225,21 @@ public class SearchActivity extends BaseActivity {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-                if (isFromCheckInData) {
+                if (isFromCheckInData == DATE_PICKER_TYPE_CHECK_IN) {
                     tvCheckInDate.setText(dateFormatter.format(newDate.getTime()));
-                } else {
+                } else if (isFromCheckInData == DATE_PICKER_TYPE_CHECK_OUT){
                     tvCheckOutDate.setText(dateFormatter.format(newDate.getTime()));
+                }else if (isFromCheckInData == DATE_PICKER_TYPE_SCHEDULE){
+                    tvScheduleDate.setText(dateFormatter.format(newDate.getTime()));
                 }
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH),
                 newCalendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.setTitle(getString(R.string.select_date));
-        if (isFromCheckInData) {
+        if (isFromCheckInData == DATE_PICKER_TYPE_CHECK_IN) {
             datePickerDialog.getDatePicker().setMinDate(newCalendar.getTimeInMillis());
-        } else {
+        } else if (isFromCheckInData == DATE_PICKER_TYPE_CHECK_OUT){
             Date date = null;
             try {
                 if (tvCheckInDate.getText().toString().length() > 0) {
@@ -212,6 +259,8 @@ public class SearchActivity extends BaseActivity {
             } else {
                 Utility.showError(getString(R.string.valid_check_out_date));
             }
+        } else if (isFromCheckInData == DATE_PICKER_TYPE_SCHEDULE){
+            datePickerDialog.getDatePicker().setMinDate(newCalendar.getTimeInMillis());
         }
 
         if (datePickerDialog.getWindow() != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
@@ -242,11 +291,13 @@ public class SearchActivity extends BaseActivity {
                         + "&no_member=" + edtNumberMember.getText().toString().trim()
                         + "&sortBy[name]=asc"
                         + "&sortBy[price]=asc"
-                        + "&filterBy[category][]=1"
-                        + "&filterBy[subcategory][]=2"
-                        + "filterBy[min_price]=" + minPrice
+                        + "&filterBy[category][]="
+                        + "&filterBy[subcategory][]="
+                        + "&filterBy[min_price]=" + minPrice
                         + "&filterBy[max_price]=" + maxPrice
                         + "&q=" + edtLocation.getText().toString().trim()
+                        + "&filterBy[star_rating]="
+                        + "&filterBy[user_rating]="
                 );
                 call.enqueue(new Callback<SearchRequestResponse>() {
                     @Override
@@ -404,6 +455,55 @@ public class SearchActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<GetCouponRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getThingToDoCategoryList() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<GetThingToDoCategoryRequestResponse> call = service.getThingToDoCategory(WebUtility.GET_THING_TO_DO_CATEGORY);
+                call.enqueue(new Callback<GetThingToDoCategoryRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<GetThingToDoCategoryRequestResponse> call, Response<GetThingToDoCategoryRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                if (response.body() != null) {
+                                    if (response.body().getData() != null) {
+
+
+
+                                    } else {
+                                        Utility.showError("No Search Data Found");
+                                    }
+                                } else {
+                                    Utility.showError("No Search Data Found");
+                                }
+
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetThingToDoCategoryRequestResponse> call, Throwable t) {
                         Utility.log("" + t.getMessage());
                         hideProgress();
                         Utility.showError(t.getMessage());

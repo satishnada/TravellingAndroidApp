@@ -358,5 +358,10 @@
     <string name="enter_name">Enter Name</string>
     <string name="coupon">Coupons</string>
     <string name="tickets">Tickets</string>
+    <string name="schedule_date">Schedule Date</string>
+    <string name="category">Category</string>
+    <string name="select_category">Select category</string>
+    <string name="sub_category">Sub Category</string>
+    <string name="select_sub_category">Select sub category</string>
 
 </resources>

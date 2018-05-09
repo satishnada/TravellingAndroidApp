@@ -9,6 +9,7 @@ import com.moderndeveloper.fllawi.model.CommonRequestResponse;
 import com.moderndeveloper.fllawi.model.Coupons.GetCouponRequestResponse;
 import com.moderndeveloper.fllawi.model.LoginRequestResponse;
 import com.moderndeveloper.fllawi.model.SearchHotel.SearchRequestResponse;
+import com.moderndeveloper.fllawi.model.ThingToDo.GetThingToDoCategoryRequestResponse;
 import com.moderndeveloper.fllawi.model.UserProfileDataRequestResponse;
 import com.moderndeveloper.fllawi.utils.AppConstant;
 
@@ -138,6 +139,10 @@ public class WebServiceCaller {
         @Headers("local:" + AppConstant.LANGUAGE_ENGLISH + "")
         @GET
         Call<GetCouponRequestResponse> searchCoupon(@Url String url);
+
+        @Headers("local:" + AppConstant.LANGUAGE_ENGLISH + "")
+        @GET
+        Call<GetThingToDoCategoryRequestResponse> getThingToDoCategory(@Url String url);
 
         @Headers("local:" + AppConstant.LANGUAGE_ENGLISH + "")
         @GET

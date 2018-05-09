@@ -17,6 +17,8 @@
     <color name="app_orange">#FDBB03</color>
     <color name="red">#e6271e</color>
 
+
+    <color name="red_light">#FF3F00</color>
     <color name="black">#000000</color>
     <color name="black_dark">#5a5a5c</color>
     <color name="black_light">#646464</color>

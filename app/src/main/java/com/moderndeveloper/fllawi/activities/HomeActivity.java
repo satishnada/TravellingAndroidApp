@@ -117,16 +117,31 @@ public class HomeActivity extends BaseActivity {
     }*/
 
     public void onOurServiceItemClick(int position){
-        if (position == 0){
+        if (position == 0){ // Accommodation
             Intent searchIntent = new Intent(mActivity, SearchActivity.class);
             searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ACCOMMODATION);
             startActivity(searchIntent);
             goNext();
-        } else if (position == 2){
+        } else if (position == 2){ // Things to do
+            Intent searchIntent = new Intent(mActivity, SearchActivity.class);
+            searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_THING_TO_DO);
+            startActivity(searchIntent);
+            goNext();
+        } else if (position == 3){ // Coupon
             Intent searchIntent = new Intent(mActivity, SearchActivity.class);
             searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_COUPON);
             startActivity(searchIntent);
             goNext();
+        } else if (position == 4){ // Transportation
+           /* Intent searchIntent = new Intent(mActivity, SearchActivity.class);
+            searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_TRANSPORTATION);
+            startActivity(searchIntent);
+            goNext();*/
+        } else if (position == 5){ // Event
+         /*   Intent searchIntent = new Intent(mActivity, SearchActivity.class);
+            searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_EVENT);
+            startActivity(searchIntent);
+            goNext();*/
         }
     }
 

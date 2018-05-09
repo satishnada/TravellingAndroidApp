@@ -18,5 +18,6 @@ public class WebUtility {
     public static final String GET_COUPON_DETAILS = "coupon/details";
     public static final String SEARCH_THING_TO_DO = "thingtodo";
     public static final String GET_THING_TO_DO_DETAILS = "thingtodo/details";
+    public static final String GET_THING_TO_DO_CATEGORY = "thingtodo/get_category";
 
 }

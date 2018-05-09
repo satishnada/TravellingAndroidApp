@@ -36,6 +36,12 @@ public class Datum implements Serializable {
     @SerializedName("max_price")
     @Expose
     private float maxPrice;
+    @SerializedName("total_review_count")
+    @Expose
+    private String totalReview;
+    @SerializedName("avrage_user_rating")
+    @Expose
+    private float avrageUserRatting;
 
     public int getId() {
         return id;
@@ -117,4 +123,19 @@ public class Datum implements Serializable {
         this.maxPrice = maxPrice;
     }
 
+    public String getTotalReview() {
+        return totalReview;
+    }
+
+    public void setTotalReview(String totalReview) {
+        this.totalReview = totalReview;
+    }
+
+    public float getAvrageUserRatting() {
+        return avrageUserRatting;
+    }
+
+    public void setAvrageUserRatting(float avrageUserRatting) {
+        this.avrageUserRatting = avrageUserRatting;
+    }
 }
