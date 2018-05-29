@@ -23,63 +23,58 @@
                 android:id="@+id/tvPricePerNight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:gravity="center"
-                android:text="Price Per Night"
+                android:text="@string/price_per_night"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
 
             <com.customviews.CustomBoldTextView
                 android:id="@+id/tvPricePerNightAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_8sdp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
                 android:gravity="center"
-                android:text="$10,000+"
+                android:text="@string/_10_000"
                 android:textColor="@color/app_blue"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
 
             <com.customviews.CustomRomanTextView
                 android:id="@+id/tvMinPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvPricePerNight"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:gravity="center"
-                android:text="Min Price"
+                android:text="@string/min_price"
                 android:textColor="@color/dark_gray"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_8ssp" />
 
             <com.customviews.CustomRomanTextView
                 android:id="@+id/tvMaxPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/tvPricePerNightAmount"
                 android:gravity="center"
-                android:text="Max Price"
+                android:text="@string/max_price"
                 android:textColor="@color/dark_gray"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_8ssp" />
 
             <com.customviews.CustomRomanTextView
                 android:id="@+id/tvMinAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvMinPrice"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:gravity="center"
                 android:text="$00"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_10ssp" />
 
             <com.customviews.CustomRomanTextView
                 android:id="@+id/tvMaxAmount"
@@ -87,18 +82,19 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvMaxPrice"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:gravity="center"
-                android:text="$10000"
+                android:text="@string/_10000"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_10ssp" />
 
             <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
                 android:id="@+id/rangeSeekBar"
                 android:layout_width="match_parent"
-                app:bar_color="@color/dark_gray"
+                app:bar_color="@color/light_gray"
                 app:min_value="0"
                 app:max_value="10000"
+                app:left_thumb_image="@drawable/ic_seek_bar_indicator"
+                app:right_thumb_image="@drawable/ic_seek_bar_indicator"
                 app:left_thumb_color="@color/app_blue"
                 app:right_thumb_color="@color/app_blue"
                 app:bar_highlight_color="@color/app_blue"
@@ -133,25 +129,23 @@
                     android:id="@+id/tvList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:gravity="center"
-                    android:text="List"
+                    android:text="@string/list"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvAccomodation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvList"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:gravity="center"
                     android:text="Accommodation"
                     android:textColor="@color/app_blue"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
 
             </RelativeLayout>
 
@@ -171,25 +165,23 @@
                     android:id="@+id/tvCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:gravity="center"
-                    android:text="Category"
+                    android:text="@string/category"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvHotelCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvCategory"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:gravity="center"
-                    android:text="Hotel"
+                    android:text="@string/select_category"
                     android:textColor="@color/app_blue"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_8ssp" />
 
             </RelativeLayout>
 
@@ -209,25 +201,23 @@
                     android:id="@+id/tvSubCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:gravity="center"
-                    android:text="Sub Category"
+                    android:text="@string/sub_category"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvSubCategoryTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvSubCategory"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:gravity="center"
-                    android:text="Villa"
+                    android:text="@string/select_sub_category"
                     android:textColor="@color/app_blue"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_8ssp" />
 
             </RelativeLayout>
 
@@ -246,11 +236,11 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/btn_corner_app_blue_rect"
             android:gravity="center"
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_8sdp"
             android:textAllCaps="true"
-            android:text="APPLY FILTERS"
+            android:text="@string/apply_filters"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp" />
+            android:textSize="@dimen/_12ssp" />
 
     </RelativeLayout>
 

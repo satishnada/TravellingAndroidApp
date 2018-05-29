@@ -6,7 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.moderndeveloper.fllawi.R;
+import com.profdeveloper.fllawi.R;
 
 public class SnackBarInstance {
 

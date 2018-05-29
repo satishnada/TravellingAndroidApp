@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
@@ -16,30 +14,28 @@
 
         <ImageView
             android:id="@+id/ivService"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/ic_close"/>
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:src="@drawable/ic_home_menu"/>
 
         <com.customviews.CustomRomanTextView
             android:id="@+id/tvServiceName"
             android:layout_width="match_parent"
             android:ellipsize="end"
             android:singleLine="true"
-            android:layout_marginLeft="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_gravity="center"
-            android:gravity="start"
             android:lines="1"
             android:layout_height="wrap_content"
-            android:text="Service Name"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp" />
+            android:text="@string/service_name"
+            android:textColor="@color/white1"
+            android:textSize="@dimen/_10ssp" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/ic_menu_divider_line"/>
+        android:layout_height="1.6dp"
+        android:background="@color/app_blue11"/>
 
 </LinearLayout>

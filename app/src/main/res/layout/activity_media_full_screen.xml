@@ -10,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:src="@drawable/intro_third"
+        android:src="@drawable/ic_placeholder_top"
         android:scaleType="fitXY" />
 
     <ImageView
         android:id="@+id/ivClose"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:src="@drawable/ic_close" />
 
@@ -28,6 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </RelativeLayout>

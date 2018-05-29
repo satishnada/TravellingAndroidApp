@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/app_blue</color>
-    <color name="colorPrimaryDark">@color/app_blue</color>
+    <color name="colorPrimaryDark">@color/app_blue2</color>
     <color name="colorAccent">@color/dark_gray</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="white2">#e3e2e2</color>
+    <color name="white1">#d8e3e2e2</color>
     <color name="transparent">#00000000</color>
     <color name="transparent_alpha">#64000000</color>
     <color name="transparent_alpha1">#a2000000</color>
     <color name="transparent_alpha2">#be000000</color>
-    <color name="app_blue">#1f80d9</color>
+    <color name="app_blue">#3193ec</color>
+    <color name="app_blue11">#e50e4e86</color>
     <color name="app_blue1">#3193ec</color>
     <color name="app_blue2">#56aaf9</color>
     <color name="app_blue_transparent">#dc1f80d9</color>
     <color name="app_blue_transparent2">#cb1f80d9</color>
     <color name="app_orange">#FDBB03</color>
     <color name="red">#e6271e</color>
-
-
     <color name="red_light">#FF3F00</color>
-    <color name="black">#000000</color>
+    <color name="black">#4b4b4b</color>
+    <color name="black1">#5b5b5b</color>
     <color name="black_dark">#5a5a5c</color>
     <color name="black_light">#646464</color>
     <color name="dark_gray">#777777</color>
-    <color name="light_gray">#a3a3a3</color>
+    <color name="dark_gray_filter">#8e8e8e</color>
+    <color name="dark_gray1">#cecccc</color>
+    <color name="light_gray">#c6a3a3a3</color>
     <color name="light_gray2">#b2b2b2</color>
     <color name="light_gray4">#f2f2f2</color>
-    <color name="light_gray3">#f5f4f4</color>
+    <color name="light_gray3">#f7f6f6</color>
     <color name="white_dark">#f5f4f4</color>
-
     <color name="dark_blue">#81bef7</color>
     <color name="top_bar_color">#2775BD</color>
     <color name="filter_divider">#646868</color>
@@ -36,7 +39,6 @@
     <color name="snack_error">#777777</color>
     <color name="tint_color">#11000000</color>
     <color name="dark_green">#26A59F</color>
-
     <color name="setting_text_color">#a19fa0</color>
     <color name="setting_bg_color">#f6f6f6</color>
 

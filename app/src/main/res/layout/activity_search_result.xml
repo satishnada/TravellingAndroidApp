@@ -29,9 +29,8 @@
                 android:layout_gravity="center"
                 android:drawablePadding="@dimen/_5sdp"
                 android:drawableStart="@drawable/ic_sort"
-                android:drawableLeft="@drawable/ic_sort"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="@dimen/_12ssp"
                 android:text="@string/sort" />
 
         </LinearLayout>
@@ -58,9 +57,8 @@
                 android:layout_gravity="center"
                 android:drawablePadding="@dimen/_5sdp"
                 android:drawableStart="@drawable/ic_filter"
-                android:drawableLeft="@drawable/ic_filter"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="@dimen/_12ssp"
                 android:text="@string/filter" />
 
         </LinearLayout>
@@ -74,13 +72,13 @@
         android:scaleType="fitXY"
         android:src="@drawable/shadow1" />
 
-    <com.customviews.RecyclerViewEmptySupport
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_home">
 
-    </com.customviews.RecyclerViewEmptySupport>
+    </android.support.v7.widget.RecyclerView>
 
     <com.customviews.CustomRomanTextView
         android:id="@android:id/empty"
@@ -88,8 +86,8 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/_10sdp"
         android:gravity="center"
-        android:text="No loginUserData found"
+        android:text="@string/no_data_found_"
         android:textColor="@color/app_blue"
-        android:textSize="@dimen/_16ssp" />
+        android:textSize="@dimen/_14ssp" />
 
 </LinearLayout>

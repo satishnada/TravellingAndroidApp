@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_alpha"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_25sdp"
+        android:background="@drawable/rounded_corner_gray_border_white_rect"
+        android:orientation="vertical">
+
+        <com.customviews.CustomBoldTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_alignParentStart="true"
+            android:gravity="start"
+            android:text="@string/add_your_review_ratting"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp" />
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:padding="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:src="@drawable/ic_close" />
+
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/ivClose"
+            android:background="@color/dark_gray1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:padding="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.customviews.CustomRomanTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="start"
+                android:text="@string/full_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.customviews.CustomRomanEditText
+                android:id="@+id/evFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_black_bg"
+                android:hint="@string/enter_your_full_name"
+                android:inputType="textPersonName"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_gray"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.customviews.CustomRomanTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="start"
+                android:text="@string/write_your_message"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.customviews.CustomRomanEditText
+                android:id="@+id/evReviewMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_black_bg"
+                android:hint="@string/enter_your_message"
+                android:inputType="textMultiLine"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:text=""
+                android:gravity="start|bottom"
+                android:maxLines="3"
+                android:minLines="2"
+                android:maxLength="255"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_gray"
+                android:textSize="@dimen/_13ssp" />
+
+            <RatingBar
+                android:id="@+id/ratingBarReviewStar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:focusableInTouchMode="false"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:rating="0"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:theme="@style/RatingBar" />
+
+            <com.customviews.CustomBoldTextView
+                android:id="@+id/tvPostReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:background="@drawable/rounded_corner_bg_orang"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/post_comment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

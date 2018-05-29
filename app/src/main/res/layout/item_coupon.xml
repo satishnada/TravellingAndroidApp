@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_5sdp"
+    android:layout_marginTop="@dimen/_5sdp"
+    app:cardElevation="@dimen/_3sdp"
+    android:layoutDirection="ltr"
+    app:cardMaxElevation="@dimen/_5sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp">
+
+            <ImageView
+                android:id="@+id/ivHotel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light_gray3"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_placeholder_top" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:visibility="visible"
+                android:layout_centerInParent="true"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/gradian_item_shadow">
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvHotelAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:gravity="start"
+                    android:singleLine="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_60sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:drawableStart="@drawable/ic_location_small_pin"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:text="@string/south_michigan_united_states"
+                    android:textColor="@color/white_dark"
+                    android:textSize="@dimen/_10ssp"
+                    tools:text="South Michigan, United states " />
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvReviewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:text="@string/_343_reviews"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8ssp"
+                    tools:text="334 Reviews" />
+
+                <RatingBar
+                    android:id="@+id/rattingBarReview"
+                    style="@style/CustomRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_below="@+id/tvReviewCount"
+                    android:numStars="5"
+                    android:rating="2.5"
+                    android:stepSize="0.5" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+            <com.customviews.CustomBoldTextView
+                android:id="@+id/tvHotelName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/beauty_of_uttaranchal"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="start"
+                android:maxLines="2"
+                tools:text="Beauty of uttaranchal " />
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvFullAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/jasper_alberta_canada"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_8ssp"
+                android:maxLines="1"
+                android:gravity="start"
+                android:singleLine="true"
+                tools:text="Jasper, Alberta, Canada" />
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvHotelPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_3465"
+                android:textColor="@color/red_light"
+                android:textSize="@dimen/_11ssp"
+                tools:text="$ 3465" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

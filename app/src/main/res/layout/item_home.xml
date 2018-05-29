@@ -45,19 +45,14 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_60sdp"
                     android:layout_marginEnd="@dimen/_60sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:drawableLeft="@drawable/ic_location_pin"
+                    android:drawableStart="@drawable/ic_location_small_pin"
                     android:drawablePadding="@dimen/_5sdp"
-                    android:drawableStart="@drawable/ic_location_pin"
-                    android:text="South Michigan, United states "
+                    android:text="@string/south_michigan_united_states"
                     android:textColor="@color/white_dark"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     tools:text="South Michigan, United states " />
 
                 <com.customviews.CustomRomanTextView
@@ -65,12 +60,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
-                    android:text="343 Reviews"
+                    android:text="@string/_343_reviews"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8ssp"
                     tools:text="334 Reviews" />
@@ -81,8 +74,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_below="@+id/tvReviewCount"
                     android:numStars="5"
@@ -106,7 +97,8 @@
                 android:layout_height="wrap_content"
                 android:text="Beauty of uttaranchal"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="start"
                 android:maxLines="2"
                 tools:text="Beauty of uttaranchal " />
 
@@ -117,7 +109,8 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="Jasper, Alberta, Canada"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_9ssp"
+                android:textSize="@dimen/_8ssp"
+                android:gravity="start"
                 android:maxLines="1"
                 android:singleLine="true"
                 tools:text="Jasper, Alberta, Canada" />
@@ -128,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:text="$ 3465"
                 android:textColor="@color/red_light"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_11ssp"
                 tools:text="$ 3465" />
 
         </LinearLayout>

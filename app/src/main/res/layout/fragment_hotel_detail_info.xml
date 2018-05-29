@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:nestedScrollingEnabled="false"
+    android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <ScrollView
@@ -12,12 +12,11 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/_40sdp"
         android:fillViewport="true"
-        android:nestedScrollingEnabled="false"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -26,15 +25,15 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <com.customviews.CustomRomanTextView
+                <com.customviews.CustomBoldTextView
                     android:id="@+id/tvDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
-                    android:text="Description"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:text="@string/description_"
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -47,9 +46,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
-                    android:text="Description"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_11ssp" />
+                    android:text="@string/description_text"
+                    android:textColor="@color/black_light"
+                    android:textSize="@dimen/_9ssp" />
 
             </LinearLayout>
 
@@ -64,15 +63,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.customviews.CustomRomanTextView
+                <com.customviews.CustomBoldTextView
                     android:id="@+id/tvCheckInOutTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/check_in_out_time"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -85,13 +84,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
-                    android:text="Check in Time 16:00:00 \nCheck out Time 12:00:00"
+                    android:text="@string/check_in_time_16_00_00_ncheck_out_time_12_00_00"
                     android:textColor="@color/black_light"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textSize="@dimen/_9ssp" />
 
             </LinearLayout>
 
             <View
+                android:id="@+id/viewCheckInOut"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/light_gray" />
@@ -102,15 +102,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.customviews.CustomRomanTextView
+                <com.customviews.CustomBoldTextView
                     android:id="@+id/tvCancellationPolicy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/cancellation_policy"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -123,9 +123,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
-                    android:text="Cancellation policy"
+                    android:text="@string/cancellation_policy_"
                     android:textColor="@color/black_light"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textSize="@dimen/_9ssp" />
 
             </LinearLayout>
 
@@ -135,51 +135,92 @@
                 android:background="@color/light_gray" />
 
             <LinearLayout
+                android:id="@+id/llWhyWithUs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.customviews.CustomRomanTextView
-                    android:id="@+id/tvRoom"
+                <com.customviews.CustomBoldTextView
+                    android:id="@+id/tvWhyWithUs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
-                    android:text="@string/room_facilities"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:text="@string/why_with_us"
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/light_gray" />
 
-                <com.customviews.RecyclerViewEmptySupport
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvWhyWithUsDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/why_with_us_detail"
+                    android:textColor="@color/black_light"
+                    android:textSize="@dimen/_9ssp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewWhyWithUse"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/llRoomsAndFacility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.customviews.CustomBoldTextView
+                    android:id="@+id/tvRoom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/room_facilities"
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/light_gray" />
+
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvRoomFacilities"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:visibility="gone"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     tools:listitem="@layout/item_room_facilities" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvNoDataFoundFacility"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:visibility="gone"
                     android:background="@color/light_gray4"
+                    android:gravity="center"
                     android:padding="@dimen/_10sdp"
-                    android:text="There is no data available"
+                    android:text="@string/there_is_no_data_available"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_8ssp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
             <View
+                android:id="@+id/viewDividerRoomAndFacility"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/light_gray" />
@@ -191,47 +232,48 @@
                 android:minHeight="@dimen/_90sdp"
                 android:orientation="vertical">
 
-                <com.customviews.CustomRomanTextView
+                <com.customviews.CustomBoldTextView
                     android:id="@+id/tvAllowed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/allowed"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/light_gray" />
 
-                <com.customviews.RecyclerViewEmptySupport
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvAllowed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:visibility="gone"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     tools:listitem="@layout/item_allowed" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvNoDataFoundAllowed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:visibility="visible"
                     android:background="@color/light_gray4"
+                    android:gravity="center"
                     android:padding="@dimen/_10sdp"
-                    android:text="There is no data available"
+                    android:text="@string/there_is_no_data_available"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textSize="@dimen/_9ssp"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
             <View
+                android:id="@+id/viewAllowDivider"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/light_gray" />
@@ -240,51 +282,50 @@
                 android:id="@+id/llNotAllowed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_90sdp"
+                android:minHeight="@dimen/_30sdp"
                 android:orientation="vertical">
 
-                <com.customviews.CustomRomanTextView
+                <com.customviews.CustomBoldTextView
                     android:id="@+id/tvNotAllowed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/not_allowed"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/light_gray" />
 
-                <com.customviews.RecyclerViewEmptySupport
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvNotAllowed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_20sdp"
                     android:layout_gravity="center"
-                    android:visibility="visible"
-                    android:scrollbars="none"
-                    android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
+                    android:scrollbars="none"
+                    android:visibility="visible"
                     tools:listitem="@layout/item_not_allowed" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvNoDataFoundNotAllowed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:visibility="visible"
                     android:background="@color/light_gray4"
+                    android:gravity="center"
                     android:padding="@dimen/_10sdp"
-                    android:text="There is no data available"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_11ssp" />
+                    android:text="@string/there_is_no_data_available"
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_9ssp"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
             <View
+                android:id="@+id/viewNotAllowDivider"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/light_gray" />
@@ -295,41 +336,41 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.customviews.CustomRomanTextView
+                <com.customviews.CustomBoldTextView
                     android:id="@+id/tvInclude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/include"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/light_gray" />
 
-                <com.customviews.RecyclerViewEmptySupport
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvInclude"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:visibility="gone"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     tools:listitem="@layout/item_include" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvNoDataFoundInclude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:visibility="visible"
                     android:background="@color/light_gray4"
+                    android:gravity="center"
                     android:padding="@dimen/_10sdp"
-                    android:text="There is no data available"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_11ssp" />
+                    android:text="@string/there_is_no_data_available"
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_9ssp"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
@@ -339,43 +380,43 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.customviews.CustomRomanTextView
+                <com.customviews.CustomBoldTextView
                     android:id="@+id/tvNotInclude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/not_include"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/light_gray" />
 
-                <com.customviews.RecyclerViewEmptySupport
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvNotInclude"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:visibility="gone"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     tools:listitem="@layout/item_include" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvNoDataFoundNotInclude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:visibility="visible"
                     android:background="@color/light_gray4"
+                    android:gravity="center"
                     android:padding="@dimen/_10sdp"
-                    android:text="There is no data available"
+                    android:text="@string/there_is_no_data_available"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textSize="@dimen/_9ssp"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
@@ -386,7 +427,7 @@
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:orientation="vertical">
 
-                <com.customviews.CustomRomanTextView
+                <com.customviews.CustomBoldTextView
                     android:id="@+id/tvRequirement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -394,35 +435,113 @@
                     android:padding="@dimen/_10sdp"
                     android:text="@string/required"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/light_gray" />
 
-                <com.customviews.RecyclerViewEmptySupport
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvRequirement"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:visibility="gone"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     tools:listitem="@layout/item_include" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvNoDataFoundRequirement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:visibility="visible"
                     android:background="@color/light_gray4"
+                    android:gravity="center"
                     android:padding="@dimen/_10sdp"
-                    android:text="There is no data available"
+                    android:text="@string/there_is_no_data_available"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_9ssp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewRequire"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/llAdditionalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.customviews.CustomBoldTextView
+                    android:id="@+id/tvAdditionalInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/additional_information"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/light_gray" />
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvAdditionalInfoDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/additional_info_detail"
+                    android:textColor="@color/black_light"
+                    android:textSize="@dimen/_9ssp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewAdditionalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/llOtherRule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.customviews.CustomBoldTextView
+                    android:id="@+id/tvOtherRule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/other_rule"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/light_gray" />
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvOtherRuleDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/other_rule_detail"
+                    android:textColor="@color/black_light"
+                    android:textSize="@dimen/_9ssp" />
 
             </LinearLayout>
 
@@ -430,74 +549,65 @@
 
     </ScrollView>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardBooking"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:visibility="visible">
+        android:background="@color/dark_gray1"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:text="@string/_3535"
+                android:textColor="@color/app_blue"
+                android:textSize="@dimen/_11ssp" />
 
-                <com.customviews.CustomRomanTextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:gravity="center"
-                    android:text="$ 3535"
-                    android:textColor="@color/app_blue"
-                    android:textSize="@dimen/_12ssp" />
-
-                <com.customviews.CustomRomanTextView
-                    android:id="@+id/tvPerNight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:gravity="center"
-                    android:text="Per Night"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/_10ssp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llContinueBooking"
-                android:layout_width="match_parent"
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvPerNight"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@color/app_blue"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/_12sdp">
-
-                <com.customviews.CustomRomanTextView
-                    android:id="@+id/tvBooking"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="CONTINUE BOOKING"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12ssp" />
-
-            </LinearLayout>
+                android:text="@string/per_night"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp" />
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:id="@+id/llContinueBooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/app_blue"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvBooking"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/continue_booking"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11ssp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

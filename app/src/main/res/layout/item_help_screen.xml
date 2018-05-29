@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/tvDescription"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:text="Be Inspired"
+            android:text="@string/be_inspired"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_20ssp" />
@@ -46,7 +46,7 @@
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
-            android:text="we bring you daily travel inspiration through carefully curated galleries,news and stories about trending travel destinations."
+            android:text="@string/we_bring_you_daily_travel_inspiration_through_carefully_curated_galleries_news_and_stories_about_trending_travel_destinations"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp" />

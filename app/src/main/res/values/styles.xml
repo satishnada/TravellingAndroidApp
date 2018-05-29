@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -60,6 +60,12 @@
         <item name="android:progressDrawable">@drawable/selected_ratting</item>
         <item name="android:minHeight">9dp</item>
         <item name="android:maxHeight">9dp</item>
+    </style>
+
+    <style name="CustomRatingBar1" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/selected_ratting</item>
+        <item name="android:minHeight">7dp</item>
+        <item name="android:maxHeight">7dp</item>
     </style>
 
     <style name="CustomRatingBarMedium" parent="@android:style/Widget.RatingBar">

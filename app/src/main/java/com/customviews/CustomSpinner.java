@@ -27,7 +27,6 @@ public class CustomSpinner extends AppCompatSpinner {
             // Spinner does not call the OnItemSelectedListener if the same item is selected, so do it manually now
             getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
         }
-
     }
 
     @Override

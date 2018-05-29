@@ -2,39 +2,34 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_145sdp"
+    android:layout_width="@dimen/_142sdp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/_3sdp"
     android:layout_marginTop="@dimen/_3sdp"
-    android:layout_marginEnd="@dimen/_2sdp"
-    android:layout_marginRight="@dimen/_2sdp"
-    android:layout_marginLeft="@dimen/_2sdp"
-    android:layout_marginStart="@dimen/_2sdp"
-    app:cardCornerRadius="@dimen/_2sdp"
-    app:cardElevation="@dimen/_5sdp"
-    app:cardMaxElevation="@dimen/_5sdp">
+    android:layout_marginRight="@dimen/_3sdp"
+    android:layout_marginLeft="@dimen/_3sdp"
+    app:cardElevation="@dimen/_3sdp"
+    app:cardCornerRadius="@dimen/_2sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rounded_corner_gray_border_white_rect"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_130sdp">
+            android:layout_height="@dimen/_155sdp">
 
             <ImageView
                 android:id="@+id/ivHotel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/light_gray3"
                 android:scaleType="fitXY"
-                android:src="@drawable/intro_third" />
+                android:src="@drawable/ic_dummy_offere" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_height="@dimen/_22sdp"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/gradian_item_shadow">
 
@@ -42,14 +37,12 @@
                     android:id="@+id/tvOffer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_8ssp"
+                    android:textSize="@dimen/_9ssp"
                     android:text="SAR 3535"
                     tools:text="SAR 3535" />
 
@@ -58,10 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:text="343 Reviews"
                     android:textColor="@color/white"
@@ -74,9 +64,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/_3sdp"
                     android:layout_below="@+id/tvReviewCount"
                     android:numStars="5"
                     android:rating="2.5"
@@ -89,20 +79,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:padding="@dimen/_5sdp">
+            android:background="@color/white">
 
             <com.customviews.CustomRomanTextView
                 android:id="@+id/tvHotelName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="Beauty of uttaranchal"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:text="@string/beauty_of_uttaranchal"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 tools:text="Beauty of uttaranchal " />
@@ -111,13 +97,12 @@
                 android:id="@+id/tvFullAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/tvHotelName"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="Jasper, Alberta, Canada \n65446, Saudi Arabia"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:text="@string/jasper_alberta_canada_n65446_saudi_arabia"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_8ssp"
                 tools:text="Unnamed Road,AI Masarah\n65446, Saudi Arabia" />

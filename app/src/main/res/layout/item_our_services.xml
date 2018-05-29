@@ -23,10 +23,10 @@
         android:singleLine="true"
         android:lines="1"
         android:layout_height="wrap_content"
-        android:text="Service Name"
+        android:text="@string/service_name"
         android:layout_marginTop="@dimen/_5sdp"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_9ssp"
+        android:textColor="@color/black1"
+        android:textSize="@dimen/_8ssp"
         tools:text="Beauty of uttaranchal " />
 
 </LinearLayout>
