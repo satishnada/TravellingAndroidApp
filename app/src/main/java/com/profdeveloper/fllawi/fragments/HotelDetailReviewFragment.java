@@ -151,7 +151,6 @@ public class HotelDetailReviewFragment extends Fragment {
         final EditText evReviewMessage = layout.findViewById(R.id.evReviewMessage);
         final RatingBar ratingBarReviewStar = layout.findViewById(R.id.ratingBarReviewStar);
         TextView tvPostReview = layout.findViewById(R.id.tvPostReview);
-        TextView tvNo = layout.findViewById(R.id.tvNo);
 
         tvPostReview.setOnClickListener(new View.OnClickListener() {
             @Override

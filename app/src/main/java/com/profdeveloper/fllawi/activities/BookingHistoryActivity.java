@@ -428,6 +428,7 @@ public class BookingHistoryActivity extends BaseActivity {
                 if (tabViewChild instanceof TextView) {
                     Typeface tf = Typeface.createFromAsset(getAssets(), TypeFace.RomanTF);
                     ((TextView) tabViewChild).setTypeface(tf);
+                    ((TextView) tabViewChild).setTextSize(getResources().getDimension(R.dimen._8sdp));
                 }
             }
         }

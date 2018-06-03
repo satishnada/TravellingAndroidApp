@@ -55,6 +55,7 @@
             android:drawableStart="@drawable/profile_loc"
             android:drawablePadding="@dimen/_5sdp"
             android:gravity="start"
+            android:visibility="gone"
             android:text="+33 345345345"
             android:textColor="@color/dark_gray"
             android:textSize="@dimen/_10ssp" />

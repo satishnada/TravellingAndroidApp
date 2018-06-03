@@ -2,6 +2,7 @@ package com.profdeveloper.fllawi.activities;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,7 @@ public class SignInActivity extends BaseActivity {
 
     @Override
     public void initialization() {
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         tvTopTitle.setText("");
         hideTopBar();
         hideTopShadow();
@@ -179,6 +181,7 @@ public class SignInActivity extends BaseActivity {
                         Utility.log(response.getClass().getSimpleName() + " : " + new Gson().toJson(response.body()));
                         if (response.isSuccessful()) {
                             if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                PreferenceData.setLogin(true);
                                 PreferenceData.setUserName(response.body().getLoginUserData().getFirstName() +" "+ response.body().getLoginUserData().getLastName());
                                 PreferenceData.setProfilePic(response.body().getLoginUserData().getProfileImage());
                                 PreferenceData.saveUserData(response.body().getLoginUserData());

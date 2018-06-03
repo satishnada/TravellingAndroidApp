@@ -1,8 +1,14 @@
 package com.profdeveloper.fllawi.activities;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.customviews.imagepicker.PickerBuilder;
 import com.google.gson.Gson;
 import com.profdeveloper.BaseActivity;
 import com.profdeveloper.fllawi.R;
@@ -22,13 +29,20 @@ import com.profdeveloper.fllawi.model.BookingHistory.BookingHistoryRequestRespon
 import com.profdeveloper.fllawi.model.BookingHistoryCoupon.BookingHistoryCouponRequestResponse;
 import com.profdeveloper.fllawi.model.BookingHistoryCoupon.BookingHistoryDetailCouponRequestResponse;
 import com.profdeveloper.fllawi.model.BookingHistoryThingToDo.BookingHistoryDetailThingToDoRequestResponse;
+import com.profdeveloper.fllawi.model.CommonRequestResponse;
+import com.profdeveloper.fllawi.permissionManagerViews.Permission;
+import com.profdeveloper.fllawi.permissionManagerViews.PermissionManagerInstance;
+import com.profdeveloper.fllawi.permissionManagerViews.PermissionManagerListener;
 import com.profdeveloper.fllawi.retrofit.WebServiceCaller;
 import com.profdeveloper.fllawi.utils.AppConstant;
+import com.profdeveloper.fllawi.utils.ImageGallaryConst;
 import com.profdeveloper.fllawi.utils.PreferenceData;
 import com.profdeveloper.fllawi.utils.Utility;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +53,7 @@ public class BookingHistoryDetailActivity extends BaseActivity {
     private TextView tvNoData, tvTitle, tvPaymentStatus, tvValidDate, tvQty,
             tvFromDate, tvToDate, tvOrderDate, tvDescriptionText,
             tvTotalPayableAmount, tvDiscountApplied,tvScheduleDate,tvReceiptTitle,
-            tvToDateLable,tvFromDateLable;
+            tvToDateLable,tvFromDateLable,tvCancelBooking,tvCancelText;
     private LinearLayout llValidDate, llQty,llFromToDate,llScheduleDate;
     private ImageView ivUploadReceipt;
     private int isFrom = 0;
@@ -47,6 +61,7 @@ public class BookingHistoryDetailActivity extends BaseActivity {
     private BookingHistoryDetailRequestResponse bookingDetailAccommodation;
     private BookingHistoryDetailThingToDoRequestResponse bookingDetailThingToDoResponse;
     private BookingHistoryDetailCouponRequestResponse bookingDetailCouponResponse;
+    private String bankReceiptUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +92,11 @@ public class BookingHistoryDetailActivity extends BaseActivity {
         tvToDateLable = view.findViewById(R.id.tvToDateLable);
         ivUploadReceipt = view.findViewById(R.id.ivUploadReceipt);
         tvFromDateLable = view.findViewById(R.id.tvFromDateLable);
+        tvCancelBooking = view.findViewById(R.id.tvCancelBooking);
+        tvCancelText = view.findViewById(R.id.tvCancelText);
+
+        ivUploadReceipt.setOnClickListener(this);
+        tvCancelBooking.setOnClickListener(this);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -105,8 +125,6 @@ public class BookingHistoryDetailActivity extends BaseActivity {
 
         }
 
-        //Utility.showError("Coming soon....");
-
     }
 
     @Override
@@ -122,6 +140,35 @@ public class BookingHistoryDetailActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.ivTopBack:
                 onBackPressed();
+                break;
+            case R.id.ivUploadReceipt:
+                mPermissionManagerInstance = new PermissionManagerInstance(this);
+                String[] permissions = new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
+                mPermissionManagerInstance.requestForPermissions(
+                        permissions,
+                        new PermissionManagerListener() {
+                            @Override
+                            public void permissionCallback(String[] permissions, Permission[] grantResults, boolean allGranted) {
+                                if (allGranted){
+                                    pickImg();
+                                }else{
+                                    Utility.showError(getString(R.string.valid_profile_pic));
+                                }
+                            }
+                        });
+            break;
+            case R.id.tvCancelBooking:
+                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+                    cancelAccommodationBooking();
+                } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                    cancelThingToDoBooking();
+                } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                    cancelCouponBooking();
+                } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
+
+                } else if (isFrom == AppConstant.IS_FROM_EVENT) {
+
+                }
                 break;
             default:
                 super.onClick(v);
@@ -149,6 +196,12 @@ public class BookingHistoryDetailActivity extends BaseActivity {
                 tvOrderDate.setText(bookingDetailAccommodation.getArrAccomodationBooking().getCreatedAt().substring(0, 11));
                 tvDiscountApplied.setText(bookingDetailAccommodation.getArrAccomodationBooking().getDiscountInAmount() + " SAR");
                 tvTotalPayableAmount.setText(bookingDetailAccommodation.getArrAccomodationBooking().getTotalAmount() + " SAR");
+                tvCancelText.setText(bookingDetailAccommodation.getArrCancellationDetails().getStatus());
+                if (bookingDetailAccommodation.getArrCancellationDetails().getStatus().equalsIgnoreCase("Success")){
+                    tvCancelBooking.setVisibility(View.VISIBLE);
+                }else{
+                    tvCancelBooking.setVisibility(View.GONE);
+                }
             }
 
         } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
@@ -172,20 +225,25 @@ public class BookingHistoryDetailActivity extends BaseActivity {
                 tvOrderDate.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getCreatedAt().substring(0, 11));
                 tvDiscountApplied.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getDiscountInAmount() + "SAR");
                 tvTotalPayableAmount.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getTotalAmount() + "SAR");
+
+                if (bookingDetailThingToDoResponse.getArrCancellationDetails().getStatus().equalsIgnoreCase("Success")){
+                    tvCancelBooking.setVisibility(View.VISIBLE);
+                }else{
+                    tvCancelBooking.setVisibility(View.GONE);
+                }
+
             }
 
         } else if (isFrom == AppConstant.IS_FROM_COUPON) {
 
             if (bookingDetailCouponResponse != null){
-                tvReceiptTitle.setVisibility(View.GONE);
-                ivUploadReceipt.setVisibility(View.GONE);
-                /*if (bookingDetailCouponResponse.getBooking().getPaymentMode() == 1){
+                if (bookingDetailCouponResponse.getBooking().getPaymentMode().equalsIgnoreCase("1")){
                     tvReceiptTitle.setVisibility(View.GONE);
                     ivUploadReceipt.setVisibility(View.GONE);
                 }else{
                     tvReceiptTitle.setVisibility(View.VISIBLE);
                     ivUploadReceipt.setVisibility(View.VISIBLE);
-                }*/
+                }
                 tvTitle.setText(bookingDetailCouponResponse.getBooking().getCoupon().getTitle());
                 tvDescriptionText.setText(bookingDetailCouponResponse.getBooking().getCoupon().getDescription());
                 tvPaymentStatus.setText(getPaymentStatus(bookingDetailCouponResponse.getBooking().getStatus()));
@@ -195,8 +253,14 @@ public class BookingHistoryDetailActivity extends BaseActivity {
                 tvOrderDate.setText(bookingDetailCouponResponse.getBooking().getCreatedAt().substring(0, 11));
                 tvDiscountApplied.setText(bookingDetailCouponResponse.getBooking().getDiscountInAmount() + " SAR");
                 tvTotalPayableAmount.setText(bookingDetailCouponResponse.getBooking().getTotalAmount() + " SAR");
-            }
 
+                if (bookingDetailCouponResponse.getArrCancellationDetails().getStatus().equalsIgnoreCase("Success")){
+                    tvCancelBooking.setVisibility(View.VISIBLE);
+                }else{
+                    tvCancelBooking.setVisibility(View.GONE);
+                }
+
+            }
         } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
 
         } else if (isFrom == AppConstant.IS_FROM_EVENT) {
@@ -324,6 +388,123 @@ public class BookingHistoryDetailActivity extends BaseActivity {
         }
     }
 
+    private void cancelAccommodationBooking() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CommonRequestResponse> call = service.cancelAccommodationBooking(Utility.getLocale(),  bookingId,PreferenceData.getUserData().getId() + "");
+                call.enqueue(new Callback<CommonRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CommonRequestResponse> call, Response<CommonRequestResponse> response) {
+
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                Utility.showError(response.body().getMessage());
+                                finish();
+                                goPrevious();
+                            } else {
+                                Utility.showError(response.body().getMessage());
+                            }
+                        } else {
+                            Utility.showError(response.body().getMessage());
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommonRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cancelCouponBooking() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CommonRequestResponse> call = service.cancelCouponBooking(Utility.getLocale(),  bookingId,PreferenceData.getUserData().getId() + "");
+                call.enqueue(new Callback<CommonRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CommonRequestResponse> call, Response<CommonRequestResponse> response) {
+
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                Utility.showError(response.body().getMessage());
+                                finish();
+                                goPrevious();
+                            } else {
+                                Utility.showError(response.body().getMessage());
+                            }
+                        } else {
+                            Utility.showError(response.body().getMessage());
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommonRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cancelThingToDoBooking() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CommonRequestResponse> call = service.cancelThingToDoBooking(Utility.getLocale(),  bookingId,PreferenceData.getUserData().getId() + "");
+                call.enqueue(new Callback<CommonRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CommonRequestResponse> call, Response<CommonRequestResponse> response) {
+
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                Utility.showError(response.body().getMessage());
+                                finish();
+                                goPrevious();
+                            } else {
+                                Utility.showError(response.body().getMessage());
+                            }
+                        } else {
+                            Utility.showError(response.body().getMessage());
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommonRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private String getPaymentStatus(int status){
         if (status == 0){
             return "Pending";
@@ -345,6 +526,213 @@ public class BookingHistoryDetailActivity extends BaseActivity {
             return "Cancelled By Admin";
         }
         return "";
+    }
+
+    private void uploadAccommodationReceipt(String imageUrl) {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+
+                RequestBody userId = Utility.textToBody(PreferenceData.getUserData().getId() + "");
+                File fileId = new File(imageUrl);
+                RequestBody bankReceipt = Utility.imageToBody(fileId.getAbsolutePath());
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CommonRequestResponse> call = service.uploadAccommodationReceipt(userId,bankReceipt);
+                call.enqueue(new Callback<CommonRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CommonRequestResponse> call, Response<CommonRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                Utility.showError(response.body().getMessage());
+                            } else {
+                                Utility.showError(response.body().getMessage());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+                    @Override
+                    public void onFailure(Call<CommonRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void uploadThingToDoReceipt(String imageUrl) {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+
+                RequestBody userId = Utility.textToBody(PreferenceData.getUserData().getId() + "");
+                File fileId = new File(imageUrl);
+                RequestBody bankReceipt = Utility.imageToBody(fileId.getAbsolutePath());
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CommonRequestResponse> call = service.uploadThingToDoReceipt(userId,bankReceipt);
+                call.enqueue(new Callback<CommonRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CommonRequestResponse> call, Response<CommonRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                Utility.showError(response.body().getMessage());
+                            } else {
+                                Utility.showError(response.body().getMessage());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+                    @Override
+                    public void onFailure(Call<CommonRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void uploadCouponReceipt(String imageUrl) {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+
+                RequestBody userId = Utility.textToBody(PreferenceData.getUserData().getId() + "");
+                File fileId = new File(imageUrl);
+                RequestBody bankReceipt = Utility.imageToBody(fileId.getAbsolutePath());
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CommonRequestResponse> call = service.uploadCouponReceipt(userId,bankReceipt);
+                call.enqueue(new Callback<CommonRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CommonRequestResponse> call, Response<CommonRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                Utility.showError(response.body().getMessage());
+                            } else {
+                                Utility.showError(response.body().getMessage());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+                    @Override
+                    public void onFailure(Call<CommonRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pickImg() {
+
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_capture, null);
+        dialog.setContentView(view);
+        dialog.show();
+
+        TextView tv_takephoto = (TextView) dialog.findViewById(R.id.tv_uploadphoto);
+        TextView tv_takevideo = (TextView) dialog.findViewById(R.id.tv_takevideo);
+        ImageView img_takephoto = (ImageView) dialog.findViewById(R.id.img_takephoto);
+        ImageView img_takevideo = (ImageView) dialog.findViewById(R.id.img_takevideo);
+        LinearLayout ll_photo = (LinearLayout) dialog.findViewById(R.id.ll_photo);
+        LinearLayout ll_document = (LinearLayout) dialog.findViewById(R.id.ll_video);
+        tv_takephoto.setText(getString(R.string.capture));
+        tv_takevideo.setText(getString(R.string.gallery));
+        img_takephoto.setImageResource(R.drawable.ic_photo_camera);
+        img_takevideo.setImageResource(R.drawable.ic_gallery);
+
+        ll_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //dialog.dismiss();
+                new PickerBuilder(BookingHistoryDetailActivity.this, PickerBuilder.SELECT_FROM_CAMERA)
+                        .setOnImageReceivedListener(new PickerBuilder.onImageReceivedListener() {
+
+                            @Override
+                            public void onImageReceived(Uri imageUri) {
+                                bankReceiptUrl = Utility.compressImage(imageUri.getPath(), BookingHistoryDetailActivity.this);
+                                ivUploadReceipt.setImageBitmap(new BitmapFactory().decodeFile(bankReceiptUrl));
+
+                                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+                                    uploadAccommodationReceipt(bankReceiptUrl);
+                                }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+                                    uploadThingToDoReceipt(bankReceiptUrl);
+                                }else if (isFrom == AppConstant.IS_FROM_COUPON){
+                                    uploadCouponReceipt(bankReceiptUrl);
+                                }else if (isFrom == AppConstant.IS_FROM_EVENT){
+
+                                }else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION){
+
+                                }
+                            }
+                        })
+                        .setImageName(System.currentTimeMillis() + "")
+                        .setImageFolderName(ImageGallaryConst.CACHESFILES_STORAGE)
+                        .withTimeStamp(false)
+                        .setCropScreenColor(Color.CYAN)
+                        .start();
+
+                dialog.dismiss();
+            }
+        });
+
+        ll_document.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                try {
+                    new PickerBuilder(BookingHistoryDetailActivity.this, PickerBuilder.SELECT_FROM_GALLERY)
+                            .setOnImageReceivedListener(new PickerBuilder.onImageReceivedListener() {
+                                @Override
+                                public void onImageReceived(Uri imageUri) {
+
+                                    bankReceiptUrl = Utility.compressImage(imageUri.getPath(), BookingHistoryDetailActivity.this);
+                                    ivUploadReceipt.setImageBitmap(new BitmapFactory().decodeFile(bankReceiptUrl));
+
+                                }
+                            })
+                            .setImageName(System.currentTimeMillis() + "")
+                            .setImageFolderName(ImageGallaryConst.CACHESFILES_STORAGE)
+                            .setCropScreenColor(Color.CYAN)
+                            .setOnPermissionRefusedListener(new PickerBuilder.onPermissionRefusedListener() {
+                                @Override
+                                public void onPermissionRefused() {
+
+                                }
+                            })
+                            .start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     @Override

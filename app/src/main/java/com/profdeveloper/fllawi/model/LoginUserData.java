@@ -14,9 +14,6 @@ public class LoginUserData implements Serializable {
         @SerializedName("email")
         @Expose
         private String email;
-        @SerializedName("permissions")
-        @Expose
-        private List<Object> permissions = null;
         @SerializedName("last_login")
         @Expose
         private LoginRequestResponse.LastLogin lastLogin;
@@ -98,14 +95,6 @@ public class LoginUserData implements Serializable {
 
         public void setEmail(String email) {
             this.email = email;
-        }
-
-        public List<Object> getPermissions() {
-            return permissions;
-        }
-
-        public void setPermissions(List<Object> permissions) {
-            this.permissions = permissions;
         }
 
         public LoginRequestResponse.LastLogin getLastLogin() {

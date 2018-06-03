@@ -1,13 +1,17 @@
 package com.profdeveloper.fllawi.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,9 +20,11 @@ import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.customviews.imagepicker.PickerBuilder;
 import com.google.gson.Gson;
 import com.profdeveloper.BaseActivity;
 import com.profdeveloper.fllawi.OnCommonAdapterItemClickListener;
@@ -35,19 +41,27 @@ import com.profdeveloper.fllawi.model.CommonRequestResponse;
 import com.profdeveloper.fllawi.model.LoginRequestResponse;
 import com.profdeveloper.fllawi.model.LoginUserData;
 import com.profdeveloper.fllawi.model.UserProfileDataRequestResponse;
+import com.profdeveloper.fllawi.permissionManagerViews.Permission;
+import com.profdeveloper.fllawi.permissionManagerViews.PermissionManagerInstance;
+import com.profdeveloper.fllawi.permissionManagerViews.PermissionManagerListener;
 import com.profdeveloper.fllawi.retrofit.WebServiceCaller;
 import com.profdeveloper.fllawi.retrofit.WebUtility;
 import com.profdeveloper.fllawi.utils.AppConstant;
+import com.profdeveloper.fllawi.utils.ImageGallaryConst;
 import com.profdeveloper.fllawi.utils.PreferenceData;
 import com.profdeveloper.fllawi.utils.SharedPreferenceUtil;
 import com.profdeveloper.fllawi.utils.Utility;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,7 +85,7 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
     private ArrayList<ArrCurrency> currencyList = new ArrayList<>();
     private ArrCurrency sltCurrency = null;
     private ArrayList<ArrInterest> interestList = new ArrayList<>();
-    private ArrInterest sltInterest = null;
+    private ArrInterest sltInterest = new ArrInterest();
     private ArrayList<ArrBusiness> businessesList = new ArrayList<>();
     private ArrBusiness sltBusiness = null;
     private ArrayList<ArrFunctionalLanguage> languageList = new ArrayList<>();
@@ -81,6 +95,8 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
     private List<Integer> interestIdsArray = new ArrayList<>();
     private String sltGender = "M";
     private int sltType = 0;
+    private String userProfilePic = "";
+    private String userProfIdPic = "";
 
     @Override
     public void setLayoutView() {
@@ -141,10 +157,8 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
                 break;
             case R.id.radioFemale:
                 sltGender = "F";
-
                 break;
             case R.id.radioMale:
-
                 sltGender = "M";
                 break;
             case R.id.tvCountry:
@@ -188,9 +202,21 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
                 openItemSelectList(this, interestAdapter);
                 break;
             case R.id.ivProfilePic:
-                //TODO need to get profile
+                mPermissionManagerInstance = new PermissionManagerInstance(this);
+                String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+                mPermissionManagerInstance.requestForPermissions(
+                        permissions,
+                        new PermissionManagerListener() {
+                            @Override
+                            public void permissionCallback(String[] permissions, Permission[] grantResults, boolean allGranted) {
+                                if (allGranted) {
+                                    pickImg();
+                                } else {
+                                    Utility.showError(getString(R.string.valid_profile_pic));
+                                }
+                            }
+                        });
                 break;
-            // Top Right Menu Drawer Button Click
             case R.id.ivTopProfileBack:
                 closeSideMenu();
                 break;
@@ -215,7 +241,7 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
                 }
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<UserProfileDataRequestResponse> call = service.getUserProfile(Utility.getLocale(),WebUtility.USER_GET_PROFILE + "?user_id=" + PreferenceData.getUserData().getId());
+                Call<UserProfileDataRequestResponse> call = service.getUserProfile(Utility.getLocale(), WebUtility.USER_GET_PROFILE + "?user_id=" + PreferenceData.getUserData().getId());
                 call.enqueue(new Callback<UserProfileDataRequestResponse>() {
                     @Override
                     public void onResponse(Call<UserProfileDataRequestResponse> call, Response<UserProfileDataRequestResponse> response) {
@@ -224,7 +250,7 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
                             if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
                                 PreferenceData.setUserName(response.body().getArrData().getFirstName() + " " + response.body().getArrData().getLastName());
                                 PreferenceData.setProfilePic(response.body().getArrData().getProfileImage());
-                                if (PreferenceData.getUserData() != null){
+                                if (PreferenceData.getUserData() != null) {
                                     LoginUserData update = PreferenceData.getUserData();
                                     PreferenceData.saveUserData(update);
                                 }
@@ -262,11 +288,49 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
                 Utility.showError(getString(R.string.no_internet_connection));
             } else {
                 Utility.showProgress(this);
+
+                RequestBody userId = Utility.textToBody(PreferenceData.getUserData().getId() + "");
+                RequestBody firstName = Utility.textToBody(edtFirstName.getText().toString().trim());
+                RequestBody lastName = Utility.textToBody(edtLastName.getText().toString().trim());
+                RequestBody email = Utility.textToBody(edtEmail.getText().toString().trim());
+                RequestBody countryId = Utility.textToBody(sltCountryId + "");
+                RequestBody birthDay = Utility.textToBody(tvDateOfBirth.getText().toString().trim());
+                RequestBody mobileNumber = Utility.textToBody(edtMobileNumber.getText().toString().trim());
+                RequestBody address = Utility.textToBody(edtAddress.getText().toString().trim());
+                RequestBody gender = Utility.textToBody(sltGender);
+                RequestBody paymentTypeId = Utility.textToBody(sltPaymentTypeId + "");
+                RequestBody currencyId = Utility.textToBody(sltCurrencyId + "");
+                RequestBody languageId = Utility.textToBody(sltLanguageId + "");
+                RequestBody webSite = Utility.textToBody(edtWebSite.getText().toString().trim());
+                RequestBody interestId = Utility.textToBody(sltInterest.getId() + "");
+                File file = new File(userProfilePic);
+                RequestBody profilePic = Utility.imageToBody(file.getAbsolutePath());
+                File fileId = new File(userProfIdPic);
+                RequestBody userProfId = Utility.imageToBody(fileId.getAbsolutePath());
+
+/*                File file = new File(userProfilePic);
+                MultipartBody.Part userProimagePart = MultipartBody.Part.createFormData(AppConstant.photo, file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+
+                File fileId = new File(userId);
+                MultipartBody.Part userIdimagePart = MultipartBody.Part.createFormData(AppConstant.photo, file.getName(), RequestBody.create(MediaType.parse("image/*"), fileId));*/
+
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<CommonRequestResponse> call = service.updateUserProfile(Utility.getLocale(),PreferenceData.getUserData().getId() + "",
-                        edtFirstName.getText().toString().trim(), edtLastName.getText().toString().trim(),
-                        edtEmail.getText().toString().trim(), sltCountryId + "", tvDateOfBirth.getText().toString().trim(),
-                        edtMobileNumber.getText().toString().trim(), edtAddress.getText().toString().trim(), sltGender, sltPaymentTypeId + "", sltCurrencyId + "", sltLanguageId + "", edtWebSite.getText().toString().trim(), "1");
+                Call<CommonRequestResponse> call = service.updateUserProfile(Utility.getLocale(), userId
+                        , firstName
+                        , lastName
+                        , email
+                        , countryId
+                        , birthDay
+                        , mobileNumber
+                        , address
+                        , gender
+                        , paymentTypeId
+                        , currencyId
+                        , languageId
+                        , webSite
+                        , interestId
+                        , profilePic
+                        , userProfId);
                 call.enqueue(new Callback<CommonRequestResponse>() {
                     @Override
                     public void onResponse(Call<CommonRequestResponse> call, Response<CommonRequestResponse> response) {
@@ -527,6 +591,79 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
         });
 
         popupWindowDialog.show();
+    }
+
+    public void pickImg() {
+
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_capture, null);
+        dialog.setContentView(view);
+        dialog.show();
+
+        TextView tv_takephoto = (TextView) dialog.findViewById(R.id.tv_uploadphoto);
+        TextView tv_takevideo = (TextView) dialog.findViewById(R.id.tv_takevideo);
+        ImageView img_takephoto = (ImageView) dialog.findViewById(R.id.img_takephoto);
+        ImageView img_takevideo = (ImageView) dialog.findViewById(R.id.img_takevideo);
+        LinearLayout ll_photo = (LinearLayout) dialog.findViewById(R.id.ll_photo);
+        LinearLayout ll_document = (LinearLayout) dialog.findViewById(R.id.ll_video);
+        tv_takephoto.setText(getString(R.string.capture));
+        tv_takevideo.setText(getString(R.string.gallery));
+        img_takephoto.setImageResource(R.drawable.ic_photo_camera);
+        img_takevideo.setImageResource(R.drawable.ic_gallery);
+
+        ll_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //dialog.dismiss();
+                new PickerBuilder(ProfileActivity.this, PickerBuilder.SELECT_FROM_CAMERA)
+                        .setOnImageReceivedListener(new PickerBuilder.onImageReceivedListener() {
+
+                            @Override
+                            public void onImageReceived(Uri imageUri) {
+                                userProfilePic = Utility.compressImage(imageUri.getPath(), ProfileActivity.this);
+                                ivProfilePic.setImageBitmap(new BitmapFactory().decodeFile(userProfilePic));
+                            }
+                        })
+                        .setImageName(System.currentTimeMillis() + "")
+                        .setImageFolderName(ImageGallaryConst.CACHESFILES_STORAGE)
+                        .withTimeStamp(false)
+                        .setCropScreenColor(Color.CYAN)
+                        .start();
+
+                dialog.dismiss();
+            }
+        });
+
+        ll_document.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                try {
+                    new PickerBuilder(ProfileActivity.this, PickerBuilder.SELECT_FROM_GALLERY)
+                            .setOnImageReceivedListener(new PickerBuilder.onImageReceivedListener() {
+                                @Override
+                                public void onImageReceived(Uri imageUri) {
+                                    userProfilePic = Utility.compressImage(imageUri.getPath(), ProfileActivity.this);
+                                    ivProfilePic.setImageBitmap(new BitmapFactory().decodeFile(userProfilePic));
+                                }
+                            })
+                            .setImageName(System.currentTimeMillis() + "")
+                            .setImageFolderName(ImageGallaryConst.CACHESFILES_STORAGE)
+                            .setCropScreenColor(Color.CYAN)
+                            .setOnPermissionRefusedListener(new PickerBuilder.onPermissionRefusedListener() {
+                                @Override
+                                public void onPermissionRefused() {
+
+                                }
+                            })
+                            .start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     @Override

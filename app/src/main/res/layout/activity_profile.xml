@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="center"
-                    android:text="@string/smith_k_johan"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -75,7 +75,7 @@
                     android:gravity="start"
                     android:drawablePadding="@dimen/_5sdp"
                     android:drawableStart="@drawable/profile_loc"
-                    android:text="+33 345345345"
+                    android:text=""
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -228,7 +228,7 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
-                    android:text="+8945343454"
+                    android:text=""
                     android:textColor="@color/dark_gray"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
@@ -348,7 +348,8 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
-                    android:text="@string/india"
+                    android:text=""
+                    android:hint="@string/select_country_"
                     android:textColor="@color/dark_gray"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
@@ -384,6 +385,7 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
+                    android:hint="@string/enter_address_1"
                     android:textColor="@color/dark_gray"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
@@ -419,6 +421,7 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
+                    android:hint="@string/enter_web_site"
                     android:textColor="@color/dark_gray"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
@@ -454,7 +457,8 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
-                    android:text="@string/paypal"
+                    android:hint="@string/select_payment_mode"
+                    android:text=""
                     android:textColor="@color/dark_gray"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
@@ -490,7 +494,8 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
-                    android:text="@string/dollar"
+                    android:hint="@string/select_currency"
+                    android:text=""
                     android:textColor="@color/dark_gray"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
@@ -526,7 +531,8 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
-                    android:text="@string/english"
+                    android:text=""
+                    android:hint="@string/select_language"
                     android:textColor="@color/dark_gray"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
@@ -564,6 +570,7 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
+                    android:hint="@string/select_interest"
                     android:textColor="@color/dark_gray"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
@@ -590,6 +597,18 @@
             android:padding="@dimen/_5sdp"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_top_menu" />
+
+        <com.customviews.CustomRomanTextView
+            android:id="@+id/tvTopTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/menu_profile"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
 
         <ImageView
             android:id="@+id/ivTopProfileSearch"

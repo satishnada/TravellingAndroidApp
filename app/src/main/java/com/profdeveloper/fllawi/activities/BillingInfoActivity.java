@@ -684,8 +684,8 @@ calculationBreakDownJson.toString(),
         LoginUserData userData = PreferenceData.getUserData();
 
         Intent in = new Intent(BillingInfoActivity.this, PayTabActivity.class);
-        in.putExtra("pt_merchant_email", "satish.nada98@gmail.com");//this a demo account for testing the sdk
-        in.putExtra("pt_secret_key", "tOBfwxKuYC2pQfizL21koaWZ96Rs4biy0UOwrz1qb3P2i8C4aEpzOlyYspqxBJ5BDU85t9vEclHvtjADXZcLkLKMbajMTpoxjwCM"); //Add your Secret Key Here
+        in.putExtra("pt_merchant_email", "nawafalhazmii@hotmail.com");//this a demo account for testing the sdk
+        in.putExtra("pt_secret_key", "0mjuW4M0thacJ1IOigDx3JSnXOvmoH4o3nT0rG1VXb8GdRuv883bSVyPJ4b7LgwPDpP56Q1329Jg1eM9nPkgKT5uYhCJx8zbyphE"); //Add your Secret Key Here
         //in.putExtra("pt_secret_key", "oIUhj8mssa9rTWRAqHg4P9ECOcfs35lsOgJ7p6ARgJjaFbK6S1aIbOlZ1As5GNxu4hCtnclEWEOCPzIIBSrMGMMImeN22kx6C9zZ"); //Add your Secret Key Here
         in.putExtra("pt_transaction_title", name);
         in.putExtra("pt_amount", orderInitAmount + "");

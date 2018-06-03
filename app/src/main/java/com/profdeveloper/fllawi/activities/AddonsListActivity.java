@@ -135,37 +135,14 @@ public class AddonsListActivity extends BaseActivity {
                 if (edtCoupon.getText().toString().trim().length() == 0) {
                     Utility.showError(getString(R.string.enter_coupon));
                 } else {
-                    //applyCouponCode();
+                    applyCouponCode(true);
                 }
                 break;
             case R.id.tvProcessFurther:
-                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
-                    addonsParameters = "";
-                    if (adapter.getAddonsSelectedList() != null &&
-                            !adapter.getAddonsSelectedList().isEmpty()) {
-                        for (int i = 0; i < adapter.getAddonsSelectedList().size(); i++) {
-                            addonsParameters =  addonsParameters+"&addons[" + adapter.getAddonsSelectedList().get(i).getId() + "]=" + adapter.getAddonsSelectedList().get(i).getQuantity();
-                        }
-                    }
-                    AccommodationBookingCalculation();
-                }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
-                    addonsParameters = "";
-                    if (adapter.getAddonsSelectedList() != null &&
-                            !adapter.getAddonsSelectedList().isEmpty()) {
-                        for (int i = 0; i < adapter.getAddonsSelectedList().size(); i++) {
-                            addonsParameters =  addonsParameters+"&addons[" + adapter.getAddonsSelectedList().get(i).getId() + "]=" + adapter.getAddonsSelectedList().get(i).getQuantity();
-                        }
-                    }
-                    getThingToDoPrice();
-                }else if (isFrom == AppConstant.IS_FROM_COUPON){
-                    addonsParameters = "";
-                    if (adapter.getAddonsSelectedList() != null &&
-                            !adapter.getAddonsSelectedList().isEmpty()) {
-                        for (int i = 0; i < adapter.getAddonsSelectedList().size(); i++) {
-                            addonsParameters =  addonsParameters+"&addons[" + adapter.getAddonsSelectedList().get(i).getId() + "]=" + adapter.getAddonsSelectedList().get(i).getQuantity();
-                        }
-                    }
-                    AccommodationBookingCalculation();
+                if (edtCoupon.getText().toString().trim().length() == 0) {
+                    processFurther();
+                }else{
+                    applyCouponCode(false);
                 }
                 break;
             default:
@@ -174,7 +151,38 @@ public class AddonsListActivity extends BaseActivity {
         }
     }
 
-    private void applyCouponCode() {
+    private void processFurther(){
+        if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+            addonsParameters = "";
+            if (adapter.getAddonsSelectedList() != null &&
+                    !adapter.getAddonsSelectedList().isEmpty()) {
+                for (int i = 0; i < adapter.getAddonsSelectedList().size(); i++) {
+                    addonsParameters =  addonsParameters+"&addons[" + adapter.getAddonsSelectedList().get(i).getId() + "]=" + adapter.getAddonsSelectedList().get(i).getQuantity();
+                }
+            }
+            AccommodationBookingCalculation();
+        }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+            addonsParameters = "";
+            if (adapter.getAddonsSelectedList() != null &&
+                    !adapter.getAddonsSelectedList().isEmpty()) {
+                for (int i = 0; i < adapter.getAddonsSelectedList().size(); i++) {
+                    addonsParameters =  addonsParameters+"&addons[" + adapter.getAddonsSelectedList().get(i).getId() + "]=" + adapter.getAddonsSelectedList().get(i).getQuantity();
+                }
+            }
+            getThingToDoPrice();
+        }else if (isFrom == AppConstant.IS_FROM_COUPON){
+            addonsParameters = "";
+            if (adapter.getAddonsSelectedList() != null &&
+                    !adapter.getAddonsSelectedList().isEmpty()) {
+                for (int i = 0; i < adapter.getAddonsSelectedList().size(); i++) {
+                    addonsParameters =  addonsParameters+"&addons[" + adapter.getAddonsSelectedList().get(i).getId() + "]=" + adapter.getAddonsSelectedList().get(i).getQuantity();
+                }
+            }
+            AccommodationBookingCalculation();
+        }
+    }
+
+    private void applyCouponCode(final boolean isFromApply) {
         try {
             if (!Utility.isNetworkAvailable(mActivity)) {
                 Utility.showError(getString(R.string.no_internet_connection));
@@ -185,10 +193,13 @@ public class AddonsListActivity extends BaseActivity {
                 call.enqueue(new Callback<CouponRequestResponse>() {
                     @Override
                     public void onResponse(Call<CouponRequestResponse> call, Response<CouponRequestResponse> response) {
-                        Utility.log(response.getClass().getSimpleName() + " : " + new Gson().toJson(response.body()));
                         if (response.isSuccessful()) {
                             if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
-                                Utility.showError(response.body().getMsg());
+                                if (isFromApply){
+                                    Utility.showError(response.body().getMsg());
+                                }else{
+                                    processFurther();
+                                }
                             } else {
                                 Utility.showError(response.body().getMsg());
                             }

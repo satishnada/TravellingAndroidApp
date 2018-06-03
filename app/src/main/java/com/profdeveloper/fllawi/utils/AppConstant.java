@@ -42,6 +42,7 @@ public class AppConstant {
     public static final String EXT_SEARCH_DATA = "SEARCH_DATA";
     public static final String EXT_USER_EMAIL = "EMAIL";
     public static final String USER_DATA = "USER_DATA";
+    public static final String IS_USER_LOGIN = "IS_USER_LOGIN";
     public static final String EXT_CATEGORY = "CATEGORY";
     public static final String EXT_SUB_CATEGORY = "SUB_CATEGORY";
     public static final String USER_PROFILE_PIC = "USER_PROFILE_PIC";
@@ -84,6 +85,8 @@ public class AppConstant {
     public static final String device_token = "device_token";
     public static final String email = "email";
     public static final String first_name = "first_name";
+    public static final String profile_image = "profile_image";
+    public static final String id_proof = "id_proof";
     public static final String last_name = "last_name";
     public static final String contact_no = "contact_no";
     public static final String user_id = "user_id";
@@ -121,4 +124,5 @@ public class AppConstant {
     public static final String response = "response";
     public static final String result = "result";
 
+    public static String photo = "Photo";
 }

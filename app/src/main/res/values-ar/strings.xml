@@ -86,7 +86,7 @@
     <string name="blogs">المدونة</string>
     <string name="articles">المواضيع</string>
     <string name="next">التالي</string>
-    <string name="select">اختيار</string>
+    <string name="select">اختر تصنيف</string>
     <string name="post">نشر</string>
 
     <string-array name="top_destinations">
@@ -133,12 +133,13 @@
         <item>@drawable/ic_home_menu</item>
         <item>@drawable/ic_menu_profile</item>
         <item>@drawable/ic_menu_overview</item>
-        <item>@drawable/ic_menu_overview</item>
+        <item>@drawable/ic_booking_history</item>
         <item>@drawable/ic_menu_notifaction</item>
-        <item>@drawable/ic_menu_notifaction</item>
+        <item>@drawable/ic_menu_change_password</item>
         <item>@drawable/ic_menu_privacy_policy</item>
         <item>@drawable/ic_menu_term_and_conditions</item>
         <item>@drawable/ic_menu_help_support</item>
+        <item>@drawable/ic_bank_info_menu</item>
         <item>@drawable/ic_menu_logout</item>
     </string-array>
 
@@ -152,6 +153,7 @@
         <item>@string/menu_privacy_policy</item>
         <item>@string/menu_term_and_condition</item>
         <item>@string/menu_help</item>
+        <item>@string/menu_bank_info</item>
         <item>@string/menu_logout</item>
     </string-array>
 
@@ -187,7 +189,6 @@
         <item>@drawable/ic_close</item>
     </string-array>
 
-
     <!--footer-->
     <string name="home">الرئيسية</string>
     <string name="discover">استكشف</string>
@@ -197,7 +198,6 @@
     <!--Discover-->
     <string name="people">اشخاص</string>
     <string name="tags">وسوم</string>
-
     <string name="draft">مسودة</string>
     <string name="preview">عرض</string>
     <string name="publish">نشر</string>
@@ -214,7 +214,6 @@
     <string name="no_liked_article">لا يوجد مواضيع اعجبت بها</string>
     <string name="no_shared_article">لا يوجد أي موضوع قمت بمشاركته</string>
     <string name="no_recent_notification">لا يوجد أي تنبيهات مؤخرا </string>
-
     <string name="edit_profile">تعديل الملف الشخصي</string>
     <string name="drafts">مسودة</string>
     <string name="stats">Stats</string>
@@ -224,6 +223,7 @@
     <string name="settings">الإعدادات </string>
     <string name="help">المساعدة</string>
     <string name="bookmarks">المفضلة</string>
+
     <array name="my_profile_options">
         <item>@string/drafts</item>
         <item>@string/articles</item>
@@ -235,6 +235,7 @@
         <item>@string/settings</item>
         <item>@string/help</item>
     </array>
+
     <string name="logout">الخروج</string>
     <string name="push_notifications">التنبيهات</string>
     <string name="connected_accounts">الحسابات المرتبطة</string>
@@ -250,55 +251,18 @@
     <string name="feedback">الاقتراحات </string>
     <string name="rate_us">قيمنا</string>
     <string name="privacy_policy">سياسة الخصوصية </string>
-
-    <string name="suggested_friends">Suggested Friends</string>
-    <string name="intellects">Intellects</string>
-    <string name="written_by">Written By</string>
-    <string name="wisdom_rating">Wisdom Rating</string>
-    <string name="related_articles_of_creative_writing">Related Articles of Creative Writing</string>
-    <string name="enter_text">Enter text here</string>
-    <string name="search">Search</string>
-    <string name="small">Small</string>
-    <string name="medium">Medium</string>
-    <string name="large">Large</string>
-    <string name="reply">Reply</string>
-    <string name="comments">Comments</string>
-    <string name="delete">DELETE</string>
-    <string name="please_select_at_least_any_1_interest_from_all_category">Please select at least any 1 interest from all category</string>
-    <string name="please_select_at_least_any_1_interest">Please select at least any 1 interest</string>
-    <string name="already_reported_article_message">You already reported for this article</string>
     <string name="share_on_social_account">المشاركة في  وسائل التواصل الاجتماعي </string>
     <string name="share_to_facebook">المشاركة  على فيس بوك</string>
     <string name="share_to_twitter">المشاركة على تويتر</string>
     <string name="share_to_linkedin">المشاركة على لينكدان</string>
-    <string name="add_tag">Add Tags</string>
-    <string name="duplicate_tags_not_allowed">Duplicate tag not allowed</string>
-    <string name="arcticle_posted_success_msg">Article posted successfully</string>
-    <string name="no_data_found">No loginUserData found</string>
-    <string name="submit">Submit</string>
-    <string name="close">Close</string>
-    <string name="read_the_full_story">Read the Full Story</string>
-    <string name="log_out">Log Out</string>
     <string name="press_again_to_exit">انقر مرة أخرى للخروج</string>
-    <string name="enter_title_here">Enter title here</string>
-    <string name="enter_note_here">Enter note here</string>
     <string name="confirm_logout">هل ترغب في تسجيل الخروج؟</string>
-    <string name="enter_message_here">Enter Message here...</string>
-    <string name="description">Enter description here...</string>
     <string name="logout_message">هل ترغب في تسجيل الخروج؟</string>
-
-    <string name="views">Views</string>
-    <string name="shares">Shares</string>
-    <string name="save">Save</string>
-    <string name="move">Move</string>
-    <string name="done">Done</string>
-    <string name="your_feedback">Your Feedback</string>
-    <string name="enter_feedback">Enter your message here</string>
     <string name="log_in">دخول</string>
     <string name="login">دخول</string>
     <string name="search_result">نتيجة البحث</string>
     <string name="sort">ترتيب</string>
-    <string name="filter">فرز</string>
+    <string name="filter">تصفية</string>
     <string name="billing_info">بيانات الفاتورة</string>
     <string name="your_selection">اختيارك</string>
     <string name="forgotPassword">نسيت كلمة المرور</string>
@@ -310,28 +274,25 @@
     <string name="register">تسجيل</string>
     <string name="top_offer_and_price">"افضل العروض "</string>
     <string name="get_additional_ndiscounts">احصل على خصم إضافي</string>
-    <string name="earn_and_pay">Earn &amp; Pay-\neCash</string>
-    <string name="faster_checkout">Faster\nCheckout</string>
     <string name="confirm">تم ارسال رسالى تأكيد الى بريدك الالكتروني</string>
     <string name="check_email">تم ارسال التفاصيل الى بريدك الالكتروني</string>
-    <string name="sample_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  \n\n Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
     <string name="room_facilities">الغرف و المرافق</string>
     <string name="valid_check_out_date">فضلا اختر تاريخ الدخول</string>
     <string name="select_date">اختر تاريخ</string>
-    <string name="check_out">فضلا اختر تاريخ الخروج</string>
+    <string name="check_out">تاريخ الخروج</string>
     <string name="select_check_out_date">اختر تاريخ</string>
     <string name="room">الغرف   </string>
-    <string name="select_member">الأعضاء</string>
+    <string name="select_member">عدد الاشخاص</string>
     <string name="enter_number_of_room">الغرف</string>
-    <string name="enter_number_of_member">الأعضاء</string>
+    <string name="enter_number_of_member">عدد الاشخاص</string>
     <string name="select_chech_in_date">اختر تاريخ</string>
-    <string name="check_in">دخول</string>
+    <string name="check_in">تاريخ الدخول</string>
     <string name="location">الموقع</string>
     <string name="enter_address">ادخل الموقع</string>
     <string name="reset">مسح</string>
     <string name="cancel">الغاء</string>
     <string name="valid_check_in_date">فضلا اختر تاريخ الدخول</string>
-    <string name="valid_checkout_date">فضلا اختر تاريخ الخروج</string>
+    <string name="valid_checkout_date">تاريخ الخروج</string>
     <string name="valid_location">ادخل الموقع</string>
     <string name="valid_members">عدد النزلاء</string>
     <string name="valid_room">عدد الغرف</string>
@@ -348,8 +309,8 @@
     <string name="info">المعلومات</string>
     <string name="photo">الصور</string>
     <string name="host">مقدم الخدمة</string>
-    <string name="review">التقيم </string>
-    <string name="check_in_out_time">وقت  الخول و وقت الخروج</string>
+    <string name="review">التقييم </string>
+    <string name="check_in_out_time">وقت الدخول و وقت الخروج</string>
     <string name="cancellation_policy">سياسة الإلغاء</string>
     <string name="allowed">مسمموح</string>
     <string name="not_allowed">غير مسموح</string>
@@ -366,9 +327,9 @@
     <string name="sub_category">التصنيف الفرعي</string>
     <string name="select_sub_category">اختر التصنيف الفرعي</string>
     <string name="no_data_available">لا تتوفر أي بياناتا</string>
-    <string name="apply_coupon_optional">استخدام كوبون</string>
+    <string name="apply_coupon_optional">هل لديك كود خصم</string>
     <string name="enter_coupon">ادخل كود الكوبون</string>
-    <string name="apply">تحقق</string>
+    <string name="apply">تطبيق</string>
     <string name="proceed_further">الاستمرار</string>
     <string name="from">من</string>
     <string name="adults">بالغين</string>
@@ -381,18 +342,18 @@
     <string name="discount_applied">الخصم</string>
     <string name="coupon_amount">الكوبون</string>
     <string name="total_payable_after_discount">اجمالي صافي القبمة</string>
-    <string name="pay_via_bank">الدف بواسطة حوالة بنكية</string>
-    <string name="pay_via_credit_card">الدفع بواسطة بطاقة الائتمان</string>
+    <string name="pay_via_bank">حوالة بنكية</string>
+    <string name="pay_via_credit_card">بطاقة ائتمان</string>
     <string name="check_in_">تسجيل دخول</string>
     <string name="time_slot">الأوقات</string>
     <string name="select_time_slot">اختر الوقت</string>
     <string name="check_out_">تسجيل خروج</string>
     <string name="adult">بالغ</string>
     <string name="quantity">العدد</string>
-    <string name="total_payable_before_discount_">الاجمال قبل التخفيض</string>
+    <string name="total_payable_before_discount_">القيمة الاجمالية قبل الخصم</string>
     <string name="discount_applied_">الخصم</string>
     <string name="book_now">احجز الان </string>
-    <string name="price_per_night">سعر اليلة</string>
+    <string name="price_per_night">ابتداء من </string>
     <string name="_10_000">$10,000+</string>
     <string name="min_price">اقل سعر</string>
     <string name="max_price">اعلى سعر</string>
@@ -401,11 +362,7 @@
     <string name="apply_filters">تصفية</string>
     <string name="top_destination">افضل الوجهات</string>
     <string name="see_all">عرض الكل</string>
-    <string name="riyadh">Riyadh</string>
-    <string name="package_">12 Package</string>
-    <string name="start_from_sar_2400">Start from SAR 2400</string>
     <string name="place_name">اسم المكان </string>
-    <string name="smith_k_johan">Smith k Johan</string>
     <string name="first_name">الاسم الأول</string>
     <string name="last_name">اسم العائلة</string>
     <string name="email_id">البريد الالكتروني</string>
@@ -444,7 +401,6 @@
     <string name="bank">تحويل بنكي </string>
     <string name="description_">الوصف</string>
     <string name="description_text">الوصف</string>
-    <string name="check_in_time_16_00_00_ncheck_out_time_12_00_00">Check in Time 16:00:00  Check out Time 12:00:00</string>
     <string name="cancellation_policy_">سياسة الإلغاء</string>
     <string name="why_with_us">لماذا معنا</string>
     <string name="why_with_us_detail">تفاصيل لماذا معنا</string>
@@ -453,13 +409,9 @@
     <string name="additional_info_detail">تفاصيل معلومات إضافية</string>
     <string name="other_rule">شروط و احكام أخرى</string>
     <string name="other_rule_detail">تفاصيل شروط و احكام أخرى</string>
-    <string name="_3535">$ 3535</string>
-    <string name="per_night">لليلة الواحدة</string>
+    <string name="per_night">سعر مخفض</string>
     <string name="continue_booking">حجز</string>
     <string name="reviews">التقيمات</string>
-    <string name="_3_reviews">3 Reviews</string>
-    <string name="review_ratting">+REVIEW RATTING</string>
-    <string name="all_120_review"><![CDATA[All 120 Review >]]></string>
     <string name="addons">الإضافات</string>
     <string name="addon_name">نوع الإضافة</string>
     <string name="unit_price">السعر</string>
@@ -467,48 +419,26 @@
     <string name="qty_">الكمية :</string>
     <string name="subtotal">الإجمالي </string>
     <string name="service_name">الخدمة</string>
-    <string name="south_michigan_united_states">South Michigan, United states</string>
-    <string name="_343_reviews">343 Reviews</string>
-    <string name="beauty_of_uttaranchal">Beauty of uttaranchal</string>
-    <string name="jasper_alberta_canada">Jasper, Alberta, Canada</string>
-    <string name="_3465">$ 3465</string>
-    <string name="_12_package">12 Package</string>
-    <string name="starting_from_sar_2400">Starting from SAR 2400</string>
-    <string name="be_inspired">Be Inspired</string>
-    <string name="we_bring_you_daily_travel_inspiration_through_carefully_curated_galleries_news_and_stories_about_trending_travel_destinations">we bring you daily travel inspiration through carefully curated galleries,news and stories about trending travel destinations.</string>
-    <string name="apr_02_2017">-Apr 02, 2017</string>
-    <string name="when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only_five_centuries">when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</string>
-    <string name="lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
-    <string name="april_25_u00b7_10_30_pm">April 25 · 10:30 PM</string>
-    <string name="jasper_alberta_canada_n65446_saudi_arabia">Jasper, Alberta, Canada  65446, Saudi Arabia</string>
-    <string name="startfrom">Start from SAR</string>
-
     <string name="as_follow">كالتالي</string>
     <string name="arabic">العربية</string>
     <string name="packages">برامج </string>
-    <string name="start_from">Starting from SAR 2300</string>
     <string name="per_unit">لكل وحدة</string>
     <string name="choose_addons">اختر الإضافات </string>
     <string name="scheduled_date">التاريخ</string>
     <string name="no_search_found">لا توجد نتائج لهذا البحث</string>
     <string name="offer_one">استراحة الدلفين</string>
-    <string name="offer_two">Wadi Ainakheel Vacation</string>
-    <string name="offer_three">Alsheokh 1 Vacation</string>
-    <string name="offer_five">Skoon Vacation House</string>
     <string name="cat_not_available">هذا التصنيف غير متوفر</string>
     <string name="valid_sub_category">هذا التصنيف الفرعي غير متوفر نرجو اختيار تصنيف اخر</string>
-
     <string name="be_inspired_description">نسعى لان نقدم لكم افضل أماكن الإقامة والأنشطة السياحية والترفيهية والمغامرات داخل وخارج المملكة </string>
     <string name="discover_places">اكتشف أماكن جديدة </string>
     <string name="discover_places_description">ابحث عن افضل الأماكن والمغامرات </string>
     <string name="start_journey">ابدا مغامراتك</string>
     <string name="start_journey_description">افضل مقدمين الخدمات السياحية والترفيهية </string>
-
     <string name="booking_info">معلومات الحجز</string>
-    <string name="booking_history">سجل الحجز</string>
-    <string name="past">الحجز السابق</string>
-    <string name="pending">في انتظار الحجز</string>
-    <string name="approved">الحجز المعتمد</string>
+    <string name="booking_history">حجوزاتي</string>
+    <string name="past">حجوزات سابقة </string>
+    <string name="pending">حجوزات معلقة </string>
+    <string name="approved">حجوزات مؤكدة</string>
     <string name="payment_status">حالة السداد :</string>
     <string name="valid_till_date">صالح حتى تاريخ:</string>
     <string name="from_">من عند :</string>

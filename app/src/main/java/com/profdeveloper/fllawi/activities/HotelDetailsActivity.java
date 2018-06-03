@@ -30,7 +30,6 @@ import com.profdeveloper.fllawi.model.ArrReview;
 import com.profdeveloper.fllawi.model.AccommodationDetails.Data;
 import com.profdeveloper.fllawi.model.AccommodationDetails.Gallery;
 import com.profdeveloper.fllawi.model.AccommodationDetails.HostProvider;
-import com.profdeveloper.fllawi.model.Coupons.GetCouponRequestResponse;
 import com.profdeveloper.fllawi.model.ThingToDoDetails.ThingToDoDetailRequestResponse;
 import com.profdeveloper.fllawi.model.couponDetails.GetCouponDetailsRequestResponse;
 import com.profdeveloper.fllawi.retrofit.WebServiceCaller;
@@ -42,7 +41,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 import java.util.ArrayList;
 
-import paytabs.project.PayTabActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -84,9 +82,7 @@ public class HotelDetailsActivity extends BaseActivity {
     private int isFrom = 0;
     private String fromDate = "";
     private String toDate = "";
-
     private String scheduledDate = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +91,7 @@ public class HotelDetailsActivity extends BaseActivity {
 
     @Override
     public void setLayoutView() {
-        view = LayoutInflater.from(this).inflate(R.layout.activity_hotel_detail_second__, llContainer);
+        view = LayoutInflater.from(this).inflate(R.layout.activity_hotel_detail_second, llContainer);
         mActivity = this;
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -595,8 +591,10 @@ public class HotelDetailsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        Intent searchIntent = new Intent(HotelDetailsActivity.this,SearchActivity.class);
+        searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ACCOMMODATION);
+        startActivity(searchIntent);
         goPrevious();
+        finish();
     }
-
 }

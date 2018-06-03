@@ -61,9 +61,9 @@ public class BookHotelActivity extends BaseActivity {
     private ImageView ivPlushAdult, ivMinusAdult, ivPlushKids, ivMinusKids,
             ivPlushQ, ivMinusQ, ivHotelPic;
     private SimpleDateFormat dateFormatter;
-    private int adultCount = 0;
+    private int adultCount = 1;
     private int kidsCount = 0;
-    private int QuantityCount = 0;
+    private int QuantityCount = 1;
     private String accommodationId = "";
     private ArrCalculationBreakDown calculationBreakDown;
     private int isFrom = 1;
@@ -270,7 +270,7 @@ public class BookHotelActivity extends BaseActivity {
                 spinnerTimeSlot.performClick();
                 break;
             case R.id.ivMinusAdult:
-                if (adultCount != 0) {
+                if (adultCount != 1) {
                     adultCount = adultCount - 1;
                 }
                 tvAdultCount.setText(adultCount + "");
@@ -286,7 +286,7 @@ public class BookHotelActivity extends BaseActivity {
                 }
                 break;
             case R.id.ivMinusKids:
-                if (kidsCount != 0) {
+                if (kidsCount != 1) {
                     kidsCount = kidsCount - 1;
                 }
                 tvKidsCount.setText(kidsCount + "");
@@ -335,7 +335,7 @@ public class BookHotelActivity extends BaseActivity {
                 getCouponPrice();
                 break;
             case R.id.ivMinusQ:
-                if (QuantityCount != 0) {
+                if (QuantityCount != 1) {
                     QuantityCount = QuantityCount - 1;
                     getCouponPrice();
                 }

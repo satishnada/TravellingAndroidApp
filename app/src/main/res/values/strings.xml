@@ -133,12 +133,13 @@
         <item>@drawable/ic_home_menu</item>
         <item>@drawable/ic_menu_profile</item>
         <item>@drawable/ic_menu_overview</item>
-        <item>@drawable/ic_menu_overview</item>
+        <item>@drawable/ic_booking_history</item>
         <item>@drawable/ic_menu_notifaction</item>
-        <item>@drawable/ic_menu_notifaction</item>
+        <item>@drawable/ic_menu_change_password</item>
         <item>@drawable/ic_menu_privacy_policy</item>
         <item>@drawable/ic_menu_term_and_conditions</item>
         <item>@drawable/ic_menu_help_support</item>
+        <item>@drawable/ic_bank_info_menu</item>
         <item>@drawable/ic_menu_logout</item>
     </string-array>
 
@@ -152,6 +153,7 @@
         <item>@string/menu_privacy_policy</item>
         <item>@string/menu_term_and_condition</item>
         <item>@string/menu_help</item>
+        <item>@string/menu_bank_info</item>
         <item>@string/menu_logout</item>
     </string-array>
 
@@ -164,6 +166,7 @@
     <string name="menu_privacy_policy">Privacy Policy</string>
     <string name="menu_term_and_condition">Terms &amp; Conditions</string>
     <string name="menu_help">Help &amp; Support</string>
+    <string name="menu_bank_info">Bank Info</string>
     <string name="menu_logout">Logout</string>
 
     <string-array name="our_services_str">
@@ -276,7 +279,7 @@
     <string name="done">Done</string>
     <string name="your_feedback">Your Feedback</string>
     <string name="enter_feedback">Enter your message here</string>
-    <string name="log_in">log in</string>
+    <string name="log_in">login</string>
     <string name="login">login</string>
     <string name="search_result">Search Result</string>
     <string name="sort">Sort</string>
@@ -502,5 +505,26 @@
     <string name="cancel_booking">Cancel Booking</string>
     <string name="from_time">From Time : </string>
     <string name="to_time">To Time : </string>
-
+    <string name="bank_info">Bank Info</string>
+    <string name="bank_account_info">Bank Name : Riyad Bank\nAccount Number : 1192104609940\nIBAN : SA9020000001192104609940</string>
+    <!--<string name="menu_bank_info">Bank Info</string>-->
+    
+    <string name="discover_new">Discover New</string>
+    <string name="discover_description">Popular &amp; offbeat destinations\nacross world for you to\nplan your holiday</string>
+    <string name="sightseeing">Sightseeing</string>
+    <string name="sightseeing_description">Plan your trip &amp; discover things\nto do from our sightseeing desti-\nnation across world</string>
+    <string name="map_intro">Map</string>
+    <string name="map_intro_description">Nearby and direction on the go</string>
+    <string name="stay">Stay</string>
+    <string name="stay_description">Read reviews of villa, resorts &amp;\nhomestays across world</string>
+    <string name="capture">Capture</string>
+    <string name="gallery">Gallery</string>
+    <string name="select_payment_mode">Select payment mode</string>
+    <string name="select_currency">Select currency</string>
+    <string name="select_interest">Select Interest</string>
+    <string name="select_language">Select language</string>
+    <string name="select_country_">Select country</string>
+    <string name="enter_address_1">Enter Address</string>
+    <string name="enter_web_site">Enter web site</string>
+    <string name="valid_profile_pic">Please allow the permission to update your profile picture</string>
 </resources>

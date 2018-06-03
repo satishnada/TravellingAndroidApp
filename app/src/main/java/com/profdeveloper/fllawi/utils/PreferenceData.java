@@ -25,8 +25,16 @@ public class PreferenceData {
         return gson.fromJson(userData,LoginUserData.class);
     }
 
-    public static boolean isLogin() {
+/*    public static boolean isLogin() {
         return !TextUtils.isEmpty(SharedPreferenceUtil.getString(AppConstant.USER_DATA,""));
+    }*/
+
+    public static boolean isLogin() {
+        return SharedPreferenceUtil.getBoolean(AppConstant.IS_USER_LOGIN,false);
+    }
+
+    public static void setLogin(boolean isLogin){
+        SharedPreferenceUtil.putValue(AppConstant.IS_USER_LOGIN,isLogin);
     }
 
     public static void setProfilePic(String profilePic){

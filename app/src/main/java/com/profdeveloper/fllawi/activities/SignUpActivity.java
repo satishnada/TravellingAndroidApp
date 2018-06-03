@@ -1,6 +1,7 @@
 package com.profdeveloper.fllawi.activities;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.model.CommonRequestResponse;
 import com.profdeveloper.fllawi.retrofit.WebServiceCaller;
 import com.profdeveloper.fllawi.utils.AppConstant;
+import com.profdeveloper.fllawi.utils.PreferenceData;
 import com.profdeveloper.fllawi.utils.Utility;
 
 import retrofit2.Call;
@@ -44,6 +46,7 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public void initialization() {
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         tvTopTitle.setText(R.string.register);
         ivTopBack.setImageResource(R.drawable.ic_back_arrow);
         ivTopBack.setVisibility(View.VISIBLE);

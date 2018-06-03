@@ -3,6 +3,7 @@ package com.profdeveloper.fllawi.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 
     @Override
     public void initialization() {
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         tvTopTitle.setText(R.string.forgotPassword);
         ivTopBack.setImageResource(R.drawable.back_arrow);
         ivTopBack.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@ package com.profdeveloper.fllawi.activities;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,9 @@ public class IntroductionActivity extends BaseActivity {
     private View view;
     private ViewPager viewPager;
     private LinearLayout circles;
-    private int no_pages = 3;
+    private int no_pages = 4;
     private HelpPagerAdapter adapter;
-    private int[] helpImagesList = {R.drawable.intro_first, R.drawable.intro_second, R.drawable.intro_third};
+    private int[] helpImagesList = {R.drawable.intro_first, R.drawable.intro_second, R.drawable.intro_third,R.drawable.intro_forth};
     private TextView tvLogIn, tvSkip;
     private boolean isFromMyProfile = false;
 
@@ -32,17 +33,16 @@ public class IntroductionActivity extends BaseActivity {
         view = LayoutInflater.from(this).inflate(R.layout.activity_introduction, llContainer);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         circles = (LinearLayout) view.findViewById(R.id.circles);
-        tvSkip = (TextView) view.findViewById(R.id.tvSkip);
         tvLogIn = (TextView) view.findViewById(R.id.tvLogIn);
 
         tvLogIn.setOnClickListener(this);
-        tvSkip.setOnClickListener(this);
         isHomeRunning = false;
 
     }
 
     @Override
     public void initialization() {
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         hideTopBar();
         hideTopShadow();
 
@@ -64,8 +64,8 @@ public class IntroductionActivity extends BaseActivity {
 
             }
         });
-        buildCircles();
 
+        buildCircles();
         checkLocal();
 
     }
@@ -74,10 +74,6 @@ public class IntroductionActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvLogIn:
-                gotoLogin();
-                break;
-            case R.id.tvSkip:
-                //gotoHome();
                 gotoLogin();
                 break;
         }
@@ -131,9 +127,9 @@ public class IntroductionActivity extends BaseActivity {
             for (int i = 0; i < no_pages; i++) {
                 ImageView circle = (ImageView) circles.getChildAt(i);
                 if (i == index) {
-                    circle.setImageResource(R.drawable.helper_selected_button);
+                    circle.setImageResource(R.drawable.ic_dot_red);
                 } else {
-                    circle.setImageResource(R.drawable.helper_deselected_button);
+                    circle.setImageResource(R.drawable.ic_dot_white);
                 }
             }
         }

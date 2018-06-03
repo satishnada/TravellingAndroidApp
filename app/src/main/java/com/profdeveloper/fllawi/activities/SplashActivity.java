@@ -2,6 +2,7 @@ package com.profdeveloper.fllawi.activities;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -23,7 +24,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initialization() {
-
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         hideTopBar();
         hideTopShadow();
 //        mPermissionManagerInstance = new PermissionManagerInstance(this);

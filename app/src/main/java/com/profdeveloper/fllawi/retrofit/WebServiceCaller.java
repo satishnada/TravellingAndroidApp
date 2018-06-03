@@ -100,23 +100,40 @@ public class WebServiceCaller {
         Call<UserProfileDataRequestResponse> getUserProfile(@Header("locale") String locale,
                                                             @Url String url);
 
-        @FormUrlEncoded
+        @Multipart
         @POST(WebUtility.USER_UPDATE_PROFILE)
         Call<CommonRequestResponse> updateUserProfile(@Header("locale") String locale,
-                                                      @Field(AppConstant.user_id) String user_id,
-                                                      @Field(AppConstant.first_name) String first_name,
-                                                      @Field(AppConstant.last_name) String last_name,
-                                                      @Field(AppConstant.email) String email,
-                                                      @Field(AppConstant.country_id) String country_id,
-                                                      @Field(AppConstant.birthday) String birthday,
-                                                      @Field(AppConstant.mobile_no) String mobile_no,
-                                                      @Field(AppConstant.address) String address,
-                                                      @Field(AppConstant.gender) String gender,
-                                                      @Field(AppConstant.preferred_payment_id) String preferred_payment_id,
-                                                      @Field(AppConstant.preferred_currency_id) String preferred_currency_id,
-                                                      @Field(AppConstant.preferred_language_id) String preferred_language_id,
-                                                      @Field(AppConstant.website) String website,
-                                                      @Field(AppConstant.interest) String interest);
+                                                      @Part(AppConstant.user_id) RequestBody user_id,
+                                                      @Part(AppConstant.first_name) RequestBody first_name,
+                                                      @Part(AppConstant.last_name) RequestBody last_name,
+                                                      @Part(AppConstant.email) RequestBody email,
+                                                      @Part(AppConstant.country_id) RequestBody country_id,
+                                                      @Part(AppConstant.birthday) RequestBody birthday,
+                                                      @Part(AppConstant.mobile_no) RequestBody mobile_no,
+                                                      @Part(AppConstant.address) RequestBody address,
+                                                      @Part(AppConstant.gender) RequestBody gender,
+                                                      @Part(AppConstant.preferred_payment_id) RequestBody preferred_payment_id,
+                                                      @Part(AppConstant.preferred_currency_id) RequestBody preferred_currency_id,
+                                                      @Part(AppConstant.preferred_language_id) RequestBody preferred_language_id,
+                                                      @Part(AppConstant.website) RequestBody website,
+                                                      @Part(AppConstant.interest) RequestBody interest,
+                                                      @Part("profile_image\"; filename=\"profile_image.png\" ") RequestBody profile_image,
+                                                      @Part("id_proof\"; filename=\"id_proof.png\" ") RequestBody id_proof);
+
+        @Multipart
+        @POST(WebUtility.BOOKING_UPLOAD_ACCOMMODATION_BANK_RECEIPT)
+        Call<CommonRequestResponse> uploadAccommodationReceipt(@Part(AppConstant.booking_id) RequestBody booking_id,
+                                                               @Part("bank_receipt\"; filename=\"bank_receipt.png\" ") RequestBody bank_receipt);
+
+        @Multipart
+        @POST(WebUtility.BOOKING_UPLOAD_THING_TO_DO_BANK_RECEIPT)
+        Call<CommonRequestResponse> uploadThingToDoReceipt(@Part(AppConstant.booking_id) RequestBody booking_id,
+                                                           @Part("bank_receipt\"; filename=\"bank_receipt.png\" ") RequestBody bank_receipt);
+
+        @Multipart
+        @POST(WebUtility.BOOKING_UPLOAD_COUPON_BANK_RECEIPT)
+        Call<CommonRequestResponse> uploadCouponReceipt(@Part(AppConstant.booking_id) RequestBody booking_id,
+                                                        @Part("bank_receipt\"; filename=\"bank_receipt.png\" ") RequestBody bank_receipt);
 
         @FormUrlEncoded
         @POST(WebUtility.USER_FORGOT_PASSWORD)
@@ -328,6 +345,24 @@ public class WebServiceCaller {
                                                                                              @Field(AppConstant.booking_id) String booking_id);
 
         @FormUrlEncoded
+        @POST(WebUtility.BOOKING_COUPON_CANCEL)
+        Call<CommonRequestResponse> cancelCouponBooking(@Header("locale") String locale,
+                                                        @Field(AppConstant.booking_id) String booking_id,
+                                                        @Field(AppConstant.user_id) String user_id);
+
+        @FormUrlEncoded
+        @POST(WebUtility.BOOKING_THING_TO_DO_CANCEL)
+        Call<CommonRequestResponse> cancelThingToDoBooking(@Header("locale") String locale,
+                                                           @Field(AppConstant.booking_id) String booking_id,
+                                                           @Field(AppConstant.user_id) String user_id);
+
+        @FormUrlEncoded
+        @POST(WebUtility.BOOKING_ACCOMMODATION_CANCEL)
+        Call<CommonRequestResponse> cancelAccommodationBooking(@Header("locale") String locale,
+                                                               @Field(AppConstant.booking_id) String booking_id,
+                                                               @Field(AppConstant.user_id) String user_id);
+
+        @FormUrlEncoded
         @POST(WebUtility.BOOKING_HISTORY_COUPON_DETAIL)
         Call<BookingHistoryDetailCouponRequestResponse> getBookingHistoryCouponDetails(@Header("locale") String locale,
                                                                                        @Field(AppConstant.customer_id) String customer_id,
@@ -347,5 +382,8 @@ public class WebServiceCaller {
                                                         @Field(AppConstant.response) String response,
                                                         @Field(AppConstant.result) String result);
 
+        @GET
+        Call<ThingToDoTimeSlotRequestResponse> getTopDestination(@Header("locale") String locale,
+                                                                 @Url String url);
     }
 }

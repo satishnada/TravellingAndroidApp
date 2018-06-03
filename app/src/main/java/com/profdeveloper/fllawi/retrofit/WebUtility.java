@@ -44,10 +44,19 @@ public class WebUtility {
 
     public static final String BOOKING_HISTORY_LIST = "accommodation/booking/list";
     public static final String BOOKING_HISTORY_DETAIL = "accommodation/booking/view";
+    public static final String BOOKING_ACCOMMODATION_CANCEL = "accommodation/booking/cancel_booking";
+    public static final String BOOKING_UPLOAD_ACCOMMODATION_BANK_RECEIPT = "accommodation/booking/store_bank_receipt";
 
     public static final String BOOKING_HISTORY_THING_TO_DO_LIST = "thingtodo/booking/list";
     public static final String BOOKING_HISTORY_THING_TO_DO_DETAIL = "thingtodo/booking/view";
+    public static final String BOOKING_THING_TO_DO_CANCEL = "thingtodo/booking/cancel_booking";
+    public static final String BOOKING_UPLOAD_THING_TO_DO_BANK_RECEIPT = "hingtodo/booking/store_bank_receipt";
 
     public static final String BOOKING_HISTORY_COUPON_LIST = "coupon/booking/list";
     public static final String BOOKING_HISTORY_COUPON_DETAIL = "coupon/booking/view";
+    public static final String BOOKING_COUPON_CANCEL = "coupon/booking/view";
+    public static final String BOOKING_UPLOAD_COUPON_BANK_RECEIPT = "coupon/booking/store_bank_receipt";
+
+    public static final String GET_HOME = "home";
+
 }
