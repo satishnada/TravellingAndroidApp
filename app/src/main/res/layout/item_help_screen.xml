@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <ImageView
@@ -19,6 +20,7 @@
         android:layout_height="@dimen/_105sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_below="@+id/ic_intro"
+        android:layoutDirection="ltr"
         android:orientation="vertical">
 
         <com.customviews.CustomRomanTextView
@@ -30,21 +32,21 @@
             android:text="@string/be_inspired"
             android:gravity="center"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/_12ssp" />
+            android:textSize="@dimen/_16ssp" />
 
         <com.customviews.CustomRomanTextView
             android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_55sdp"
             android:layout_marginBottom="@dimen/_80sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:text="sadfsfd"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:text=""
             android:gravity="center|top"
-            android:textColor="@color/black_dark"
-            android:textSize="@dimen/_10ssp" />
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_14ssp" />
 
     </LinearLayout>
 

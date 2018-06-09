@@ -14,9 +14,6 @@ public class Customer implements Serializable {
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("permissions")
-    @Expose
-    private List<Object> permissions = null;
     @SerializedName("last_login")
     @Expose
     private String lastLogin;
@@ -95,14 +92,6 @@ public class Customer implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Object> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Object> permissions) {
-        this.permissions = permissions;
     }
 
     public String getLastLogin() {

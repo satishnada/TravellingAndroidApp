@@ -16,6 +16,7 @@ import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.activities.BookingHistoryActivity;
 import com.profdeveloper.fllawi.model.BookingHistory.Accomodation;
 import com.profdeveloper.fllawi.model.BookingHistory.Datum;
+import com.profdeveloper.fllawi.model.BookingHistory.Gallery;
 import com.profdeveloper.fllawi.utils.Utility;
 
 import java.util.ArrayList;
@@ -44,21 +45,24 @@ public class OrderHistoryAccommodationAdapter extends RecyclerView.Adapter<Order
 
         Accomodation accomodation = orderHistoryList.get(position).getAccomodation();
 
-        ImageLoader.getInstance().loadImage(Utility.BASE_URL + "/" + "", new SimpleImageLoadingListener() {
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
-                holder.ivOrder.setImageBitmap(loadedImage);
-            }
-        });
+        if (orderHistoryList.get(0).getGallery() != null && !orderHistoryList.get(0).getGallery().isEmpty()){
+            String imageUrl = orderHistoryList.get(0).getGallery().get(0).getImage();
+            ImageLoader.getInstance().loadImage(Utility.BASE_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    // Do whatever you want with Bitmap
+                    holder.ivOrder.setImageBitmap(loadedImage);
+                }
+            });
+        }
 
-        holder.tvOrderId.setText("Order ID: FLW#" + accomodation.getId());
+        holder.tvOrderId.setText(R.string.order_id_flw + accomodation.getId());
         holder.tvOrderTitle.setText(accomodation.getTitle());
         //holder.tvOrderValidDate.setText("Valid Till Date : "+orderHistoryList.get(position).getFromDate());
         if (orderHistoryList.get(position).getPaymentMode() == 1){
-            holder.tvPaymentMethod.setText("Payment method: Paytab");
+            holder.tvPaymentMethod.setText(R.string.payment_method_paytab);
         }else{
-            holder.tvPaymentMethod.setText("Payment method: Bank");
+            holder.tvPaymentMethod.setText(R.string.payment_method_bank);
         }
 
         holder.tvFromDate.setText(orderHistoryList.get(position).getFromDate());

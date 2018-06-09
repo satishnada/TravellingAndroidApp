@@ -47,11 +47,11 @@ public class SplashActivity extends BaseActivity {
             public void run() {
                 Intent intent;
                 if (PreferenceData.isIntroductionVisitComplete()) {
-                        if (PreferenceData.isLogin()) {
+                        //if (PreferenceData.isLogin()) {
                             intent = new Intent(mActivity, HomeActivity.class);
-                        } else {
+                        /*} else {
                             intent = new Intent(mActivity, SignInActivity.class);
-                        }
+                        }*/
                 } else {
                     intent = new Intent(mActivity, IntroductionActivity.class);
                 }

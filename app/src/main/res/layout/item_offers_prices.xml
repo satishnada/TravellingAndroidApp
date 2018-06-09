@@ -60,7 +60,7 @@
 
                 <RatingBar
                     android:id="@+id/ratingBarHotel"
-                    style="@style/CustomRatingBar"
+                    style="@style/CustomRatingBarSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

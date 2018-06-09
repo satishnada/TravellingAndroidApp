@@ -1,21 +1,8 @@
 <resources>
     <string name="app_name">فلاوي</string>
-    <string name="app_provider">com.grandhill.provider</string>
 
-    <!-- Crash -->
-    <string name="application_crashed">خطاء في التطبيق</string>
-    <string name="crash_message">هل انت متاكد من رغبتك في ارسال هذا لاخطاء للمطور</string>
-    <string name="error_log_receiver">satish.nada98@gmail.com</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
-    <string name="crash_log_file">مرق لك ملف الخطاء نرجو ارساله الينا لاصلاحه</string>
-    <string name="email_provider">البريد الالكتروني</string>
-    <string name="permission_denied">لم تقم بالسماح للتطبيق بارسال ملف الخطاء</string>
-    <string name="facebook_app_id">316142078844781</string><!--account testprojdev@gmail.com-->
-    <!--<string name="facebook_app_id">786185828209660</string>--><!--account ambitmobileapp@gmail.com-->
-    <string name="fb_login_protocol_scheme">fb786185828209660</string>
-    <!--<string name="server_client_id">655387601105-0kgs293a0babs4euq6vdkk2thloinsek.apps.googleusercontent.com</string>--><!--account testprojdev3@gmail.com-->
-    <string name="server_client_id">655387601105-0kgs293a0babs4euq6vdkk2thloinsek.apps.googleusercontent.com</string><!--account testprojdev3@gmail.com-->
     <string name="google_maps_key">AIzaSyBbzm1koLbD-cMj0RQhV8fEwyZjzRTkAkk</string>
 
     <!--Permission Manager library -->
@@ -25,17 +12,7 @@
     <string name="str_negative_button">الغاء</string>
     <string name="no_internet_connection">فضلا تاكد من اتصالك بالانترنت</string>
     <string name="message_something_wrong">حدثا خطا ما نرجو المحاولة لاحقا</string>
-    <string name="downloading_files">تحميل الملفات </string>
-    <string name="skip">تخطي</string>
 
-    <!--Help Activity-->
-    <string name="lets_go">يالله نفلها </string>
-    <string name="connect_facebook">الدخول بالفيس بوك</string>
-    <string name="connect_google">الدخول بقوقل  </string>
-    <string name="connect_linkedin">الدخول بواسطة لينكدان</string>
-    <string name="sign_in_email">الدخول بواسطة البريد الالكرتوني</string>
-    <string name="privacy_policy_terms">بالاستمرار فانك توافق على شروط و احكام و سياسة الخصوصية </string>
-    <string name="dont_account">لا يوجد لديك حساب ؟</string>
     <string name="sign_up">تسجيل</string>
 
     <!--Sign In Activity-->
@@ -53,9 +30,7 @@
     <string name="full_name">الاسم الكامل</string>
     <string name="country">الدولة </string>
     <string name="confirm_password">تأكيد كلمة الرور </string>
-    <string name="already_account">هل لديك حساب بالفعل؟</string>
     <string name="sing_in">تسجيل الدخول</string>
-    <string name="select_country">اختر الدولة</string>
 
     <!--Validation messages-->
     <string name="valid_email">ادخل بريدك الالكتروني</string>
@@ -72,23 +47,8 @@
     <string name="valid_date_of_birth">تاريخ الميلاد</string>
     <string name="valid_mobile">رقم الجوال</string>
     <string name="valid_contact_number">فضلا ادخل رقم الجوال</string>
-    <string name="valid_country">الدولة </string>
-    <string name="valid_current_password">كلمة المرور</string>
-    <string name="valid_new_confirm_password">كلمات المرور لا يتطابقان</string>
-    <string name="valid_reply_comment">اكتب تعليقك</string>
-    <string name="valid_feedback">فضلا اكتب تقيمك هنا </string>
 
-    <!--Interest Activity-->
-    <string name="choose_your_interest">الاهتمامات</string>
-    <string name="all">الكل</string>
-    <string name="news">اخبار</string>
-    <string name="blog">المدونة</string>
-    <string name="blogs">المدونة</string>
-    <string name="articles">المواضيع</string>
-    <string name="next">التالي</string>
     <string name="select">اختر تصنيف</string>
-    <string name="post">نشر</string>
-
     <string-array name="top_destinations">
         <item>@drawable/ic_close</item>
         <item>@drawable/ic_close</item>
@@ -104,32 +64,7 @@
         <item>@drawable/ic_event</item>
     </string-array>
 
-    <string name="facility_parking">مواقف مجانية</string>
-    <string name="facility_laundry">غسيل مجاني</string>
-    <string name="facility_breakfast">إفطار مجاني</string>
-    <string name="facility_television">قنوات مجانية</string>
-    <string name="facility_wifi">انترنت مجاني</string>
-    <string name="facility_swimming">مسبح</string>
-
-    <string-array name="room_facilities_str">
-        <item>@string/facility_parking</item>
-        <item>@string/facility_laundry</item>
-        <item>@string/facility_breakfast</item>
-        <item>@string/facility_television</item>
-        <item>@string/facility_wifi</item>
-        <item>@string/facility_swimming</item>
-    </string-array>
-
-    <string-array name="room_facilities">
-        <item>@drawable/ic_facility_parking</item>
-        <item>@drawable/ic_facility_laundry</item>
-        <item>@drawable/ic_facility_brekfast</item>
-        <item>@drawable/ic_facility_home_cinema</item>
-        <item>@drawable/ic_facility_wifi</item>
-        <item>@drawable/ic_facility_swimming_pool</item>
-    </string-array>
-
-    <string-array name="side_menu">
+    <string-array name="side_menu_login">
         <item>@drawable/ic_home_menu</item>
         <item>@drawable/ic_menu_profile</item>
         <item>@drawable/ic_menu_overview</item>
@@ -143,7 +78,7 @@
         <item>@drawable/ic_menu_logout</item>
     </string-array>
 
-    <string-array name="side_menu_str">
+    <string-array name="side_menu_str_login">
         <item>@string/menu_home</item>
         <item>@string/menu_profile</item>
         <item>@string/menu_overview</item>
@@ -157,6 +92,28 @@
         <item>@string/menu_logout</item>
     </string-array>
 
+    <string-array name="side_menu">
+        <item>@drawable/ic_home_menu</item>
+        <item>@drawable/ic_menu_overview</item>
+        <item>@drawable/ic_menu_notifaction</item>
+        <item>@drawable/ic_menu_privacy_policy</item>
+        <item>@drawable/ic_menu_term_and_conditions</item>
+        <item>@drawable/ic_menu_help_support</item>
+        <item>@drawable/ic_bank_info_menu</item>
+        <item>@drawable/ic_home_menu</item>
+    </string-array>
+
+    <string-array name="side_menu_str">
+        <item>@string/menu_home</item>
+        <item>@string/menu_overview</item>
+        <item>@string/menu_notification</item>
+        <item>@string/menu_privacy_policy</item>
+        <item>@string/menu_term_and_condition</item>
+        <item>@string/menu_help</item>
+        <item>@string/menu_bank_info</item>
+        <item>@string/menu_login</item>
+    </string-array>
+
     <string name="menu_home">الرئيسية</string>
     <string name="menu_profile">الملف الشخصي</string>
     <string name="menu_overview">نظرة عامة</string>
@@ -167,6 +124,7 @@
     <string name="menu_term_and_condition">الشروط و الاحكام </string>
     <string name="menu_help">الدعم و المساعدة</string>
     <string name="menu_logout">تسجيل الخروج</string>
+    <string name="menu_login">تسجيل الدخول</string>
 
     <string-array name="our_services_str">
         <item>@string/accommodation</item>
@@ -181,85 +139,10 @@
     <string name="coupons">كوبونات</string>
     <string name="transportation">مواصلات</string>
     <string name="event">فعاليات</string>
-
-    <string-array name="offer_and_price">
-        <item>@drawable/ic_close</item>
-        <item>@drawable/ic_close</item>
-        <item>@drawable/ic_close</item>
-        <item>@drawable/ic_close</item>
-    </string-array>
-
-    <!--footer-->
-    <string name="home">الرئيسية</string>
-    <string name="discover">استكشف</string>
-    <string name="research">ابحث</string>
-    <string name="my_profile">ملفي الشخصي</string>
-
-    <!--Discover-->
-    <string name="people">اشخاص</string>
-    <string name="tags">وسوم</string>
-    <string name="draft">مسودة</string>
-    <string name="preview">عرض</string>
-    <string name="publish">نشر</string>
-    <string name="bookmark">المفضلة</string>
-    <string name="share">مشاركة</string>    <string name="report">ابلاغ</string>
-    <string name="followers">المتابعين</string>
-    <string name="following">متابع </string>
-    <string name="follow">متابعة</string>
-    <string name="unfollow">الغاء المتابعة</string>
-    <string name="recent_articles">اخر المواضيع</string>
-    <string name="liked_articles">مواضيع اعجبت بها</string>
-    <string name="shared_articles">مواضيع تمت مشاركتها</string>
-    <string name="no_recent_article">لا تتوفر أي مواضيع</string>
-    <string name="no_liked_article">لا يوجد مواضيع اعجبت بها</string>
-    <string name="no_shared_article">لا يوجد أي موضوع قمت بمشاركته</string>
     <string name="no_recent_notification">لا يوجد أي تنبيهات مؤخرا </string>
-    <string name="edit_profile">تعديل الملف الشخصي</string>
-    <string name="drafts">مسودة</string>
-    <string name="stats">Stats</string>
-    <string name="notifications">تنبيهات</string>
-    <string name="favorite_tags">الوسوم المفضلة</string>
-    <string name="notes">ملاحظة</string>
-    <string name="settings">الإعدادات </string>
-    <string name="help">المساعدة</string>
-    <string name="bookmarks">المفضلة</string>
-
-    <array name="my_profile_options">
-        <item>@string/drafts</item>
-        <item>@string/articles</item>
-        <item>@string/stats</item>
-        <item>@string/bookmarks</item>
-        <item>@string/notifications</item>
-        <item>@string/favorite_tags</item>
-        <item>@string/notes</item>
-        <item>@string/settings</item>
-        <item>@string/help</item>
-    </array>
-
-    <string name="logout">الخروج</string>
-    <string name="push_notifications">التنبيهات</string>
-    <string name="connected_accounts">الحسابات المرتبطة</string>
-    <string name="facebook">فيس بوك</string>
-    <string name="twitter">تويتر</string>
-    <string name="linkedin">لينكد ان</string>
-    <string name="others">أخرى</string>
-    <string name="edit_interests">تعديل الاهتمامات</string>
-    <string name="reset_password">إعادة ضبط كلمة المرور </string>
-    <string name="about_ambit">حول</string>
-    <string name="about_us">من نحن</string>
-    <string name="feedback_and_suggestions">الاقتراحات </string>
-    <string name="feedback">الاقتراحات </string>
-    <string name="rate_us">قيمنا</string>
-    <string name="privacy_policy">سياسة الخصوصية </string>
-    <string name="share_on_social_account">المشاركة في  وسائل التواصل الاجتماعي </string>
-    <string name="share_to_facebook">المشاركة  على فيس بوك</string>
-    <string name="share_to_twitter">المشاركة على تويتر</string>
-    <string name="share_to_linkedin">المشاركة على لينكدان</string>
     <string name="press_again_to_exit">انقر مرة أخرى للخروج</string>
     <string name="confirm_logout">هل ترغب في تسجيل الخروج؟</string>
-    <string name="logout_message">هل ترغب في تسجيل الخروج؟</string>
-    <string name="log_in">دخول</string>
-    <string name="login">دخول</string>
+
     <string name="search_result">نتيجة البحث</string>
     <string name="sort">ترتيب</string>
     <string name="filter">تصفية</string>
@@ -273,6 +156,7 @@
     <string name="travel_nleisure">سياح و مغامرات </string>
     <string name="register">تسجيل</string>
     <string name="top_offer_and_price">"افضل العروض "</string>
+
     <string name="get_additional_ndiscounts">احصل على خصم إضافي</string>
     <string name="confirm">تم ارسال رسالى تأكيد الى بريدك الالكتروني</string>
     <string name="check_email">تم ارسال التفاصيل الى بريدك الالكتروني</string>
@@ -447,5 +331,37 @@
     <string name="upload_bank_receipt">تحميل استلام البنك</string>
     <string name="order_">طلب :</string>
     <string name="order_total">الطلب الكلي :</string>
+
+    <string name="cancel_booking">Cancel Booking</string>
+    <string name="from_time">From Time : </string>
+    <string name="to_time">To Time : </string>
+    <string name="bank_info">Bank Info</string>
+    <string name="bank_account_info">Bank Name : Riyad Bank\nAccount Number : 1192104609940\nIBAN : SA9020000001192104609940</string>
+    <string name="discover_new">Discover New</string>
+    <string name="discover_description">Popular &amp; offbeat destinations across\nworld for you to plan your holiday</string>
+    <string name="sightseeing">Sightseeing</string>
+    <string name="sightseeing_description">Plan your trip &amp; discover things to do from \nour sightseeing destination across world</string>
+    <string name="map_intro">Map</string>
+    <string name="map_intro_description">Nearby and direction on the go</string>
+    <string name="stay">Stay</string>
+    <string name="stay_description">Read reviews of villa, resorts &amp;\nhomestays across world</string>
+    <string name="capture">Capture</string>
+    <string name="gallery">Gallery</string>
+    <string name="select_payment_mode">Select payment mode</string>
+    <string name="select_currency">Select currency</string>
+    <string name="select_interest">Select Interest</string>
+    <string name="select_language">Select language</string>
+    <string name="select_country_">Select country</string>
+    <string name="enter_address_1">Enter Address</string>
+    <string name="enter_web_site">Enter web site</string>
+    <string name="valid_profile_pic">Please allow the permission to update your profile picture</string>
+    <string name="login">Login</string>
+    <string name="valid_date">Please select other date</string>
+    <string name="no_search_data">No Search Data Found</string>
+    <string name="valid_full_name">Please enter your full name</string>
+    <string name="valid_message">Please enter your message</string>
+    <string name="valid_ratting">Please select ratting</string>
+    <string name="id_prof">ID Prof</string>
+
 
 </resources>

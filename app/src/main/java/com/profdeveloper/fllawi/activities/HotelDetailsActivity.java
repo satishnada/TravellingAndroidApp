@@ -35,6 +35,7 @@ import com.profdeveloper.fllawi.model.couponDetails.GetCouponDetailsRequestRespo
 import com.profdeveloper.fllawi.retrofit.WebServiceCaller;
 import com.profdeveloper.fllawi.retrofit.WebUtility;
 import com.profdeveloper.fllawi.utils.AppConstant;
+import com.profdeveloper.fllawi.utils.PreferenceData;
 import com.profdeveloper.fllawi.utils.Utility;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -216,19 +217,19 @@ public class HotelDetailsActivity extends BaseActivity {
                 } else if (tab.getPosition() == 3) {
                     if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        hotelDetailReviewFragment = (HotelDetailReviewFragment) HotelDetailReviewFragment.getInstance(isFrom,hotelId,reviewList, pricePerNight);
+                        hotelDetailReviewFragment = (HotelDetailReviewFragment) HotelDetailReviewFragment.getInstance(isFrom, hotelId, reviewList, pricePerNight);
                         fragmentTransaction.replace(R.id.llDetails, hotelDetailReviewFragment);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        hotelDetailReviewFragment = (HotelDetailReviewFragment) HotelDetailReviewFragment.getInstance(isFrom,hotelId, reviewList, pricePerNight);
+                        hotelDetailReviewFragment = (HotelDetailReviewFragment) HotelDetailReviewFragment.getInstance(isFrom, hotelId, reviewList, pricePerNight);
                         fragmentTransaction.replace(R.id.llDetails, hotelDetailReviewFragment);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     } else if (isFrom == AppConstant.IS_FROM_COUPON) {
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        hotelDetailReviewFragment = (HotelDetailReviewFragment) HotelDetailReviewFragment.getInstance(isFrom,hotelId, reviewList, pricePerNight);
+                        hotelDetailReviewFragment = (HotelDetailReviewFragment) HotelDetailReviewFragment.getInstance(isFrom, hotelId, reviewList, pricePerNight);
                         fragmentTransaction.replace(R.id.llDetails, hotelDetailReviewFragment);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
@@ -254,6 +255,20 @@ public class HotelDetailsActivity extends BaseActivity {
     }
 
     public void onBookingClick(int isFrom) {
+        if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+            bookNow(AppConstant.IS_FROM_ACCOMMODATION);
+        } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+            bookNow(AppConstant.IS_FROM_THING_TO_DO);
+        } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+            bookNow(AppConstant.IS_FROM_COUPON);
+        } else if (isFrom == AppConstant.IS_FROM_EVENT) {
+
+        } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
+
+        }
+    }
+
+    private void bookNow(int isFrom) {
         if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
             Intent intent = new Intent(mActivity, BookHotelActivity.class);
             intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, detailId);
@@ -287,8 +302,11 @@ public class HotelDetailsActivity extends BaseActivity {
             intent.putExtra(AppConstant.EXT_HOTEL_RATTING, "3");
             startActivity(intent);
             goNext();
-        }
+        } else if (isFrom == AppConstant.IS_FROM_EVENT) {
 
+        } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
+
+        }
     }
 
     @Override
@@ -315,11 +333,11 @@ public class HotelDetailsActivity extends BaseActivity {
                 goNext();
                 break;
             case R.id.ivPlacePin:
-                if (latitude != null && longitude != null && latitude.length() > 0 && longitude.length() > 0 && location !=null && location.length() > 0){
+                if (latitude != null && longitude != null && latitude.length() > 0 && longitude.length() > 0 && location != null && location.length() > 0) {
                     Intent mapIntent = new Intent(mActivity, HotelDetailMapActivity.class);
-                    mapIntent.putExtra(AppConstant.EXT_LATITUDE,latitude);
-                    mapIntent.putExtra(AppConstant.EXT_LONGITUDE,longitude);
-                    mapIntent.putExtra(AppConstant.EXT_MAP_LOCATION,location);
+                    mapIntent.putExtra(AppConstant.EXT_LATITUDE, latitude);
+                    mapIntent.putExtra(AppConstant.EXT_LONGITUDE, longitude);
+                    mapIntent.putExtra(AppConstant.EXT_MAP_LOCATION, location);
                     startActivity(mapIntent);
                     goNext();
                 }
@@ -420,7 +438,7 @@ public class HotelDetailsActivity extends BaseActivity {
             } else {
                 Utility.showProgress(mActivity);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<AccommodationDetailsRequestResponse> call = service.getAccommodationDetails(Utility.getLocale(),WebUtility.GET_DETAILS + hotelId);
+                Call<AccommodationDetailsRequestResponse> call = service.getAccommodationDetails(Utility.getLocale(), WebUtility.GET_DETAILS + hotelId);
                 call.enqueue(new Callback<AccommodationDetailsRequestResponse>() {
                     @Override
                     public void onResponse(Call<AccommodationDetailsRequestResponse> call, Response<AccommodationDetailsRequestResponse> response) {
@@ -460,7 +478,7 @@ public class HotelDetailsActivity extends BaseActivity {
             } else {
                 Utility.showProgress(mActivity);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<ThingToDoDetailRequestResponse> call = service.getThingToDoDetails(Utility.getLocale(),WebUtility.GET_THING_TO_DO_DETAILS + hotelId);
+                Call<ThingToDoDetailRequestResponse> call = service.getThingToDoDetails(Utility.getLocale(), WebUtility.GET_THING_TO_DO_DETAILS + hotelId);
                 call.enqueue(new Callback<ThingToDoDetailRequestResponse>() {
                     @Override
                     public void onResponse(Call<ThingToDoDetailRequestResponse> call, Response<ThingToDoDetailRequestResponse> response) {
@@ -500,7 +518,7 @@ public class HotelDetailsActivity extends BaseActivity {
             } else {
                 Utility.showProgress(mActivity);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<GetCouponDetailsRequestResponse> call = service.getCouponDetails(Utility.getLocale(),WebUtility.GET_COUPON_DETAILS + hotelId);
+                Call<GetCouponDetailsRequestResponse> call = service.getCouponDetails(Utility.getLocale(), WebUtility.GET_COUPON_DETAILS + hotelId);
                 call.enqueue(new Callback<GetCouponDetailsRequestResponse>() {
                     @Override
                     public void onResponse(Call<GetCouponDetailsRequestResponse> call, Response<GetCouponDetailsRequestResponse> response) {
@@ -591,10 +609,9 @@ public class HotelDetailsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        Intent searchIntent = new Intent(HotelDetailsActivity.this,SearchActivity.class);
-        searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ACCOMMODATION);
-        startActivity(searchIntent);
-        goPrevious();
+        //Intent searchIntent = new Intent(HotelDetailsActivity.this,SearchActivity.class);
+        //searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ACCOMMODATION);
+        //startActivity(searchIntent);
         finish();
     }
 }

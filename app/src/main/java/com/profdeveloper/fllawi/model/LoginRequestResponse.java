@@ -140,9 +140,6 @@ public class LoginRequestResponse implements Serializable {
         @SerializedName("name")
         @Expose
         private String name;
-        @SerializedName("permissions")
-        @Expose
-        private List<Object> permissions = null;
         @SerializedName("created_at")
         @Expose
         private String createdAt;
@@ -175,14 +172,6 @@ public class LoginRequestResponse implements Serializable {
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public List<Object> getPermissions() {
-            return permissions;
-        }
-
-        public void setPermissions(List<Object> permissions) {
-            this.permissions = permissions;
         }
 
         public String getCreatedAt() {

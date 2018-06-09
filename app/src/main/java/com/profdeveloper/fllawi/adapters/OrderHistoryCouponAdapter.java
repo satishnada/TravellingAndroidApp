@@ -45,22 +45,24 @@ public class OrderHistoryCouponAdapter extends RecyclerView.Adapter<OrderHistory
 
         Coupon coupon = orderHistoryList.get(position).getCoupon();
 
-        ImageLoader.getInstance().loadImage(Utility.BASE_URL + "/" + "", new SimpleImageLoadingListener() {
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
-                holder.ivOrder.setImageBitmap(loadedImage);
-            }
-        });
+        if (orderHistoryList.get(0).getGallery() != null && !orderHistoryList.get(0).getGallery().isEmpty()){
+            String imageUrl = orderHistoryList.get(0).getGallery().get(0).getImage();
+            ImageLoader.getInstance().loadImage(Utility.BASE_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    holder.ivOrder.setImageBitmap(loadedImage);
+                }
+            });
+        }
 
-        holder.tvOrderId.setText("Order ID: FLW#" + coupon.getId());
+        holder.tvOrderId.setText(R.string.order_id_flw + coupon.getId());
         holder.tvOrderTitle.setText(coupon.getTitle());
         holder.tvQty.setText(coupon.getQty()+"");
-        holder.tvValidDate.setText("Valid Till Date : "+coupon.getValidTillDate());
+        holder.tvValidDate.setText(context.getString(R.string.valid_till_date)+coupon.getValidTillDate());
         if (orderHistoryList.get(position).getPaymentMode() == 1){
-            holder.tvPaymentMethod.setText("Payment method : Paytab");
+            holder.tvPaymentMethod.setText(R.string.payment_method_paytab);
         }else{
-            holder.tvPaymentMethod.setText("Payment method : Bank");
+            holder.tvPaymentMethod.setText(R.string.payment_method_bank);
         }
 
         holder.tvFromDate.setText(coupon.getFromDate());

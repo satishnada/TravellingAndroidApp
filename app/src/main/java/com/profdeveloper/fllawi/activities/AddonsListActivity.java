@@ -444,14 +444,14 @@ public class AddonsListActivity extends BaseActivity {
                                 } else {
                                     recyclerAddons.setVisibility(View.GONE);
                                     tvNoData.setVisibility(View.VISIBLE);
-                                    tvNoData.setText(response.body().getMsg());
+                                    //tvNoData.setText(response.body().getMsg());
                                 }
 
                             } else {
                                 recyclerAddons.setVisibility(View.GONE);
                                 tvNoData.setVisibility(View.VISIBLE);
-                                tvNoData.setText(response.body().getMsg());
-                                Utility.showError(response.body().getMsg());
+                                //tvNoData.setText(response.body().getMsg());
+                                //Utility.showError(response.body().getMsg());
                             }
                         } else {
                             Utility.showError(response.body().getMsg());

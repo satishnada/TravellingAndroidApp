@@ -71,7 +71,7 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
     private View view;
     private ImageView ivTopProfileBack, ivTopProfileSearch;
     private TextView tvUpDateProfile;
-    private ImageView ivProfilePic;
+    private ImageView ivProfilePic,ivIdProf;
     private SimpleDateFormat dateFormatter;
     private TextView tvUserName, tvUserMobile, tvDateOfBirth, tvCountry, tvPaymentType, tvCurrency,
             tvLanguage, tvInterest;
@@ -106,6 +106,7 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
         ivTopProfileSearch = view.findViewById(R.id.ivTopProfileSearch);
 
         ivProfilePic = view.findViewById(R.id.ivProfilePic);
+        ivIdProf = view.findViewById(R.id.ivIdProf);
         tvUserName = view.findViewById(R.id.tvUserName);
         tvUserMobile = view.findViewById(R.id.tvUserMobile);
         tvDateOfBirth = view.findViewById(R.id.tvDateOfBirth);
@@ -126,6 +127,7 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
         radioFemale = view.findViewById(R.id.radioFemale);
 
         ivProfilePic.setOnClickListener(this);
+        ivIdProf.setOnClickListener(this);
         ivTopProfileBack.setOnClickListener(this);
         ivTopProfileSearch.setOnClickListener(this);
         tvUpDateProfile.setOnClickListener(this);
@@ -210,7 +212,23 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
                             @Override
                             public void permissionCallback(String[] permissions, Permission[] grantResults, boolean allGranted) {
                                 if (allGranted) {
-                                    pickImg();
+                                    pickImg(true);
+                                } else {
+                                    Utility.showError(getString(R.string.valid_profile_pic));
+                                }
+                            }
+                        });
+                break;
+            case R.id.ivIdProf:
+                mPermissionManagerInstance = new PermissionManagerInstance(this);
+                String[] permissions1 = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+                mPermissionManagerInstance.requestForPermissions(
+                        permissions1,
+                        new PermissionManagerListener() {
+                            @Override
+                            public void permissionCallback(String[] permissions, Permission[] grantResults, boolean allGranted) {
+                                if (allGranted) {
+                                    pickImg(false);
                                 } else {
                                     Utility.showError(getString(R.string.valid_profile_pic));
                                 }
@@ -593,7 +611,7 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
         popupWindowDialog.show();
     }
 
-    public void pickImg() {
+    public void pickImg(final boolean isProfilePic) {
 
         final BottomSheetDialog dialog = new BottomSheetDialog(this);
         View view = LayoutInflater.from(this).inflate(R.layout.layout_capture, null);
@@ -620,8 +638,13 @@ public class ProfileActivity extends BaseActivity implements OnCommonAdapterItem
 
                             @Override
                             public void onImageReceived(Uri imageUri) {
-                                userProfilePic = Utility.compressImage(imageUri.getPath(), ProfileActivity.this);
-                                ivProfilePic.setImageBitmap(new BitmapFactory().decodeFile(userProfilePic));
+                                if (isProfilePic){
+                                    userProfilePic = Utility.compressImage(imageUri.getPath(), ProfileActivity.this);
+                                    ivProfilePic.setImageBitmap(new BitmapFactory().decodeFile(userProfilePic));
+                                }else{
+                                    userProfIdPic = Utility.compressImage(imageUri.getPath(), ProfileActivity.this);
+                                    ivIdProf.setImageBitmap(new BitmapFactory().decodeFile(userProfIdPic));
+                                }
                             }
                         })
                         .setImageName(System.currentTimeMillis() + "")

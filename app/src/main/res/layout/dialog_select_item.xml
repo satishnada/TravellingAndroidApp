@@ -47,6 +47,7 @@
             android:id="@+id/rvSelectItem"
             android:layout_width="match_parent"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
@@ -57,16 +58,16 @@
             android:background="@drawable/rounded_corner_bg_orang"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:paddingStart="@dimen/_5sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:gravity="center"
             android:capitalize="sentences"
             android:textAllCaps="true"
             android:text="@string/submit"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp" />
 
     </LinearLayout>
 

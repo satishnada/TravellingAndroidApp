@@ -48,21 +48,24 @@ public class OrderHistoryThingToDoAdapter extends RecyclerView.Adapter<OrderHist
 
         Thingtodo thingtodo = orderHistoryList.get(position).getThingtodo();
 
-        ImageLoader.getInstance().loadImage(Utility.BASE_URL + "/" + "", new SimpleImageLoadingListener() {
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
-                holder.ivOrder.setImageBitmap(loadedImage);
-            }
-        });
+        if (orderHistoryList.get(0).getGallery() != null && !orderHistoryList.get(0).getGallery().isEmpty()){
+            String imageUrl = orderHistoryList.get(0).getGallery().get(0).getImage();
+            ImageLoader.getInstance().loadImage(Utility.BASE_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    // Do whatever you want with Bitmap
+                    holder.ivOrder.setImageBitmap(loadedImage);
+                }
+            });
+        }
 
-        holder.tvOrderId.setText("Order ID: FLW#" + thingtodo.getId());
+        holder.tvOrderId.setText(context.getString(R.string.order_id_flw) + thingtodo.getId());
         holder.tvOrderTitle.setText(thingtodo.getTitle());
         holder.tvScheduleDate.setText("Schedule Date : "+orderHistoryList.get(position).getScheduleDate());
         if (orderHistoryList.get(position).getPaymentMode() == 1){
-            holder.tvPaymentMethod.setText("Payment method : Paytab");
+            holder.tvPaymentMethod.setText(R.string.payment_method_paytab);
         }else{
-            holder.tvPaymentMethod.setText("Payment method : Bank");
+            holder.tvPaymentMethod.setText(R.string.payment_method_bank);
         }
 
         holder.tvFromDate.setText(orderHistoryList.get(position).getScheduleStartTime());

@@ -13,6 +13,9 @@ public class BookingHistoryRequestResponse implements Serializable {
     @SerializedName("msg")
     @Expose
     private String msg;
+    @SerializedName("image_url")
+    @Expose
+    private String image_url;
     @SerializedName("obj_accomodation_booking")
     @Expose
     private ObjAccomodationBooking objAccomodationBooking;
@@ -41,4 +44,11 @@ public class BookingHistoryRequestResponse implements Serializable {
         this.objAccomodationBooking = objAccomodationBooking;
     }
 
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
 }

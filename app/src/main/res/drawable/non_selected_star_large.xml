@@ -3,16 +3,16 @@
 
     <item android:state_pressed="true"
         android:state_window_focused="true"
-        android:drawable="@drawable/ic_normal_star_hotel" />
+        android:drawable="@drawable/ic_non_star_large" />
 
     <item android:state_focused="true"
         android:state_window_focused="true"
-        android:drawable="@drawable/ic_normal_star_hotel" />
+        android:drawable="@drawable/ic_non_star_large" />
 
     <item android:state_selected="true"
         android:state_window_focused="true"
-        android:drawable="@drawable/ic_normal_star_hotel" />
+        android:drawable="@drawable/ic_non_star_large" />
 
-    <item android:drawable="@drawable/ic_normal_star_hotel" />
+    <item android:drawable="@drawable/ic_non_star_large" />
 
 </selector>

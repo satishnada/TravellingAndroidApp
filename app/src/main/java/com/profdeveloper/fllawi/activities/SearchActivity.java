@@ -399,7 +399,7 @@ public class SearchActivity extends BaseActivity {
                                 if (response.body() != null) {
                                     if (response.body().getSearchResultMainData() != null) {
                                         if (response.body().getSearchResultMainData().getSearchHotelList() != null && response.body().getSearchResultMainData().getSearchHotelList().getData().size() == 0) {
-                                            Utility.showError("No Search Data Found");
+                                            Utility.showError(getString(R.string.no_search_data));
                                         } else {
                                             Utility.BASE_URL = response.body().getImageUrl();
                                             Intent searchHotel = new Intent(mActivity, SearchResultActivity.class);
@@ -410,14 +410,13 @@ public class SearchActivity extends BaseActivity {
                                             bundle.putSerializable(AppConstant.EXT_SEARCH_DATA, response.body());
                                             searchHotel.putExtras(bundle);
                                             startActivity(searchHotel);
-                                            finish();
                                             goNext();
                                         }
                                     } else {
-                                        Utility.showError("No Search Data Found");
+                                        Utility.showError(getString(R.string.no_search_data));
                                     }
                                 } else {
-                                    Utility.showError("No Search Data Found");
+                                    Utility.showError(getString(R.string.no_search_data));
                                 }
 
                             } else {
@@ -471,7 +470,6 @@ public class SearchActivity extends BaseActivity {
                                             bundle.putSerializable(AppConstant.EXT_SEARCH_DATA, response.body());
                                             searchHotel.putExtras(bundle);
                                             startActivity(searchHotel);
-                                            finish();
                                             goNext();
                                         }
                                     } else {
@@ -545,7 +543,6 @@ public class SearchActivity extends BaseActivity {
                                             bundle.putSerializable(AppConstant.EXT_SEARCH_DATA, response.body());
                                             searchHotel.putExtras(bundle);
                                             startActivity(searchHotel);
-                                            finish();
                                             goNext();
                                         }
                                     } else {
@@ -632,10 +629,8 @@ public class SearchActivity extends BaseActivity {
         }
     }
 
-
     @Override
     public void onBackPressed() {
         finish();
-        goPrevious();
     }
 }

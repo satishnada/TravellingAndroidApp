@@ -166,7 +166,6 @@ public class SearchResultActivity extends BaseActivity {
         intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
         startActivity(intent);
         goNext();
-        finish();
     }
 
     public void onCouponItemClick(com.profdeveloper.fllawi.model.Coupons.Datum searchResultData) {
@@ -179,7 +178,6 @@ public class SearchResultActivity extends BaseActivity {
         intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
         startActivity(intent);
         goNext();
-        finish();
     }
 
     public void onThingToDoItemClick(com.profdeveloper.fllawi.model.ThingToDoSearch.Datum searchResultData) {
@@ -191,7 +189,6 @@ public class SearchResultActivity extends BaseActivity {
         intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
         startActivity(intent);
         goNext();
-        finish();
     }
 
     @Override
@@ -282,8 +279,6 @@ public class SearchResultActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        Intent homeIntent = new Intent(mActivity, HomeActivity.class);
-        startActivity(homeIntent);
         finish();
         goPrevious();
     }

@@ -43,8 +43,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 public class HotelDetailReviewFragment extends Fragment {
 
+    private final int LOGIN_REQUEST = 1001;
     private RecyclerView rvReviews;
     private HotelReviewsListAdapter hotelReviewsListAdapter;
     private LinearLayout llContinueBooking;
@@ -54,6 +57,9 @@ public class HotelDetailReviewFragment extends Fragment {
     private TextView tvPrice, tvReviewsCount, tvAddRatting;
     private int isFrom = 1;
     private String id;
+    private String reviewName = "";
+    private String reviewMessage = "";
+    private float reviewRatting = 0;
 
     public HotelDetailReviewFragment() {
     }
@@ -156,20 +162,31 @@ public class HotelDetailReviewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (evFullName.getText().toString().trim().length() == 0) {
-                    Utility.showError("Please enter your full name");
+                    Utility.showError(getString(R.string.valid_full_name));
                 } else if (evReviewMessage.getText().toString().trim().length() == 0) {
-                    Utility.showError("Please enter your message");
+                    Utility.showError(getString(R.string.valid_message));
                 } else if (ratingBarReviewStar.getRating() == 0) {
-                    Utility.showError("Please select ratting");
+                    Utility.showError(getString(R.string.valid_ratting));
                 } else {
                     popupWindowDialog.dismiss();
-                   if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
-                       addAccommodationReview(ratingBarReviewStar.getRating()+"",evFullName.getText().toString().trim(),evReviewMessage.getText().toString().trim());
-                   }else if (isFrom == AppConstant.IS_FROM_COUPON){
-                       addCouponReview(ratingBarReviewStar.getRating()+"",evFullName.getText().toString().trim(),evReviewMessage.getText().toString().trim());
-                   }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
-                       addThingToDoReview(ratingBarReviewStar.getRating()+"",evFullName.getText().toString().trim(),evReviewMessage.getText().toString().trim());
-                   }
+
+                    reviewName = evFullName.getText().toString().trim();
+                    reviewMessage = evReviewMessage.getText().toString().trim();
+                    reviewRatting = ratingBarReviewStar.getRating();
+
+                    if (!PreferenceData.isLogin()){
+                        Intent intent = new Intent(getActivity(), SignInActivity.class);
+                        intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ADD_REVIEW);
+                        startActivityForResult(intent, LOGIN_REQUEST);
+                    }else{
+                        if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+                            addAccommodationReview(ratingBarReviewStar.getRating()+"",evFullName.getText().toString().trim(),evReviewMessage.getText().toString().trim());
+                        }else if (isFrom == AppConstant.IS_FROM_COUPON){
+                            addCouponReview(ratingBarReviewStar.getRating()+"",evFullName.getText().toString().trim(),evReviewMessage.getText().toString().trim());
+                        }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+                            addThingToDoReview(ratingBarReviewStar.getRating()+"",evFullName.getText().toString().trim(),evReviewMessage.getText().toString().trim());
+                        }
+                    }
                 }
             }
         });
@@ -182,6 +199,32 @@ public class HotelDetailReviewFragment extends Fragment {
         });
 
         popupWindowDialog.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        int isResultFrom = 0;
+        if (requestCode == LOGIN_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    isResultFrom = data.getIntExtra(AppConstant.EXT_IS_FROM, 0);
+                    if (isResultFrom == AppConstant.IS_FROM_ADD_REVIEW) {
+                        if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+                            addAccommodationReview(reviewRatting+"",reviewName,reviewMessage);
+                        } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                            addCouponReview(reviewRatting+"",reviewName,reviewMessage);
+                        } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                            addThingToDoReview(reviewRatting+"",reviewName,reviewMessage);
+                        } else if (isFrom == AppConstant.IS_FROM_EVENT) {
+
+                        } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void getAccommodationReviewList() {

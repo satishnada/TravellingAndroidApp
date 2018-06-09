@@ -2,9 +2,9 @@
 <!--suppress AndroidDomInspection -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+android:id/background"
-        android:drawable="@drawable/non_selected_star" />
+        android:drawable="@drawable/non_selected_star_large" />
     <item android:id="@+android:id/secondaryProgress"
-        android:drawable="@drawable/non_selected_star" />
+        android:drawable="@drawable/non_selected_star_large" />
     <item android:id="@+android:id/progress"
-        android:drawable="@drawable/selected_stars" />
+        android:drawable="@drawable/selected_stars_large" />
 </layer-list>

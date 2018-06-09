@@ -28,6 +28,7 @@ public class ForgotPasswordActivity extends BaseActivity {
     private View view;
     private TextView tvSubmit;
     private EditText edtEmail;
+    private int isFrom = 0;
 
     @Override
     public void setLayoutView() {
@@ -41,6 +42,7 @@ public class ForgotPasswordActivity extends BaseActivity {
         if (bundle != null){
             edtEmail.setText(bundle.getString(AppConstant.EXT_USER_EMAIL));
             edtEmail.setSelection(bundle.getString(AppConstant.EXT_USER_EMAIL).length());
+            isFrom = bundle.getInt(AppConstant.EXT_IS_FROM);
         }
 
         tvSubmit.setOnClickListener(this);
@@ -131,6 +133,7 @@ public class ForgotPasswordActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         Intent loginIntent = new Intent(mActivity, SignInActivity.class);
+        loginIntent.putExtra(AppConstant.EXT_IS_FROM,isFrom);
         startActivity(loginIntent);
         finish();
         goPrevious();

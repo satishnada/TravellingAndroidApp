@@ -28,30 +28,22 @@ import com.profdeveloper.fllawi.model.ThingToDoTimeSlot.ThingToDoTimeSlotRequest
 import com.profdeveloper.fllawi.model.UserProfileDataRequestResponse;
 import com.profdeveloper.fllawi.model.couponDetails.GetCouponDetailsRequestResponse;
 import com.profdeveloper.fllawi.utils.AppConstant;
-import com.profdeveloper.fllawi.utils.Utility;
 
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public class WebServiceCaller {
@@ -315,7 +307,7 @@ public class WebServiceCaller {
                                                                @Field(AppConstant.result) String result);
 
         @FormUrlEncoded
-        @POST(WebUtility.BOOKING_HISTORY_LIST)
+        @POST(WebUtility.BOOKING_HISTORY_ACCOMMODATION_LIST)
         Call<BookingHistoryRequestResponse> getBookingHistoryList(@Header("locale") String locale,
                                                                   @Field(AppConstant.type) String type,
                                                                   @Field(AppConstant.user_id) String user_id);
@@ -333,7 +325,7 @@ public class WebServiceCaller {
                                                                               @Field(AppConstant.user_id) String user_id);
 
         @FormUrlEncoded
-        @POST(WebUtility.BOOKING_HISTORY_DETAIL)
+        @POST(WebUtility.BOOKING_HISTORY_ACCOMMODATION_DETAIL)
         Call<BookingHistoryDetailRequestResponse> getBookingHistoryDetails(@Header("locale") String locale,
                                                                            @Field(AppConstant.customer_id) String customer_id,
                                                                            @Field(AppConstant.booking_id) String booking_id);

@@ -76,10 +76,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activities.SearchHotelActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".activities.SortHotelActivity"
             android:screenOrientation="portrait" />
 

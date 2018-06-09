@@ -30,7 +30,7 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:drawableStart="@drawable/ic_sort"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_13ssp"
                 android:text="@string/sort" />
 
         </LinearLayout>
@@ -58,7 +58,7 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:drawableStart="@drawable/ic_filter"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_13ssp"
                 android:text="@string/filter" />
 
         </LinearLayout>

@@ -137,7 +137,7 @@
 
                 <RatingBar
                     android:id="@+id/ratingBarStar"
-                    style="@style/CustomRatingBar"
+                    style="@style/CustomRatingBarSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -172,7 +172,7 @@
 
                 <RatingBar
                     android:id="@+id/ratingBarUser"
-                    style="@style/CustomRatingBar"
+                    style="@style/CustomRatingBarSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"

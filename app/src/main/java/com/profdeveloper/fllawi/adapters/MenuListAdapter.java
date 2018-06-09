@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.profdeveloper.BaseActivity;
 import com.profdeveloper.fllawi.R;
+import com.profdeveloper.fllawi.utils.PreferenceData;
 
 public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHolder> {
 
@@ -20,13 +21,22 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
 
     public MenuListAdapter(Context context) {
         this.context = context;
-        serviceList = context.getResources().getStringArray(R.array.side_menu_str);
+        if (!PreferenceData.isLogin()) {
+            serviceList = context.getResources().getStringArray(R.array.side_menu_str);
+        } else {
+            serviceList = context.getResources().getStringArray(R.array.side_menu_str_login);
+        }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_side_menu, parent, false);
-        serviceImg = context.getResources().obtainTypedArray(R.array.side_menu);
+        if (!PreferenceData.isLogin()) {
+            serviceImg = context.getResources().obtainTypedArray(R.array.side_menu);
+        } else {
+            serviceImg = context.getResources().obtainTypedArray(R.array.side_menu_login);
+        }
+
         return new ViewHolder(v);
     }
 

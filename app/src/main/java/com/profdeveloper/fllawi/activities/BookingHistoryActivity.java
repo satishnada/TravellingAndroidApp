@@ -42,6 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BookingHistoryActivity extends BaseActivity {
+
     private static final String TAG = BookingHistoryActivity.class.getSimpleName();
     private View view;
     private RecyclerView recyclerBookingHistory;
@@ -138,7 +139,7 @@ public class BookingHistoryActivity extends BaseActivity {
                 Utility.showProgress(mActivity);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
                 //Call<BookingHistoryRequestResponse> call = service.getBookingHistoryList(Utility.getLocale(),sltType+"",PreferenceData.getUserData().getId()+"");
-                Call<BookingHistoryRequestResponse> call = service.getBookingHistoryList(Utility.getLocale(),sltType+"",PreferenceData.getUserData().getId()+"");
+                Call<BookingHistoryRequestResponse> call = service.getBookingHistoryList(Utility.getLocale(), sltType + "", PreferenceData.getUserData().getId() + "");
 
                 call.enqueue(new Callback<BookingHistoryRequestResponse>() {
                     @Override
@@ -148,9 +149,10 @@ public class BookingHistoryActivity extends BaseActivity {
                             if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
 
                                 orderHistoryList.clear();
+                                Utility.BASE_GALLERY_URL = response.body().getImage_url();
                                 orderHistoryList.addAll(response.body().getObjAccomodationBooking().getData());
 
-                                if (orderHistoryList != null && !orderHistoryList.isEmpty()){
+                                if (orderHistoryList != null && !orderHistoryList.isEmpty()) {
                                     recyclerBookingHistory.setVisibility(View.VISIBLE);
                                     tvNoData.setVisibility(View.GONE);
 
@@ -159,7 +161,7 @@ public class BookingHistoryActivity extends BaseActivity {
                                     orderHistoryAdapter = new OrderHistoryAccommodationAdapter(BookingHistoryActivity.this, orderHistoryList);
                                     recyclerBookingHistory.setAdapter(orderHistoryAdapter);
 
-                                }else{
+                                } else {
                                     recyclerBookingHistory.setVisibility(View.GONE);
                                     tvNoData.setVisibility(View.VISIBLE);
                                 }
@@ -200,7 +202,7 @@ public class BookingHistoryActivity extends BaseActivity {
                 Utility.showProgress(mActivity);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
                 //Call<BookingHistoryRequestResponse> call = service.getBookingHistoryList(Utility.getLocale(),sltType+"",PreferenceData.getUserData().getId()+"");
-                Call<BookingHistoryThingToDoRequestResponse> call = service.getBookingHistoryThingToDoList(Utility.getLocale(),sltType+"",PreferenceData.getUserData().getId()+"");
+                Call<BookingHistoryThingToDoRequestResponse> call = service.getBookingHistoryThingToDoList(Utility.getLocale(), sltType + "", PreferenceData.getUserData().getId() + "");
 
                 call.enqueue(new Callback<BookingHistoryThingToDoRequestResponse>() {
                     @Override
@@ -210,9 +212,10 @@ public class BookingHistoryActivity extends BaseActivity {
                             if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
 
                                 orderHistoryThingToDoList.clear();
+                                Utility.BASE_GALLERY_URL = response.body().getImage_url();
                                 orderHistoryThingToDoList.addAll(response.body().getObjThingtodoBooking().getData());
 
-                                if (orderHistoryThingToDoList != null && !orderHistoryThingToDoList.isEmpty()){
+                                if (orderHistoryThingToDoList != null && !orderHistoryThingToDoList.isEmpty()) {
                                     recyclerBookingHistory.setVisibility(View.VISIBLE);
                                     tvNoData.setVisibility(View.GONE);
 
@@ -221,7 +224,7 @@ public class BookingHistoryActivity extends BaseActivity {
                                     orderHistoryThingToDoAdapter = new OrderHistoryThingToDoAdapter(BookingHistoryActivity.this, orderHistoryThingToDoList);
                                     recyclerBookingHistory.setAdapter(orderHistoryThingToDoAdapter);
 
-                                }else{
+                                } else {
                                     recyclerBookingHistory.setVisibility(View.GONE);
                                     tvNoData.setVisibility(View.VISIBLE);
                                 }
@@ -262,7 +265,7 @@ public class BookingHistoryActivity extends BaseActivity {
                 Utility.showProgress(mActivity);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
                 //Call<BookingHistoryRequestResponse> call = service.getBookingHistoryList(Utility.getLocale(),sltType+"",PreferenceData.getUserData().getId()+"");
-                Call<BookingHistoryCouponRequestResponse> call = service.getBookingHistoryCouponList(Utility.getLocale(),sltType+"",PreferenceData.getUserData().getId()+"");
+                Call<BookingHistoryCouponRequestResponse> call = service.getBookingHistoryCouponList(Utility.getLocale(), sltType + "", PreferenceData.getUserData().getId() + "");
 
                 call.enqueue(new Callback<BookingHistoryCouponRequestResponse>() {
                     @Override
@@ -272,9 +275,10 @@ public class BookingHistoryActivity extends BaseActivity {
                             if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
 
                                 orderHistoryCouponList.clear();
+                                Utility.BASE_GALLERY_URL = response.body().getImage_url();
                                 orderHistoryCouponList.addAll(response.body().getObjCouponBooking().getData());
 
-                                if (orderHistoryCouponList != null && !orderHistoryCouponList.isEmpty()){
+                                if (orderHistoryCouponList != null && !orderHistoryCouponList.isEmpty()) {
                                     recyclerBookingHistory.setVisibility(View.VISIBLE);
                                     tvNoData.setVisibility(View.GONE);
 
@@ -283,7 +287,7 @@ public class BookingHistoryActivity extends BaseActivity {
                                     orderHistoryCouponAdapter = new OrderHistoryCouponAdapter(BookingHistoryActivity.this, orderHistoryCouponList);
                                     recyclerBookingHistory.setAdapter(orderHistoryCouponAdapter);
 
-                                }else{
+                                } else {
                                     recyclerBookingHistory.setVisibility(View.GONE);
                                     tvNoData.setVisibility(View.VISIBLE);
                                 }
@@ -326,15 +330,15 @@ public class BookingHistoryActivity extends BaseActivity {
 
     public void onHistoryItemClick(String id) {
         //TODO need to handle multiple type with
-        Intent intent = new Intent(BookingHistoryActivity.this,BookingHistoryDetailActivity.class);
-        if (sltPosition == 0){ // Accommodation
-            intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ACCOMMODATION);
-        }else if (sltPosition == 1){ // Thing to do
-            intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_THING_TO_DO);
-        }else if (sltPosition == 2) { // Coupon
-            intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_COUPON);
+        Intent intent = new Intent(BookingHistoryActivity.this, BookingHistoryDetailActivity.class);
+        if (sltPosition == 0) { // Accommodation
+            intent.putExtra(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_ACCOMMODATION);
+        } else if (sltPosition == 1) { // Thing to do
+            intent.putExtra(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_THING_TO_DO);
+        } else if (sltPosition == 2) { // Coupon
+            intent.putExtra(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_COUPON);
         }
-        intent.putExtra(AppConstant.EXT_BOOKING_ID,id);
+        intent.putExtra(AppConstant.EXT_BOOKING_ID, id);
         startActivity(intent);
         goNext();
     }
@@ -348,18 +352,18 @@ public class BookingHistoryActivity extends BaseActivity {
             TextView tvPending = layout.findViewById(R.id.tvPending);
             TextView tvApproved = layout.findViewById(R.id.tvApproved);
 
-            if (sltType == 2){
-                tvPastBooking.setTextColor(mActivity.getResources().getColor(R.color.dark_gray));
-                tvPending.setTextColor(mActivity.getResources().getColor(R.color.app_blue));
-                tvApproved.setTextColor(mActivity.getResources().getColor(R.color.app_blue));
-            }else if (sltType == 0){
-                tvPending.setTextColor(mActivity.getResources().getColor(R.color.dark_gray));
+            if (sltType == 2) {
+                tvApproved.setTextColor(mActivity.getResources().getColor(R.color.black_dark));
                 tvPastBooking.setTextColor(mActivity.getResources().getColor(R.color.app_blue));
-                tvApproved.setTextColor(mActivity.getResources().getColor(R.color.app_blue));
-            }else if (sltType == 1){
-                tvApproved.setTextColor(mActivity.getResources().getColor(R.color.dark_gray));
-                tvPastBooking.setTextColor(mActivity.getResources().getColor(R.color.app_blue));
+                tvPending.setTextColor(mActivity.getResources().getColor(R.color.black_dark));
+            } else if (sltType == 0) {
+                tvPastBooking.setTextColor(mActivity.getResources().getColor(R.color.black_dark));
                 tvPending.setTextColor(mActivity.getResources().getColor(R.color.app_blue));
+                tvApproved.setTextColor(mActivity.getResources().getColor(R.color.black_dark));
+            } else if (sltType == 1) {
+                tvPending.setTextColor(mActivity.getResources().getColor(R.color.black_dark));
+                tvPastBooking.setTextColor(mActivity.getResources().getColor(R.color.black_dark));
+                tvApproved.setTextColor(mActivity.getResources().getColor(R.color.app_blue));
             }
 
             final PopupWindow popupWindow = new PopupWindow(layout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
@@ -407,12 +411,12 @@ public class BookingHistoryActivity extends BaseActivity {
         }
     }
 
-    private void getNewList(){
-        if(sltPosition == 0){ // ACCOMMODATION
+    private void getNewList() {
+        if (sltPosition == 0) { // ACCOMMODATION
             getAccommodationHistoryList();
-        }else if (sltPosition == 1){ // THING TO DO
+        } else if (sltPosition == 1) { // THING TO DO
             getThingToDoHistoryList();
-        }else if (sltPosition == 2){
+        } else if (sltPosition == 2) {
             getCouponHistoryList();  // COUPON
         }
     }
@@ -428,7 +432,7 @@ public class BookingHistoryActivity extends BaseActivity {
                 if (tabViewChild instanceof TextView) {
                     Typeface tf = Typeface.createFromAsset(getAssets(), TypeFace.RomanTF);
                     ((TextView) tabViewChild).setTypeface(tf);
-                    ((TextView) tabViewChild).setTextSize(getResources().getDimension(R.dimen._8sdp));
+                    ((TextView) tabViewChild).setTextSize(getResources().getDimension(R.dimen._16sdp));
                 }
             }
         }

@@ -44,9 +44,10 @@ import com.profdeveloper.fllawi.utils.Utility;
 import java.util.Locale;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+
     public LinearLayout llContainer;
     public SnackBarInstance snackBarInstance;
-
+    private final int LOGIN_REQUEST = 1001;
     public LinearLayout llTop;
     private ImageView imgContainerShadow;
     public ImageView ivTopBack;
@@ -194,10 +195,34 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                 }
             }
         } else {
-            if (drawer_layout.isDrawerOpen(Gravity.START)) {
-                drawer_layout.closeDrawer(Gravity.LEFT);
-            } else {
-                drawer_layout.openDrawer(Gravity.LEFT);
+            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")){
+                try {
+                    if (drawer_layout.isDrawerOpen(Gravity.START)) {
+                        drawer_layout.closeDrawer(Gravity.RIGHT);
+                    } else {
+                        drawer_layout.openDrawer(Gravity.RIGHT);
+                    }
+                } catch (Exception e) {
+                    if (drawer_layout.isDrawerOpen(Gravity.START)) {
+                        drawer_layout.closeDrawer(Gravity.LEFT);
+                    } else {
+                        drawer_layout.openDrawer(Gravity.LEFT);
+                    }
+                }
+            }else{
+                try {
+                    if (drawer_layout.isDrawerOpen(Gravity.START)) {
+                        drawer_layout.closeDrawer(Gravity.LEFT);
+                    } else {
+                        drawer_layout.openDrawer(Gravity.LEFT);
+                    }
+                } catch (Exception e) {
+                    if (drawer_layout.isDrawerOpen(Gravity.START)) {
+                        drawer_layout.closeDrawer(Gravity.RIGHT);
+                    } else {
+                        drawer_layout.openDrawer(Gravity.RIGHT);
+                    }
+                }
             }
         }
     }
@@ -207,51 +232,112 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (position == 0) {
             onClickHomeScreen();
         } else if (position == 1) {
-            onClickUserProfile();
+            if (!PreferenceData.isLogin()){
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.OVERVIEW.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }else{
+                onClickUserProfile();
+            }
         } else if (position == 2) {
-            Intent intent = new Intent(mActivity, WebViewActivity.class);
-            intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.OVERVIEW.value);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(0, 0);
+            if (!PreferenceData.isLogin()){
+                Intent intent = new Intent(mActivity, NotificationActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }else{
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.OVERVIEW.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
         } else if (position == 3) {
-            Intent intent = new Intent(mActivity, BookingHistoryActivity.class);
-            intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.OVERVIEW.value);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(0, 0);
+            if (!PreferenceData.isLogin()){
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.PRIVACY_POLICY.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }else{
+                Intent intent = new Intent(mActivity, BookingHistoryActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.OVERVIEW.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
         } else if (position == 4) {
-            Intent intent = new Intent(mActivity, NotificationActivity.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(0, 0);
+            if (!PreferenceData.isLogin()){
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.TERMS_AND_CONDITIONS.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }else{
+                Intent intent = new Intent(mActivity, NotificationActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
         } else if (position == 5) {
-            Intent intent = new Intent(mActivity, ChangePasswordActivity.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(0, 0);
+            if (!PreferenceData.isLogin()){
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.HELP_AND_SUPPORT.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }else{
+                Intent intent = new Intent(mActivity, ChangePasswordActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
         } else if (position == 6) {
-            Intent intent = new Intent(mActivity, WebViewActivity.class);
-            intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.PRIVACY_POLICY.value);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(0, 0);
+            if (!PreferenceData.isLogin()){
+                openBankInfoDialog();
+            }else{
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.PRIVACY_POLICY.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
         } else if (position == 7) {
-            Intent intent = new Intent(mActivity, WebViewActivity.class);
-            intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.TERMS_AND_CONDITIONS.value);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(0, 0);
+            if (!PreferenceData.isLogin()){
+                Intent intent = new Intent(mActivity, SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_SIDE_MENU);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }else{
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.TERMS_AND_CONDITIONS.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
         } else if (position == 8) {
-            Intent intent = new Intent(mActivity, WebViewActivity.class);
-            intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.HELP_AND_SUPPORT.value);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(0, 0);
+            if (!PreferenceData.isLogin()){
+
+            }else{
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(AppConstant.EXT_CONTENT_TYPE, WEB_VIEW_CONTENT_TYPE.HELP_AND_SUPPORT.value);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
         } else if (position == 9) {
-            openBankInfoDialog();
+            if (PreferenceData.isLogin()){
+                openBankInfoDialog();
+            }
         } else if (position == 10) {
-            logoutAlert("", getString(R.string.confirm_logout));
+            if (PreferenceData.isLogin()){
+                logoutAlert("", getString(R.string.confirm_logout));
+            }
         }
     }
 

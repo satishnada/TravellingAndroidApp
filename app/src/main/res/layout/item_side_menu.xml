@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@string/service_name"
             android:textColor="@color/white1"
-            android:textSize="@dimen/_10ssp" />
+            android:textSize="@dimen/_11ssp" />
 
     </LinearLayout>
 

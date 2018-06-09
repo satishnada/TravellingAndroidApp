@@ -26,7 +26,6 @@
     <string name="no_internet_connection">فضلا تاكد من اتصالك بالانترنت</string>
     <string name="message_something_wrong">حدثا خطا ما نرجو المحاولة لاحقا</string>
     <string name="downloading_files">تحميل الملفات </string>
-    <string name="skip">تخطي</string>
 
     <!--Help Activity-->
     <string name="lets_go">يالله نفلها </string>
@@ -129,7 +128,7 @@
         <item>@drawable/ic_facility_swimming_pool</item>
     </string-array>
 
-    <string-array name="side_menu">
+    <string-array name="side_menu_login">
         <item>@drawable/ic_home_menu</item>
         <item>@drawable/ic_menu_profile</item>
         <item>@drawable/ic_menu_overview</item>
@@ -143,7 +142,7 @@
         <item>@drawable/ic_menu_logout</item>
     </string-array>
 
-    <string-array name="side_menu_str">
+    <string-array name="side_menu_str_login">
         <item>@string/menu_home</item>
         <item>@string/menu_profile</item>
         <item>@string/menu_overview</item>
@@ -157,6 +156,28 @@
         <item>@string/menu_logout</item>
     </string-array>
 
+    <string-array name="side_menu">
+        <item>@drawable/ic_home_menu</item>
+        <item>@drawable/ic_menu_overview</item>
+        <item>@drawable/ic_menu_notifaction</item>
+        <item>@drawable/ic_menu_privacy_policy</item>
+        <item>@drawable/ic_menu_term_and_conditions</item>
+        <item>@drawable/ic_menu_help_support</item>
+        <item>@drawable/ic_bank_info_menu</item>
+        <item>@drawable/ic_home_menu</item>
+    </string-array>
+
+    <string-array name="side_menu_str">
+        <item>@string/menu_home</item>
+        <item>@string/menu_overview</item>
+        <item>@string/menu_notification</item>
+        <item>@string/menu_privacy_policy</item>
+        <item>@string/menu_term_and_condition</item>
+        <item>@string/menu_help</item>
+        <item>@string/menu_bank_info</item>
+        <item>@string/menu_login</item>
+    </string-array>
+
     <string name="menu_home">الرئيسية</string>
     <string name="menu_profile">الملف الشخصي</string>
     <string name="menu_overview">نظرة عامة</string>
@@ -167,6 +188,7 @@
     <string name="menu_term_and_condition">الشروط و الاحكام </string>
     <string name="menu_help">الدعم و المساعدة</string>
     <string name="menu_logout">تسجيل الخروج</string>
+    <string name="menu_login">تسجيل الدخول</string>
 
     <string-array name="our_services_str">
         <item>@string/accommodation</item>
@@ -224,18 +246,6 @@
     <string name="help">المساعدة</string>
     <string name="bookmarks">المفضلة</string>
 
-    <array name="my_profile_options">
-        <item>@string/drafts</item>
-        <item>@string/articles</item>
-        <item>@string/stats</item>
-        <item>@string/bookmarks</item>
-        <item>@string/notifications</item>
-        <item>@string/favorite_tags</item>
-        <item>@string/notes</item>
-        <item>@string/settings</item>
-        <item>@string/help</item>
-    </array>
-
     <string name="logout">الخروج</string>
     <string name="push_notifications">التنبيهات</string>
     <string name="connected_accounts">الحسابات المرتبطة</string>
@@ -259,7 +269,6 @@
     <string name="confirm_logout">هل ترغب في تسجيل الخروج؟</string>
     <string name="logout_message">هل ترغب في تسجيل الخروج؟</string>
     <string name="log_in">دخول</string>
-    <string name="login">دخول</string>
     <string name="search_result">نتيجة البحث</string>
     <string name="sort">ترتيب</string>
     <string name="filter">تصفية</string>

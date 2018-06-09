@@ -64,6 +64,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="center"
                     android:text=""
+                    android:visibility="gone"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -73,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:gravity="start"
+                    android:visibility="gone"
                     android:drawablePadding="@dimen/_5sdp"
                     android:drawableStart="@drawable/profile_loc"
                     android:text=""
@@ -108,7 +110,7 @@
                         android:gravity="center"
                         android:text="@string/first_name"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textSize="@dimen/_11ssp" />
 
                     <com.customviews.CustomRomanEditText
                         android:id="@+id/edtFirstName"
@@ -121,7 +123,7 @@
                         android:paddingTop="@dimen/_6sdp"
                         android:layout_marginBottom="@dimen/_15sdp"
                         android:text=""
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/black_dark"
                         android:textColorHint="@color/dark_gray"
                         android:textSize="@dimen/_10ssp" />
 
@@ -141,7 +143,7 @@
                         android:gravity="center"
                         android:text="@string/last_name"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textSize="@dimen/_11ssp" />
 
                     <com.customviews.CustomRomanEditText
                         android:id="@+id/edtLastName"
@@ -154,7 +156,7 @@
                         android:paddingTop="@dimen/_6sdp"
                         android:layout_marginBottom="@dimen/_15sdp"
                         android:text=""
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/black_dark"
                         android:textColorHint="@color/dark_gray"
                         android:textSize="@dimen/_10ssp" />
 
@@ -180,7 +182,7 @@
                     android:gravity="center"
                     android:text="@string/email_id"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanEditText
                     android:id="@+id/edtEmail"
@@ -193,7 +195,7 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -216,7 +218,7 @@
                     android:gravity="center"
                     android:text="@string/mobile_number"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanEditText
                     android:id="@+id/edtMobileNumber"
@@ -229,7 +231,7 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -252,7 +254,7 @@
                     android:gravity="center"
                     android:text="@string/date_of_birth"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvDateOfBirth"
@@ -265,7 +267,7 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -288,7 +290,7 @@
                     android:gravity="center"
                     android:text="@string/gender"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -325,6 +327,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/llGender"
                 android:orientation="vertical"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
@@ -336,13 +339,13 @@
                     android:gravity="start"
                     android:text="@string/country"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvCountry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_right_arrow"
+                    android:drawableEnd="@drawable/ic_down_arrow"
                     android:background="@drawable/edit_text_black_bg"
                     android:inputType="textPostalAddress"
                     android:paddingBottom="@dimen/_6sdp"
@@ -350,7 +353,7 @@
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
                     android:hint="@string/select_country_"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -373,7 +376,7 @@
                     android:gravity="center"
                     android:text="@string/address"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanEditText
                     android:id="@+id/edtAddress"
@@ -386,7 +389,7 @@
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
                     android:hint="@string/enter_address_1"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -409,7 +412,7 @@
                     android:gravity="center"
                     android:text="@string/website"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanEditText
                     android:id="@+id/edtWebSite"
@@ -422,7 +425,7 @@
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
                     android:hint="@string/enter_web_site"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -445,13 +448,13 @@
                     android:gravity="center"
                     android:text="@string/payment_type"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvPaymentType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_right_arrow"
+                    android:drawableEnd="@drawable/ic_down_arrow"
                     android:background="@drawable/edit_text_black_bg"
                     android:inputType="textPostalAddress"
                     android:paddingBottom="@dimen/_6sdp"
@@ -459,7 +462,7 @@
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:hint="@string/select_payment_mode"
                     android:text=""
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -482,13 +485,13 @@
                     android:gravity="center"
                     android:text="@string/currency"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvCurrency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_right_arrow"
+                    android:drawableEnd="@drawable/ic_down_arrow"
                     android:background="@drawable/edit_text_black_bg"
                     android:inputType="textPostalAddress"
                     android:paddingBottom="@dimen/_6sdp"
@@ -496,7 +499,7 @@
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:hint="@string/select_currency"
                     android:text=""
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -519,13 +522,13 @@
                     android:gravity="center"
                     android:text="@string/language"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvLanguage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_right_arrow"
+                    android:drawableEnd="@drawable/ic_down_arrow"
                     android:background="@drawable/edit_text_black_bg"
                     android:inputType="textPostalAddress"
                     android:paddingBottom="@dimen/_6sdp"
@@ -533,7 +536,7 @@
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
                     android:hint="@string/select_language"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
@@ -545,7 +548,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/llLanguage"
                 android:orientation="vertical"
-                android:layout_marginBottom="@dimen/_30sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
@@ -557,13 +559,13 @@
                     android:gravity="center"
                     android:text="@string/interest"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvInterest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_right_arrow"
+                    android:drawableEnd="@drawable/ic_down_arrow"
                     android:background="@drawable/edit_text_black_bg"
                     android:inputType="textPostalAddress"
                     android:paddingBottom="@dimen/_6sdp"
@@ -571,11 +573,44 @@
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:text=""
                     android:hint="@string/select_interest"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black_dark"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="@dimen/_10ssp" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llIdProf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llInterest"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_15sdp">
+
+                <com.customviews.CustomRomanTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/id_prof"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp" />
+
+                <ImageView
+                    android:id="@+id/ivIdProf"
+                    android:layout_width="@dimen/_140sdp"
+                    android:layout_height="@dimen/_140sdp"
+                    android:paddingBottom="@dimen/_6sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:src="@drawable/ic_placeholder_top" />
+
+            </LinearLayout>
+
 
         </RelativeLayout>
 

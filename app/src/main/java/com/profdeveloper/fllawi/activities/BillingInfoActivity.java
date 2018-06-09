@@ -49,6 +49,7 @@ public class BillingInfoActivity extends BaseActivity {
 
     private static final String TAG = BillingInfoActivity.class.getSimpleName();
     private final int paymentRequestCode = 100;
+    private final int LOGIN_REQUEST = 1001;
     private View view;
     private TextView tvFromDate, tvAdult, tvToDate, tvKids, tvAddonsAvailable,
             tvDiscount, tvTotalPayableBefore, tvCouponAmount, tvTotalPayableAfter,
@@ -270,32 +271,37 @@ public class BillingInfoActivity extends BaseActivity {
             case R.id.tvPayViaBank:
                 //startPaymentActivity();
                 paymentMode = "bank";
-                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
-                    accommodationInitPayment();
-                } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
-                    thingToDoInitPayment();
-                } else if (isFrom == AppConstant.IS_FROM_COUPON) {
-                    couponInitPayment();
+                if (!PreferenceData.isLogin()) {
+                    Intent intent = new Intent(mActivity, SignInActivity.class);
+                    intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_BOOKING);
+                    startActivityForResult(intent, LOGIN_REQUEST);
+                    goNext();
+                } else {
+                    if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+                        accommodationInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                        thingToDoInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                        couponInitPayment();
+                    }
                 }
-
-                /*Intent intent = new Intent(mActivity, BookingFeedbackActivity.class);
-                startActivity(intent);
-                finish();
-                goNext();*/
                 break;
             case R.id.tvPayViaCredit:
                 paymentMode = "paytab";
-                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
-                    accommodationInitPayment();
-                } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
-                    thingToDoInitPayment();
-                } else if (isFrom == AppConstant.IS_FROM_COUPON) {
-                    couponInitPayment();
+                if (!PreferenceData.isLogin()) {
+                    Intent intent = new Intent(mActivity, SignInActivity.class);
+                    intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_BOOKING);
+                    startActivityForResult(intent, LOGIN_REQUEST);
+                    goNext();
+                } else {
+                    if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+                        accommodationInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                        thingToDoInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                        couponInitPayment();
+                    }
                 }
-              /*  Intent intent1 = new Intent(mActivity, BookingFeedbackActivity.class);
-                startActivity(intent1);
-                finish();
-                goNext();*/
                 break;
             default:
                 super.onClick(v);
@@ -405,20 +411,20 @@ public class BillingInfoActivity extends BaseActivity {
                 calculationBreakDownJson.addProperty("total_after_discount", breakDown.getTotalAfterDiscount() + "");
 
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("payment_mode",paymentMode);
-                jsonObject.addProperty("thing_to_do_id",accommodationId);
-                jsonObject.addProperty("user_id",accommodationId);
-                jsonObject.addProperty("schedule_date",fromDate);
-                jsonObject.addProperty("schedule_type","0");
-                jsonObject.addProperty("adults",adults);
-                jsonObject.addProperty("kids",kids);
+                jsonObject.addProperty("payment_mode", paymentMode);
+                jsonObject.addProperty("thing_to_do_id", accommodationId);
+                jsonObject.addProperty("user_id", accommodationId);
+                jsonObject.addProperty("schedule_date", fromDate);
+                jsonObject.addProperty("schedule_type", "0");
+                jsonObject.addProperty("adults", adults);
+                jsonObject.addProperty("kids", kids);
 
-                jsonObject.addProperty("addons[19]",2);
+                jsonObject.addProperty("addons[19]", 2);
 
                 //jsonObject.addProperty("addons",addonsJson.toString());
 
                 MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-                RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
+                RequestBody requestBody = RequestBody.create(JSON, jsonObject.toString());
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
                 Call<InitPaymentRequestResponse> call = service.thingToDoInitPayment(
@@ -431,10 +437,10 @@ public class BillingInfoActivity extends BaseActivity {
                         "0",
                         PreferenceData.getUserData().getId(),
                         "1",
-                        breakDown.getTotalAfterDiscount()+"",
+                        breakDown.getTotalAfterDiscount() + "",
                         startTime,
                         endTime
-                        );
+                );
 /*
 calculationBreakDownJson.toString(),
                         scheduleTimeJson.toString(),
@@ -707,40 +713,60 @@ calculationBreakDownJson.toString(),
         in.putExtra("pt_country_shipping", "IND");
         in.putExtra("pt_postal_code_shipping", "00973"); //Put Country Phone code if Postal code not available '00973'
         startActivityForResult(in, paymentRequestCode);
+        goNext();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        SharedPreferences shared_prefs = getSharedPreferences(AppConstant.PAY_TAB_RESPONSE, MODE_PRIVATE);
-        String pt_response_code = shared_prefs.getString("pt_response_code", "");
-        String pt_transaction_id = shared_prefs.getString("pt_transaction_id", "");
-        Log.i(TAG, "onActivityResult: CODE " + pt_response_code + " ID " + pt_transaction_id);
+        int isResultFrom = 0;
+        if (requestCode == LOGIN_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    isResultFrom = data.getIntExtra(AppConstant.EXT_IS_FROM, 0);
+                    if (isResultFrom == AppConstant.IS_FROM_BOOKING) {
+                        if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+                            accommodationInitPayment();
+                        } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                            thingToDoInitPayment();
+                        } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                            couponInitPayment();
+                        } else if (isFrom == AppConstant.IS_FROM_EVENT) {
 
-        if (pt_response_code != null && pt_response_code.length() > 0) {
+                        } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
 
-            PaymentResponse paymentResponse = new PaymentResponse();
-            paymentResponse.setPt_response_code(pt_response_code);
-            paymentResponse.setPt_transaction_id(pt_transaction_id);
-            paymentResponse.setPt_description("Approved");
-            result = pt_response_code;
-            if (result.equalsIgnoreCase("100")){
-                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
-                    accommodationUpdateBookingPayment(paymentResponse);
-                } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
-                    thingToDoUpdateBookingPayment(paymentResponse);
-                } else if (isFrom == AppConstant.IS_FROM_COUPON) {
-                    couponUpdateBookingPayment(paymentResponse);
+                        }
+                    }
                 }
-            }else{
+            }
+        } else {
+            SharedPreferences shared_prefs = getSharedPreferences(AppConstant.PAY_TAB_RESPONSE, MODE_PRIVATE);
+            String pt_response_code = shared_prefs.getString("pt_response_code", "");
+            String pt_transaction_id = shared_prefs.getString("pt_transaction_id", "");
+            Log.i(TAG, "onActivityResult: CODE " + pt_response_code + " ID " + pt_transaction_id);
+
+            if (pt_response_code != null && pt_response_code.length() > 0) {
+
+                PaymentResponse paymentResponse = new PaymentResponse();
+                paymentResponse.setPt_response_code(pt_response_code);
+                paymentResponse.setPt_transaction_id(pt_transaction_id);
+                paymentResponse.setPt_description("Approved");
+                result = pt_response_code;
+                if (result.equalsIgnoreCase("100")) {
+                    if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+                        accommodationUpdateBookingPayment(paymentResponse);
+                    } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                        thingToDoUpdateBookingPayment(paymentResponse);
+                    } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                        couponUpdateBookingPayment(paymentResponse);
+                    }
+                } else {
+                    Utility.showError(getString(R.string.message_something_wrong));
+                }
+            } else {
                 Utility.showError(getString(R.string.message_something_wrong));
             }
-            //String pt_response_code = shared_prefs.getString("pt_response_code", "");
-            //String pt_transaction_id = shared_prefs.getString("pt_transaction_id", "");
-            //Utility.showError(da);
-        } else {
-            Utility.showError(getString(R.string.message_something_wrong));
         }
     }
 }

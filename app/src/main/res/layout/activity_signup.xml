@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_bg">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -22,9 +22,9 @@
             android:paddingBottom="@dimen/_6sdp"
             android:paddingTop="@dimen/_6sdp"
             android:text=""
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/white"
             android:textColorHint="@color/dark_blue"
-            android:textSize="@dimen/_11ssp" />
+            android:textSize="@dimen/_13ssp" />
 
         <com.customviews.CustomRomanEditText
             android:id="@+id/edtLastName"
@@ -37,9 +37,9 @@
             android:paddingBottom="@dimen/_6sdp"
             android:paddingTop="@dimen/_6sdp"
             android:text=""
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/white"
             android:textColorHint="@color/dark_blue"
-            android:textSize="@dimen/_11ssp" />
+            android:textSize="@dimen/_13ssp" />
 
         <com.customviews.CustomRomanEditText
             android:id="@+id/edtEmail"
@@ -52,9 +52,9 @@
             android:paddingBottom="@dimen/_6sdp"
             android:paddingTop="@dimen/_6sdp"
             android:text=""
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/white"
             android:textColorHint="@color/dark_blue"
-            android:textSize="@dimen/_11ssp" />
+            android:textSize="@dimen/_13ssp" />
 
         <com.customviews.CustomRomanEditText
             android:id="@+id/edtMobileNumber"
@@ -67,9 +67,9 @@
             android:paddingBottom="@dimen/_6sdp"
             android:paddingTop="@dimen/_6sdp"
             android:text=""
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/white"
             android:textColorHint="@color/dark_blue"
-            android:textSize="@dimen/_11ssp" />
+            android:textSize="@dimen/_13ssp" />
 
         <com.customviews.CustomRomanEditText
             android:id="@+id/edtPassword"
@@ -82,9 +82,9 @@
             android:paddingBottom="@dimen/_6sdp"
             android:paddingTop="@dimen/_6sdp"
             android:text=""
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/white"
             android:textColorHint="@color/dark_blue"
-            android:textSize="@dimen/_11ssp" />
+            android:textSize="@dimen/_13ssp" />
 
         <com.customviews.CustomRomanEditText
             android:id="@+id/edtConfirmPassword"
@@ -97,9 +97,9 @@
             android:paddingBottom="@dimen/_6sdp"
             android:paddingTop="@dimen/_6sdp"
             android:text=""
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/white"
             android:textColorHint="@color/dark_blue"
-            android:textSize="@dimen/_11ssp" />
+            android:textSize="@dimen/_13ssp" />
 
         <com.customviews.CustomBoldTextView
             android:id="@+id/tvSignUp"
@@ -111,7 +111,7 @@
             android:text="@string/sign_up"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
+            android:textSize="@dimen/_14ssp" />
 
     </LinearLayout>
 

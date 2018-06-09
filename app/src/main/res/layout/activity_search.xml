@@ -43,7 +43,7 @@
                         android:text="@string/name"
                         android:gravity="start"
                         android:textColor="@color/app_blue"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textSize="@dimen/_12ssp" />
 
                     <com.customviews.CustomRomanEditText
                         android:id="@+id/edtCouponName"
@@ -61,7 +61,7 @@
                         android:text=""
                         android:textColor="@color/white"
                         android:textColorHint="@color/dark_blue"
-                        android:textSize="@dimen/_8ssp" />
+                        android:textSize="@dimen/_10ssp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                         android:text="@string/location"
                         android:gravity="start"
                         android:textColor="@color/app_blue"
-                        android:textSize="@dimen/_11ssp" />
+                        android:textSize="@dimen/_12ssp" />
 
                     <com.customviews.CustomRomanEditText
                         android:id="@+id/edtLocation"
@@ -125,7 +125,7 @@
                         android:text=""
                         android:textColor="@color/white"
                         android:textColorHint="@color/dark_blue"
-                        android:textSize="@dimen/_9ssp" />
+                        android:textSize="@dimen/_10ssp" />
 
                 </LinearLayout>
 
@@ -146,7 +146,7 @@
                         android:gravity="start"
                         android:text="@string/schedule_date"
                         android:textColor="@color/app_blue"
-                        android:textSize="@dimen/_11ssp" />
+                        android:textSize="@dimen/_12ssp" />
 
                     <com.customviews.CustomRomanTextView
                         android:id="@+id/tvScheduleDate"
@@ -163,7 +163,7 @@
                         android:text=""
                         android:textColor="@color/white"
                         android:textColorHint="@color/dark_blue"
-                        android:textSize="@dimen/_9ssp" />
+                        android:textSize="@dimen/_10ssp" />
 
                 </LinearLayout>
 
@@ -185,7 +185,7 @@
                         android:gravity="start"
                         android:text="@string/category"
                         android:textColor="@color/app_blue"
-                        android:textSize="@dimen/_11ssp" />
+                        android:textSize="@dimen/_12ssp" />
 
                     <Spinner
                         android:id="@+id/spinnerCategory"
@@ -215,7 +215,7 @@
                         android:gravity="start"
                         android:textColor="@color/white"
                         android:textColorHint="@color/dark_blue"
-                        android:textSize="@dimen/_9ssp" />
+                        android:textSize="@dimen/_10ssp" />
 
                 </RelativeLayout>
 
@@ -237,7 +237,7 @@
                         android:gravity="start"
                         android:text="@string/sub_category"
                         android:textColor="@color/app_blue"
-                        android:textSize="@dimen/_11ssp" />
+                        android:textSize="@dimen/_12ssp" />
 
                     <Spinner
                         android:id="@+id/spinnerSubCategory"
@@ -267,7 +267,7 @@
                         android:gravity="start"
                         android:textColor="@color/white"
                         android:textColorHint="@color/dark_blue"
-                        android:textSize="@dimen/_9ssp" />
+                        android:textSize="@dimen/_10ssp" />
 
                 </RelativeLayout>
 
@@ -288,7 +288,7 @@
                         android:gravity="center"
                         android:text="@string/check_in"
                         android:textColor="@color/app_blue"
-                        android:textSize="@dimen/_11ssp" />
+                        android:textSize="@dimen/_12ssp" />
 
                     <com.customviews.CustomRomanTextView
                         android:id="@+id/tvCheckInDate"
@@ -303,8 +303,8 @@
                         android:paddingTop="@dimen/_6sdp"
                         android:text=""
                         android:textColor="@color/white"
-                        android:textColorHint="@color/app_blue2"
-                        android:textSize="@dimen/_9ssp" />
+                        android:textColorHint="@color/dark_blue"
+                        android:textSize="@dimen/_10ssp" />
 
                 </LinearLayout>
 
@@ -325,7 +325,7 @@
                         android:gravity="center"
                         android:text="@string/check_out"
                         android:textColor="@color/app_blue"
-                        android:textSize="@dimen/_11ssp" />
+                        android:textSize="@dimen/_12ssp" />
 
                     <com.customviews.CustomRomanTextView
                         android:id="@+id/tvCheckOutDate"
@@ -341,8 +341,8 @@
                         android:text=""
                         android:gravity="start"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/app_blue2"
-                        android:textSize="@dimen/_9ssp" />
+                        android:textColorHint="@color/dark_blue"
+                        android:textSize="@dimen/_10ssp" />
 
                 </LinearLayout>
 
@@ -371,7 +371,7 @@
                             android:gravity="start"
                             android:text="@string/room"
                             android:textColor="@color/app_blue"
-                            android:textSize="@dimen/_11ssp" />
+                            android:textSize="@dimen/_12ssp" />
 
                         <com.customviews.CustomRomanEditText
                             android:id="@+id/edtNumberOfRoom"
@@ -387,8 +387,8 @@
                             android:paddingTop="@dimen/_6sdp"
                             android:text=""
                             android:textColor="@color/white"
-                            android:textColorHint="@color/app_blue2"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textColorHint="@color/dark_blue"
+                            android:textSize="@dimen/_10ssp" />
 
                     </LinearLayout>
 
@@ -405,7 +405,7 @@
                             android:gravity="center"
                             android:text="@string/select_member"
                             android:textColor="@color/app_blue"
-                            android:textSize="@dimen/_11ssp" />
+                            android:textSize="@dimen/_12ssp" />
 
                         <com.customviews.CustomRomanEditText
                             android:id="@+id/edtNumberMember"
@@ -420,8 +420,8 @@
                             android:paddingTop="@dimen/_6sdp"
                             android:text=""
                             android:textColor="@color/white"
-                            android:textColorHint="@color/app_blue2"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textColorHint="@color/dark_blue"
+                            android:textSize="@dimen/_10ssp" />
 
                     </LinearLayout>
 
@@ -448,7 +448,7 @@
             android:text="@string/search"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/_11ssp" />
+            android:textSize="@dimen/_12ssp" />
 
     </RelativeLayout>
 

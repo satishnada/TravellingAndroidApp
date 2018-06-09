@@ -70,10 +70,10 @@ public class BookHotelActivity extends BaseActivity {
     private LinearLayout llAccommodationDetails, llCouponDetails, llCheckOut;
     private RatingBar ratingBarHotelStar;
 
-    private String name, imageUrl, amount, ratting,subName;
+    private String name, imageUrl, amount, ratting, subName;
     private String checkInDateStr = "";
     private String checkOutDateStr = "";
-
+    private boolean isThingTODoFirstTime = false;
     private Spinner spinnerTimeSlot;
     private TextView tvSltTimeSlot;
     private LinearLayout llTimeSlot;
@@ -156,6 +156,7 @@ public class BookHotelActivity extends BaseActivity {
             tvCheckIn.setText(getString(R.string.check_in));
             llCheckOut.setVisibility(View.VISIBLE);
             llTimeSlot.setVisibility(View.GONE);
+            getPrice(false);
         } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
             accommodationId = bundle.getString(AppConstant.EXT_ACCOMMODATION_ID);
             name = bundle.getString(AppConstant.EXT_HOTEL_NAME);
@@ -212,6 +213,7 @@ public class BookHotelActivity extends BaseActivity {
             llCouponDetails.setVisibility(View.VISIBLE);
             llAccommodationDetails.setVisibility(View.GONE);
             llTimeSlot.setVisibility(View.GONE);
+            getCouponPrice();
         }
 
     /*    Calendar newDate = Calendar.getInstance();
@@ -240,7 +242,9 @@ public class BookHotelActivity extends BaseActivity {
 
                 sltTimeSlot = thingsToDoTimeSlots.get(position);
                 tvSltTimeSlot.setText(thingsToDoTimeSlots.get(position).getStartTime() + " - " + thingsToDoTimeSlots.get(position).getEndTime());
-
+                if (isThingTODoFirstTime){
+                    getThingToDoPrice(false);
+                }
             }
 
             @Override
@@ -279,14 +283,14 @@ public class BookHotelActivity extends BaseActivity {
                     if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
                         getPrice(false);
                     }
-                }else if (tvCheckInDate.getText().toString().trim().length() > 0) {
+                } else if (tvCheckInDate.getText().toString().trim().length() > 0) {
                     if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
                         getThingToDoPrice(true);
                     }
                 }
                 break;
             case R.id.ivMinusKids:
-                if (kidsCount != 1) {
+                if (kidsCount != 0) {
                     kidsCount = kidsCount - 1;
                 }
                 tvKidsCount.setText(kidsCount + "");
@@ -295,7 +299,7 @@ public class BookHotelActivity extends BaseActivity {
                     if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
                         getPrice(false);
                     }
-                }else if (tvCheckInDate.getText().toString().trim().length() > 0) {
+                } else if (tvCheckInDate.getText().toString().trim().length() > 0) {
                     if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
                         getThingToDoPrice(true);
                     }
@@ -323,7 +327,7 @@ public class BookHotelActivity extends BaseActivity {
                     if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
                         getPrice(false);
                     }
-                }else if (tvCheckInDate.getText().toString().trim().length() > 0) {
+                } else if (tvCheckInDate.getText().toString().trim().length() > 0) {
                     if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
                         getThingToDoPrice(true);
                     }
@@ -357,55 +361,65 @@ public class BookHotelActivity extends BaseActivity {
             case R.id.tvBookNow:
                 if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
                     if (calculationBreakDown != null) {
-                        Intent intent = new Intent(mActivity, AddonsListActivity.class);
-                        intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
-                        intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
-                        intent.putExtra(AppConstant.EXT_FROM_DATE, checkInDateStr);
-                        intent.putExtra(AppConstant.EXT_TO_DATE, checkOutDateStr);
-                        intent.putExtra(AppConstant.EXT_ADULTS, adultCount + "");
-                        intent.putExtra(AppConstant.EXT_KIDS, kidsCount + "");
-                        intent.putExtra(AppConstant.EXT_NAME, name);
-                        startActivity(intent);
-                        goNext();
+                        if (calculationBreakDown.getTotalBeforeDiscount() == 0) {
+                            Utility.showError(getString(R.string.valid_date));
+                        } else {
+                            Intent intent = new Intent(mActivity, AddonsListActivity.class);
+                            intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
+                            intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
+                            intent.putExtra(AppConstant.EXT_FROM_DATE, checkInDateStr);
+                            intent.putExtra(AppConstant.EXT_TO_DATE, checkOutDateStr);
+                            intent.putExtra(AppConstant.EXT_ADULTS, adultCount + "");
+                            intent.putExtra(AppConstant.EXT_KIDS, kidsCount + "");
+                            intent.putExtra(AppConstant.EXT_NAME, name);
+                            startActivity(intent);
+                            goNext();
+                        }
                     } else {
                         getPrice(true);
                     }
                 } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
                     if (calculationBreakDownThingToDo != null) {
-                        Intent intent = new Intent(mActivity, AddonsListActivity.class);
-                        intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
-                        intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
-                        intent.putExtra(AppConstant.EXT_FROM_DATE, checkInDateStr);
-                        intent.putExtra(AppConstant.EXT_ADULTS, adultCount + "");
-                        intent.putExtra(AppConstant.EXT_KIDS, kidsCount + "");
-                        intent.putExtra(AppConstant.EXT_NAME, name);
-                        intent.putExtra(AppConstant.EXT_START_TIME, sltTimeSlot.getStartTime());
-                        intent.putExtra(AppConstant.EXT_END_TIME, sltTimeSlot.getEndTime());
-                        intent.putExtra(AppConstant.EXT_TIME_SLOT_ID, sltTimeSlot.getId() + "");
-                        startActivity(intent);
-                        goNext();
+                        if (calculationBreakDownThingToDo.getTotalBeforeDiscount() == 0) {
+                            Utility.showError(getString(R.string.valid_date));
+                        } else {
+                            Intent intent = new Intent(mActivity, AddonsListActivity.class);
+                            intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
+                            intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
+                            intent.putExtra(AppConstant.EXT_FROM_DATE, checkInDateStr);
+                            intent.putExtra(AppConstant.EXT_ADULTS, adultCount + "");
+                            intent.putExtra(AppConstant.EXT_KIDS, kidsCount + "");
+                            intent.putExtra(AppConstant.EXT_NAME, name);
+                            intent.putExtra(AppConstant.EXT_START_TIME, sltTimeSlot.getStartTime());
+                            intent.putExtra(AppConstant.EXT_END_TIME, sltTimeSlot.getEndTime());
+                            intent.putExtra(AppConstant.EXT_TIME_SLOT_ID, sltTimeSlot.getId() + "");
+                            startActivity(intent);
+                            goNext();
+                        }
                     } else {
                         getThingToDoPrice(true);
                     }
                 } else if (isFrom == AppConstant.IS_FROM_COUPON) {
                     if (calculationBreakDown != null) {
-                        Intent intent = new Intent(mActivity, BillingInfoActivity.class);
-                        Bundle bundle = new Bundle();
-
-                        bundle.putInt(AppConstant.EXT_IS_FROM, isFrom);
-                        bundle.putString(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
-                        bundle.putString(AppConstant.EXT_NAME, name);
-                        bundle.putString(AppConstant.EXT_SUB_NAME, amount);
-                        bundle.putString(AppConstant.EXT_COUPON_QUANTITY, QuantityCount+"");
-                        bundle.putSerializable(AppConstant.EXT_ACCOMMODATION_BOOKING,calculationBreakDown);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        goNext();
+                        if (calculationBreakDown.getTotalBeforeDiscount() == 0) {
+                            Utility.showError(getString(R.string.valid_date));
+                        } else {
+                            Intent intent = new Intent(mActivity, BillingInfoActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(AppConstant.EXT_IS_FROM, isFrom);
+                            bundle.putString(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
+                            bundle.putString(AppConstant.EXT_NAME, name);
+                            bundle.putString(AppConstant.EXT_SUB_NAME, amount);
+                            bundle.putString(AppConstant.EXT_COUPON_QUANTITY, QuantityCount + "");
+                            bundle.putSerializable(AppConstant.EXT_ACCOMMODATION_BOOKING, calculationBreakDown);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            goNext();
+                        }
                     } else {
                         getCouponPrice();
                     }
                 }
-                //openPaymentMethodSelectionDialog();
                 break;
             default:
                 super.onClick(v);
@@ -429,7 +443,7 @@ public class BookHotelActivity extends BaseActivity {
                 checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<CalculatedPriceRequestResponse> call = service.getCalculatedPrice(Utility.getLocale(),WebUtility.ACCOMMODATION_CALCULATE_PRICE
+                Call<CalculatedPriceRequestResponse> call = service.getCalculatedPrice(Utility.getLocale(), WebUtility.ACCOMMODATION_CALCULATE_PRICE
                         + "accomodation_id=" +
                         accommodationId + "&from_date=" + checkInDateStr +
                         "&to_date=" + checkOutDateStr + "&adults=" + adultCount + "&kids=" + kidsCount);
@@ -497,7 +511,7 @@ public class BookHotelActivity extends BaseActivity {
 //                checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<ThingToDoCalculatePriceRequestResponse> call = service.getThingToDoCalculatePrice(Utility.getLocale(),WebUtility.THING_TO_DO_CALCULATE_PRICE + "thing_to_do_id=" +
+                Call<ThingToDoCalculatePriceRequestResponse> call = service.getThingToDoCalculatePrice(Utility.getLocale(), WebUtility.THING_TO_DO_CALCULATE_PRICE + "thing_to_do_id=" +
                         accommodationId + "&schedule_date=" + checkInDateStr
                         + "&schedule_time_id=" + sltTimeSlot.getId()
                         + "&adults=" + adultCount
@@ -518,18 +532,6 @@ public class BookHotelActivity extends BaseActivity {
                                     tvPriceAfter.setText("SAR " + calculationBreakDownThingToDo.getTotalAfterDiscount());
                                 }
 
-                                /*if (isFromBookNow){
-                                    Intent intent = new Intent(mActivity, AddonsListActivity.class);
-                                    intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,accommodationId);
-                                    intent.putExtra(AppConstant.EXT_IS_FROM,isFrom);
-                                    intent.putExtra(AppConstant.EXT_FROM_DATE,checkInDateStr);
-                                    intent.putExtra(AppConstant.EXT_TO_DATE,checkOutDateStr);
-                                    intent.putExtra(AppConstant.EXT_ADULTS,adultCount+"");
-                                    intent.putExtra(AppConstant.EXT_KIDS,kidsCount+"");
-                                    intent.putExtra(AppConstant.EXT_NAME,name);
-                                    startActivity(intent);
-                                    goNext();
-                                }*/
                             } else {
                                 //Utility.showError(response.body().get());
                             }
@@ -568,7 +570,7 @@ public class BookHotelActivity extends BaseActivity {
                 // checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<ThingToDoTimeSlotRequestResponse> call = service.getThingToDoTimeSlot(Utility.getLocale(),WebUtility.THING_TO_DO_TIME_SLOT + "schedule_date=" + checkInDateStr + "&thing_to_do_id=" + accommodationId);
+                Call<ThingToDoTimeSlotRequestResponse> call = service.getThingToDoTimeSlot(Utility.getLocale(), WebUtility.THING_TO_DO_TIME_SLOT + "schedule_date=" + checkInDateStr + "&thing_to_do_id=" + accommodationId);
                 call.enqueue(new Callback<ThingToDoTimeSlotRequestResponse>() {
                     @Override
                     public void onResponse(Call<ThingToDoTimeSlotRequestResponse> call, Response<ThingToDoTimeSlotRequestResponse> response) {
@@ -578,6 +580,9 @@ public class BookHotelActivity extends BaseActivity {
                                 timeSlotAdapter = new TimeSlotAdapter(mActivity, thingsToDoTimeSlots);
                                 spinnerTimeSlot.setAdapter(timeSlotAdapter);
                                 if (thingsToDoTimeSlots != null && !thingsToDoTimeSlots.isEmpty()) {
+                                    if (!isThingTODoFirstTime){
+                                        isThingTODoFirstTime = true;
+                                    }
                                     llTimeSlot.setVisibility(View.VISIBLE);
                                 } else {
                                     llTimeSlot.setVisibility(View.GONE);
@@ -656,7 +661,7 @@ public class BookHotelActivity extends BaseActivity {
             } else {
                 Utility.showProgress(mActivity);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<CalculatedPriceRequestResponse> call = service.getCalculatedCouponPrice(Utility.getLocale(),WebUtility.COUPON_CALCULATE_PRICE + "coupon_id=" +
+                Call<CalculatedPriceRequestResponse> call = service.getCalculatedCouponPrice(Utility.getLocale(), WebUtility.COUPON_CALCULATE_PRICE + "coupon_id=" +
                         accommodationId + "&qty=" + QuantityCount + "");
                 call.enqueue(new Callback<CalculatedPriceRequestResponse>() {
                     @Override
@@ -746,7 +751,6 @@ public class BookHotelActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        goPrevious();
         finish();
     }
 }

@@ -53,11 +53,14 @@ public class SideMenuFragment extends Fragment {
         ivUserName = view.findViewById(R.id.ivUserName);
         ivProfilePic = view.findViewById(R.id.ivProfilePic);
 
-        String userName = PreferenceData.getUserName();
-        String userProfilePic = PreferenceData.getUserProfilePic();
-        if (userName != null){
-            ivUserName.setText(userName);
-        }
+        if (!PreferenceData.isLogin()){
+            ivUserName.setText(getString(R.string.app_name));
+        }else{
+            String userName = PreferenceData.getUserName();
+            String userProfilePic = PreferenceData.getUserProfilePic();
+            if (userName != null){
+                ivUserName.setText(userName);
+            }
 
         /*if (userProfilePic != null){
             ImageLoader.getInstance().displayImage(userProfilePic,ivProfilePic);
@@ -69,6 +72,7 @@ public class SideMenuFragment extends Fragment {
                 ((BaseActivity)getActivity()).onClickUserProfile();
             }
         });*/
+        }
 
         return view;
     }

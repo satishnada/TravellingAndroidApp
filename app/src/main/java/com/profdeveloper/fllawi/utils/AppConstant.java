@@ -11,6 +11,9 @@ public class AppConstant {
     public static final int IS_FROM_THING_TO_DO = 3; // FROM THING TO DO
     public static final int IS_FROM_TRANSPORTATION = 4; // FROM TRANSPORTATION
     public static final int IS_FROM_EVENT = 5; // FROM EVENT
+    public static final int IS_FROM_BOOKING = 6; // FROM BOOKING
+    public static final int IS_FROM_ADD_REVIEW = 7; // FROM ADD REVIEW
+    public static final int IS_FROM_SIDE_MENU = 8; // FROM SIDE MENU
     public static final String EXT_IS_FROM = "IS_FROM";
     public static final String EXT_HOTEL_IMAGE = "HOTEL_IMAGE";
     public static final String EXT_HOTEL_RATTING = "HOTEL_RATTING";

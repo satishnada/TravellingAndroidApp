@@ -1,6 +1,7 @@
 package com.profdeveloper.fllawi.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
@@ -26,11 +27,12 @@ import retrofit2.Response;
 
 public class SignInActivity extends BaseActivity {
 
+    private final int LOGIN_REQUEST = 1001;
     private LinearLayout lnrBase;
     private View view;
-    private EditText edtEmail,edtPassword;
-    private TextView tvSignIn,tvForgotPassword,tvNewAccount,tvEnglish,tvArabic,tvLoginTitle;
-    private static final int SIGN_IN = 1;
+    private EditText edtEmail, edtPassword;
+    private TextView tvSignIn, tvForgotPassword, tvNewAccount, tvEnglish, tvArabic, tvLoginTitle;
+    private int isFrom = 0;
 
     @Override
     public void setLayoutView() {
@@ -43,7 +45,7 @@ public class SignInActivity extends BaseActivity {
         tvArabic.setOnClickListener(this);
     }
 
-    private void setView(){
+    private void setView() {
         lnrBase = (LinearLayout) findViewById(R.id.llBase);
         edtEmail = (EditText) view.findViewById(R.id.edtEmail);
         edtPassword = (EditText) view.findViewById(R.id.edtPassword);
@@ -58,50 +60,65 @@ public class SignInActivity extends BaseActivity {
 
         tvEnglish = view.findViewById(R.id.tvEnglish);
         tvArabic = view.findViewById(R.id.tvArabic);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            isFrom = bundle.getInt(AppConstant.EXT_IS_FROM);
+            if (isFrom == AppConstant.IS_FROM_BOOKING) {
+                tvTopTitle.setText(R.string.login);
+                ivTopBack.setImageResource(R.drawable.ic_back_arrow);
+                ivTopBack.setVisibility(View.VISIBLE);
+            } else if (isFrom == AppConstant.IS_FROM_ADD_REVIEW){
+                tvTopTitle.setText(R.string.login);
+                ivTopBack.setImageResource(R.drawable.ic_back_arrow);
+                ivTopBack.setVisibility(View.VISIBLE);
+            }else if (isFrom == AppConstant.IS_FROM_SIDE_MENU){
+                tvTopTitle.setText(R.string.login);
+                ivTopBack.setImageResource(R.drawable.ic_back_arrow);
+                ivTopBack.setVisibility(View.VISIBLE);
+            }else{
+                hideTopBar();
+            }
+        }else{
+            hideTopBar();
+        }
     }
 
     @Override
     public void initialization() {
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        tvTopTitle.setText("");
-        hideTopBar();
         hideTopShadow();
-        llTop.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
-        ivTopBack.setImageResource(R.drawable.ic_top_back_white);
-        ivTopBack.setVisibility(View.GONE);
         checkLocal();
-        tvEnglish.setBackground(getResources().getDrawable(R.drawable.rounded_search_text_bg));
         setLanguage();
-
+        //tvEnglish.setBackground(getResources().getDrawable(R.drawable.rounded_search_text_bg));
     }
 
-    private void setLanguage(){
-        if (PreferenceData.getUserLanguage() != null){
-            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")){
+    private void setLanguage() {
+        if (PreferenceData.getUserLanguage() != null) {
+            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")) {
                 changeLanguage("ar");
                 tvEnglish.setText("Eng");
-            }else{
+            } else {
                 tvEnglish.setText("التسجيل");
                 changeLanguage("en");
             }
-        }else{
+        } else {
             tvEnglish.setText("التسجيل");
             changeLanguage("en");
         }
     }
 
-    private void setLanguageOnClick(){
-        if (PreferenceData.getUserLanguage() != null){
-            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")){
+    private void setLanguageOnClick() {
+        if (PreferenceData.getUserLanguage() != null) {
+            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")) {
                 changeLanguage("en");
                 PreferenceData.setUserLang("en");
                 tvEnglish.setText("التسجيل");
-            }else{
+            } else {
                 tvEnglish.setText("Eng");
                 PreferenceData.setUserLang("ar");
                 changeLanguage("ar");
             }
-        }else{
+        } else {
             PreferenceData.setUserLang("en");
             tvEnglish.setText("التسجيل");
             changeLanguage("en");
@@ -120,12 +137,11 @@ public class SignInActivity extends BaseActivity {
                 //tvEnglish.setBackgroundColor(getResources().getColor(R.color.transparent));
                 tvEnglish.setText("Eng");
                 changeLanguage("ar");
-               recreate();
-
+                recreate();
                 break;
             // Top Right Menu Drawer Button Click
             case R.id.ivTopBack:
-                finish();
+                goToNextScreen();
                 break;
             case R.id.tvSignIn:
                 hideSoftKeyboard();
@@ -135,13 +151,15 @@ public class SignInActivity extends BaseActivity {
                 break;
             case R.id.tvForgotPassword:
                 Intent forgotIntent = new Intent(mActivity, ForgotPasswordActivity.class);
-                forgotIntent.putExtra(AppConstant.EXT_USER_EMAIL,edtEmail.getText().toString());
+                forgotIntent.putExtra(AppConstant.EXT_USER_EMAIL, edtEmail.getText().toString());
+                forgotIntent.putExtra(AppConstant.EXT_IS_FROM,isFrom);
                 startActivity(forgotIntent);
                 finish();
                 goNext();
                 break;
             case R.id.tvNewAccount:
                 Intent signUpIntent = new Intent(mActivity, SignUpActivity.class);
+                signUpIntent.putExtra(AppConstant.EXT_IS_FROM,isFrom);
                 startActivity(signUpIntent);
                 finish();
                 goNext();
@@ -149,6 +167,30 @@ public class SignInActivity extends BaseActivity {
             default:
                 super.onClick(v);
                 break;
+        }
+    }
+
+    private void goToNextScreen() {
+        if (isFrom == AppConstant.IS_FROM_BOOKING){
+            Intent intent = new Intent();
+            intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_BOOKING);
+            setResult(LOGIN_REQUEST,intent);
+            finish();
+        }else if (isFrom == AppConstant.IS_FROM_ADD_REVIEW){
+            Intent intent = new Intent();
+            intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ADD_REVIEW);
+            setResult(LOGIN_REQUEST,intent);
+            finish();
+        }else if (isFrom == AppConstant.IS_FROM_SIDE_MENU){
+            Intent nextIntent = new Intent(mActivity, HomeActivity.class);
+            startActivity(nextIntent);
+            goNext();
+            finish();
+        }else{
+            Intent nextIntent = new Intent(mActivity, HomeActivity.class);
+            startActivity(nextIntent);
+            goNext();
+            finish();
         }
     }
 
@@ -174,7 +216,7 @@ public class SignInActivity extends BaseActivity {
             } else {
                 Utility.showProgress(this);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<LoginRequestResponse> call = service.userLogin(Utility.getLocale(),edtEmail.getText().toString().trim(),edtPassword.getText().toString());
+                Call<LoginRequestResponse> call = service.userLogin(Utility.getLocale(), edtEmail.getText().toString().trim(), edtPassword.getText().toString());
                 call.enqueue(new Callback<LoginRequestResponse>() {
                     @Override
                     public void onResponse(Call<LoginRequestResponse> call, Response<LoginRequestResponse> response) {
@@ -182,10 +224,11 @@ public class SignInActivity extends BaseActivity {
                         if (response.isSuccessful()) {
                             if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
                                 PreferenceData.setLogin(true);
-                                PreferenceData.setUserName(response.body().getLoginUserData().getFirstName() +" "+ response.body().getLoginUserData().getLastName());
+                                SharedPreferenceUtil.putValue(AppConstant.isIntroductionVisitComplete, true);
+                                PreferenceData.setUserName(response.body().getLoginUserData().getFirstName() + " " + response.body().getLoginUserData().getLastName());
                                 PreferenceData.setProfilePic(response.body().getLoginUserData().getProfileImage());
                                 PreferenceData.saveUserData(response.body().getLoginUserData());
-                                startApp();
+                                goToNextScreen();
                             } else {
                                 Utility.showError(response.body().getMsg());
                             }
@@ -208,16 +251,8 @@ public class SignInActivity extends BaseActivity {
         }
     }
 
-    private void startApp() {
-        Intent nextIntent = new Intent(mActivity, HomeActivity.class);
-        startActivity(nextIntent);
-        goNext();
-        finish();
-    }
-
     @Override
     public void onBackPressed() {
-        finish();
-        goPrevious();
+        goToNextScreen();
     }
 }

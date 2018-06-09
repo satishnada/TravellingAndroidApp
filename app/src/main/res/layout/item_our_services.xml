@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llMainItem"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_58sdp"
+    android:layout_width="@dimen/_62sdp"
     android:layout_height="wrap_content"
     android:layout_gravity="center|top"
     android:layout_margin="@dimen/_1sdp"
@@ -17,16 +18,16 @@
 
     <com.customviews.CustomRomanTextView
         android:id="@+id/tvServiceName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:maxLength="30"
         android:ellipsize="end"
-        android:singleLine="true"
-        android:lines="1"
+        android:lines="2"
+        android:gravity="center|top"
         android:layout_height="wrap_content"
-        android:text="@string/service_name"
+        android:text=""
         android:layout_marginTop="@dimen/_5sdp"
         android:textColor="@color/black1"
-        android:textSize="@dimen/_8ssp"
-        tools:text="Beauty of uttaranchal " />
+        android:textSize="@dimen/_10ssp"
+        tools:text="Beauty of " />
 
 </LinearLayout>

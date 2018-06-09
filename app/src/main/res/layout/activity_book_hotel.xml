@@ -62,16 +62,14 @@
                     <RatingBar
                         android:id="@+id/ratingBarHotelStar"
                         android:layout_width="wrap_content"
+                        style="@style/CustomRatingBarLarge"
                         android:layout_height="wrap_content"
                         android:clickable="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:isIndicator="false"
                         android:numStars="5"
-                        android:rating="3.5"
-                        android:scaleX="0.5"
-                        android:scaleY="0.5"
-                        android:theme="@style/RatingBar" />
+                        android:rating="3.5" />
 
                 </LinearLayout>
 

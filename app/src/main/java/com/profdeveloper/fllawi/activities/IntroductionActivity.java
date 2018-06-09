@@ -34,7 +34,8 @@ public class IntroductionActivity extends BaseActivity {
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         circles = (LinearLayout) view.findViewById(R.id.circles);
         tvLogIn = (TextView) view.findViewById(R.id.tvLogIn);
-
+        tvSkip = view.findViewById(R.id.tvSkip);
+        tvSkip.setOnClickListener(this);
         tvLogIn.setOnClickListener(this);
         isHomeRunning = false;
 
@@ -76,6 +77,9 @@ public class IntroductionActivity extends BaseActivity {
             case R.id.tvLogIn:
                 gotoLogin();
                 break;
+            case R.id.tvSkip:
+                gotoHome();
+                break;
         }
     }
 
@@ -86,7 +90,6 @@ public class IntroductionActivity extends BaseActivity {
     }
 
     private void gotoLogin() {
-        SharedPreferenceUtil.putValue(AppConstant.isIntroductionVisitComplete, true);
         Intent intent = new Intent(mActivity, SignInActivity.class);
         startActivity(intent);
         goNext();

@@ -1,6 +1,7 @@
 package com.profdeveloper.fllawi.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class SignUpActivity extends BaseActivity {
     private EditText edtFirstName, edtLastName, edtEmail,
             edtMobileNumber, edtPassword, edtConfirmPassword;
     private TextView tvSignUp;
+    private int isFrom = 0;
 
     @Override
     public void setLayoutView() {
@@ -39,6 +41,11 @@ public class SignUpActivity extends BaseActivity {
         edtPassword = view.findViewById(R.id.edtPassword);
         edtConfirmPassword = view.findViewById(R.id.edtConfirmPassword);
         tvSignUp = view.findViewById(R.id.tvSignUp);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle !=null){
+            isFrom = bundle.getInt(AppConstant.EXT_IS_FROM);
+        }
 
         tvSignUp.setOnClickListener(this);
 
@@ -143,6 +150,7 @@ public class SignUpActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         Intent loginIntent = new Intent(mActivity, SignInActivity.class);
+        loginIntent.putExtra(AppConstant.EXT_IS_FROM,isFrom);
         startActivity(loginIntent);
         finish();
         goPrevious();
