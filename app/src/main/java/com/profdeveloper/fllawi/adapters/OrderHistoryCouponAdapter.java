@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.profdeveloper.fllawi.R;
@@ -27,10 +28,12 @@ public class OrderHistoryCouponAdapter extends RecyclerView.Adapter<OrderHistory
     private String TAG = OrderHistoryCouponAdapter.class.getSimpleName();
     private Context context;
     private List<Datum> orderHistoryList = new ArrayList<>();
+    private ImageLoader mImageLoader;
 
     public OrderHistoryCouponAdapter(Context context, List<Datum> orderHistoryList) {
         this.context = context;
         this.orderHistoryList = orderHistoryList;
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -47,12 +50,16 @@ public class OrderHistoryCouponAdapter extends RecyclerView.Adapter<OrderHistory
 
         if (orderHistoryList.get(0).getGallery() != null && !orderHistoryList.get(0).getGallery().isEmpty()){
             String imageUrl = orderHistoryList.get(0).getGallery().get(0).getImage();
-            ImageLoader.getInstance().loadImage(Utility.BASE_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
+
+            Glide.with(context).load(Utility.BASE_URL + "/" + imageUrl)
+                    .into(holder.ivOrder);
+
+            /*mImageLoader.loadImage(Utility.BASE_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     holder.ivOrder.setImageBitmap(loadedImage);
                 }
-            });
+            });*/
         }
 
         holder.tvOrderId.setText(R.string.order_id_flw + coupon.getId());

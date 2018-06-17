@@ -145,11 +145,11 @@ public class BillingInfoActivity extends BaseActivity {
 
             if (accommodationBookingResponse != null) {
                 if (accommodationBookingResponse != null) {
-                    tvSubTotal.setText("SAR " + accommodationBookingResponse.getSubTotal() + "");
-                    tvTotalPayableBefore.setText("SAR " + accommodationBookingResponse.getTotalBeforeDiscount() + "");
-                    tvTotalPayableAfter.setText("SAR " + accommodationBookingResponse.getTotalAfterDiscount() + "");
-                    tvDiscount.setText("SAR " + accommodationBookingResponse.getDiscountAmount() + "");
-                    tvCouponAmount.setText("SAR " + accommodationBookingResponse.getDiscountAmount());
+                    tvSubTotal.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getSubTotal() + "");
+                    tvTotalPayableBefore.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getTotalBeforeDiscount() + "");
+                    tvTotalPayableAfter.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getTotalAfterDiscount() + "");
+                    tvDiscount.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getDiscountAmount() + "");
+                    tvCouponAmount.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getDiscountAmount());
                 }
             }
 
@@ -184,10 +184,10 @@ public class BillingInfoActivity extends BaseActivity {
 
             if (couponBreakDown != null) {
                 if (couponBreakDown != null) {
-                    tvTotalPayableBefore.setText("SAR " + couponBreakDown.getTotalBeforeDiscount() + "");
-                    tvTotalPayableAfter.setText("SAR " + couponBreakDown.getTotalAfterDiscount() + "");
-                    tvDiscount.setText("SAR " + couponBreakDown.getDiscountAmount() + "");
-                    tvCouponAmount.setText("SAR " + couponBreakDown.getDiscountAmount());
+                    tvTotalPayableBefore.setText(getString(R.string.sar)+" " + couponBreakDown.getTotalBeforeDiscount() + "");
+                    tvTotalPayableAfter.setText(getString(R.string.sar)+" " + couponBreakDown.getTotalAfterDiscount() + "");
+                    tvDiscount.setText(getString(R.string.sar)+" " + couponBreakDown.getDiscountAmount() + "");
+                    tvCouponAmount.setText(getString(R.string.sar)+" " + couponBreakDown.getDiscountAmount());
                 }
 
             }
@@ -210,11 +210,11 @@ public class BillingInfoActivity extends BaseActivity {
             tvAdult.setText(adults);
             tvKids.setText(kids);
             if (breakDown != null) {
-                tvSubTotal.setText("SAR " + breakDown.getSubTotal() + "");
-                tvTotalPayableBefore.setText("SAR " + breakDown.getTotalBeforeDiscount() + "");
-                tvTotalPayableAfter.setText("SAR " + breakDown.getTotalAfterDiscount() + "");
-                tvDiscount.setText("SAR " + breakDown.getDiscountAmount() + "");
-                tvCouponAmount.setText("SAR " + breakDown.getDiscountAmount());
+                tvSubTotal.setText(getString(R.string.sar)+" " + breakDown.getSubTotal() + "");
+                tvTotalPayableBefore.setText(getString(R.string.sar)+" " + breakDown.getTotalBeforeDiscount() + "");
+                tvTotalPayableAfter.setText(getString(R.string.sar)+" " + breakDown.getTotalAfterDiscount() + "");
+                tvDiscount.setText(getString(R.string.sar)+" " + breakDown.getDiscountAmount() + "");
+                tvCouponAmount.setText(getString(R.string.sar)+" " + breakDown.getDiscountAmount());
             }
             setAddonsList();
             recyclerAddons.setVisibility(View.VISIBLE);
@@ -722,7 +722,6 @@ calculationBreakDownJson.toString(),
 
         int isResultFrom = 0;
         if (requestCode == LOGIN_REQUEST) {
-            if (resultCode == RESULT_OK) {
                 if (data != null) {
                     isResultFrom = data.getIntExtra(AppConstant.EXT_IS_FROM, 0);
                     if (isResultFrom == AppConstant.IS_FROM_BOOKING) {
@@ -739,7 +738,6 @@ calculationBreakDownJson.toString(),
                         }
                     }
                 }
-            }
         } else {
             SharedPreferences shared_prefs = getSharedPreferences(AppConstant.PAY_TAB_RESPONSE, MODE_PRIVATE);
             String pt_response_code = shared_prefs.getString("pt_response_code", "");

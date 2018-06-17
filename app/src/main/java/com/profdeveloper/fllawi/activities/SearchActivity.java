@@ -8,12 +8,17 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -26,14 +31,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.profdeveloper.BaseActivity;
 import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.adapters.CategoryAdapter;
 import com.profdeveloper.fllawi.adapters.CommonListAdapter;
+import com.profdeveloper.fllawi.adapters.LocationSuggestionAdapter;
 import com.profdeveloper.fllawi.adapters.SubCategoryAdapter;
 import com.profdeveloper.fllawi.model.Coupons.GetCouponRequestResponse;
 import com.profdeveloper.fllawi.model.SearchHotel.SearchRequestResponse;
 import com.profdeveloper.fllawi.model.SearchHotel.SearchResultMainData;
+import com.profdeveloper.fllawi.model.SuggestLocationRequestResponse;
 import com.profdeveloper.fllawi.model.ThingToDo.ChildCategory;
 import com.profdeveloper.fllawi.model.ThingToDo.Datum;
 import com.profdeveloper.fllawi.model.ThingToDo.GetThingToDoCategoryRequestResponse;
@@ -44,12 +54,17 @@ import com.profdeveloper.fllawi.utils.AppConstant;
 import com.profdeveloper.fllawi.utils.PreferenceData;
 import com.profdeveloper.fllawi.utils.Utility;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,8 +80,8 @@ public class SearchActivity extends BaseActivity {
     private SimpleDateFormat dateFormatter;
     private TextView tvCheckInDate, tvCheckOutDate,
             tvScheduleDate, tvCategory, tvSubCategory;
-    private EditText edtNumberOfRoom, edtNumberMember,
-            edtLocation, edtCouponName;
+    private EditText edtNumberOfRoom, edtNumberMember, edtCouponName;
+    private AutoCompleteTextView edtLocation;
     private String minPrice = "";
     private String maxPrice = "";
     private LinearLayout llLocation, llCheckIn, llCheckOut, llRoom,
@@ -78,6 +93,7 @@ public class SearchActivity extends BaseActivity {
     private boolean isCouponSelected = false;
     private ArrayList<Datum> categoryList = new ArrayList<>();
     private ArrayList<ChildCategory> subCategoryList = new ArrayList<>();
+    private ArrayList<SuggestLocationRequestResponse> suggestLocationList = new ArrayList<>();
     private Spinner spinnerCategory, spinnerSubCategory;
     private CategoryAdapter categoryAdapter;
     private SubCategoryAdapter subCategoryAdapter;
@@ -86,6 +102,9 @@ public class SearchActivity extends BaseActivity {
     private String sltCategoryId = "";
     private String checkInDateStr = "";
     private String checkOutDateStr = "";
+    private Date checkInDate;
+    private Date checkOutDate;
+    private String searchLocation = "";
 
     @Override
     public void setLayoutView() {
@@ -117,6 +136,23 @@ public class SearchActivity extends BaseActivity {
         edtNumberOfRoom = view.findViewById(R.id.edtNumberOfRoom);
         edtNumberMember = view.findViewById(R.id.edtNumberMember);
         edtLocation = view.findViewById(R.id.edtLocation);
+
+        edtLocation.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                searchLocation = s.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                suggestLocation(searchLocation);
+            }
+        });
 
         checkBoxTickets.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -197,7 +233,7 @@ public class SearchActivity extends BaseActivity {
                     sltCategoryId = "";
                     sltSubCategoryId = "";
                 } else {
-                    sltCategoryId = categoryList.get(position).getId()+"";
+                    sltCategoryId = categoryList.get(position).getId() + "";
                     tvCategory.setText(categoryList.get(position).getTitle());
                     tvCategory.setTextColor(getResources().getColor(R.color.white));
                     sltSubCategoryId = "";
@@ -206,7 +242,7 @@ public class SearchActivity extends BaseActivity {
                 }
                 subCategoryList.clear();
                 ChildCategory childCategory = new ChildCategory();
-                childCategory.setTitle("None");
+                childCategory.setTitle(getString(R.string.none));
                 subCategoryList.add(0, childCategory);
                 if (categoryList.get(position).getChildCategory() != null) {
                     for (ChildCategory childCat : categoryList.get(position).getChildCategory()) {
@@ -239,7 +275,7 @@ public class SearchActivity extends BaseActivity {
                     tvSubCategory.setText(R.string.select_category);
                     tvSubCategory.setTextColor(getResources().getColor(R.color.dark_blue));
                 } else {
-                    sltSubCategoryId = subCategoryList.get(position).getId()+"";
+                    sltSubCategoryId = subCategoryList.get(position).getId() + "";
                     tvSubCategory.setText(subCategoryList.get(position).getTitle());
                     tvSubCategory.setTextColor(getResources().getColor(R.color.white));
                 }
@@ -266,20 +302,30 @@ public class SearchActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btnSearch:
                 if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
-                    if (tvCheckInDate.getText().toString().trim().length() == 0) {
+                    /*if (tvCheckInDate.getText().toString().trim().length() == 0) {
                         Utility.showError(getString(R.string.valid_check_in_date));
                     } else if (tvCheckOutDate.getText().toString().trim().length() == 0) {
                         Utility.showError(getString(R.string.valid_checkout_date));
-                    } else {
-                        PreferenceData.setFromDate(tvCheckInDate.getText().toString());
-                        PreferenceData.setToDate(tvCheckOutDate.getText().toString());
-                        PreferenceData.setMember(edtNumberMember.getText().toString());
-                        PreferenceData.setRoom(edtNumberOfRoom.getText().toString());
-                        searchAccommodation();
-                    }
+                    } else {*/
+                    PreferenceData.setFromDate(tvCheckInDate.getText().toString());
+                    PreferenceData.setToDate(tvCheckOutDate.getText().toString());
+                    PreferenceData.setMember(edtNumberMember.getText().toString());
+                    PreferenceData.setRoom(edtNumberOfRoom.getText().toString());
+                    PreferenceData.setLocation(edtLocation.getText().toString().trim());
+                    searchAccommodation();
+                    // }
                 } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                    /*if (tvScheduleDate.getText().toString().length() == 0) {
+                        Utility.showError(getString(R.string.valid_scheduled_date));
+                    } else {*/
+                    PreferenceData.setScheduleDate(tvScheduleDate.getText().toString());
+                    PreferenceData.setLocation(edtLocation.getText().toString().trim());
+                    PreferenceData.setCategory(sltCategoryId);
+                    PreferenceData.setSubCategory(sltSubCategoryId);
                     searchThingToDo();
+                    //}
                 } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                    PreferenceData.setCoupon(couponType);
                     searchCoupon();
                 }
                 break;
@@ -304,11 +350,11 @@ public class SearchActivity extends BaseActivity {
                 showDatePickerDialog(DATE_PICKER_TYPE_CHECK_IN);
                 break;
             case R.id.tvCheckOutDate:
-                if (tvCheckInDate.getText().toString().length() == 0) {
+                /*if (tvCheckInDate.getText().toString().length() == 0) {
                     Utility.showError(getString(R.string.valid_check_out_date));
-                } else {
-                    showDatePickerDialog(DATE_PICKER_TYPE_CHECK_OUT);
-                }
+                } else {*/
+                showDatePickerDialog(DATE_PICKER_TYPE_CHECK_OUT);
+                //}
                 break;
             case R.id.ivTopBack:
                 onBackPressed();
@@ -375,15 +421,19 @@ public class SearchActivity extends BaseActivity {
                 Utility.showProgress(this);
 
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-                Date checkInDate = dateFormatter.parse(tvCheckInDate.getText().toString());
-                Date checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString());
-
                 SimpleDateFormat dateFormatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                checkInDateStr = dateFormatter1.format(checkInDate.getTime());
-                checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
+                if (tvCheckInDate.getText().toString().length() != 0) {
+                    checkInDate = dateFormatter.parse(tvCheckInDate.getText().toString());
+                    checkInDateStr = dateFormatter1.format(checkInDate.getTime());
+                }
+
+                if (tvCheckOutDate.getText().toString().length() != 0) {
+                    checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString());
+                    checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
+                }
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<SearchRequestResponse> call = service.searchAccommodation(Utility.getLocale(),WebUtility.SEARCH_ACCOMMODATION
+                Call<SearchRequestResponse> call = service.searchAccommodation(Utility.getLocale(), WebUtility.SEARCH_ACCOMMODATION
                         + "from_date=" + checkInDateStr
                         + "&to_date=" + checkOutDateStr
                         + "&no_room=" + edtNumberOfRoom.getText().toString().trim()
@@ -405,8 +455,8 @@ public class SearchActivity extends BaseActivity {
                                             Intent searchHotel = new Intent(mActivity, SearchResultActivity.class);
                                             Bundle bundle = new Bundle();
                                             bundle.putInt(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_ACCOMMODATION);
-                                            bundle.putString(AppConstant.EXT_FROM_DATE,tvCheckInDate.getText().toString());
-                                            bundle.putString(AppConstant.EXT_TO_DATE,tvCheckOutDate.getText().toString());
+                                            bundle.putString(AppConstant.EXT_FROM_DATE, tvCheckInDate.getText().toString());
+                                            bundle.putString(AppConstant.EXT_TO_DATE, tvCheckOutDate.getText().toString());
                                             bundle.putSerializable(AppConstant.EXT_SEARCH_DATA, response.body());
                                             searchHotel.putExtras(bundle);
                                             startActivity(searchHotel);
@@ -449,9 +499,10 @@ public class SearchActivity extends BaseActivity {
                 Utility.showProgress(this);
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<GetCouponRequestResponse> call = service.searchCoupon(Utility.getLocale(),WebUtility.SEARCH_COUPON
-                        + "q=" + edtCouponName.getText().toString().trim()
-                        + "&type=" + couponType);
+                Call<GetCouponRequestResponse> call = service.searchCoupon(
+                        Utility.getLocale(), WebUtility.SEARCH_COUPON
+                                + "q=" + edtCouponName.getText().toString().trim()
+                                + "&type=" + couponType);
                 call.enqueue(new Callback<GetCouponRequestResponse>() {
                     @Override
                     public void onResponse(Call<GetCouponRequestResponse> call, Response<GetCouponRequestResponse> response) {
@@ -517,11 +568,12 @@ public class SearchActivity extends BaseActivity {
                 }
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<GetThingToDoRequestResponse> call = service.searchThingToDo(Utility.getLocale(),WebUtility.SEARCH_THING_TO_DO
-                        + "q=" + edtLocation.getText().toString().trim()
-                        + "&schedule_date=" + checkInDateStr
-                        + "&filterBy[category][]=" + sltCategoryId
-                        + "&filterBy[subcategory][]=" + sltSubCategoryId);
+                Call<GetThingToDoRequestResponse> call = service.searchThingToDo(
+                        Utility.getLocale(), WebUtility.SEARCH_THING_TO_DO
+                                + "q=" + edtLocation.getText().toString().trim()
+                                + "&schedule_date=" + checkInDateStr
+                                + "&filterBy[category][]=" + sltCategoryId
+                                + "&filterBy[subcategory][]=" + sltSubCategoryId);
                 call.enqueue(new Callback<GetThingToDoRequestResponse>() {
                     @Override
                     public void onResponse(Call<GetThingToDoRequestResponse> call, Response<GetThingToDoRequestResponse> response) {
@@ -537,9 +589,9 @@ public class SearchActivity extends BaseActivity {
                                             Intent searchHotel = new Intent(mActivity, SearchResultActivity.class);
                                             Bundle bundle = new Bundle();
                                             bundle.putInt(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_THING_TO_DO);
-                                            bundle.putString(AppConstant.EXT_FROM_DATE,tvScheduleDate.getText().toString());
-                                            bundle.putString(AppConstant.EXT_CATEGORY,sltCategoryId);
-                                            bundle.putString(AppConstant.EXT_SUB_CATEGORY,sltSubCategoryId);
+                                            bundle.putString(AppConstant.EXT_FROM_DATE, tvScheduleDate.getText().toString());
+                                            bundle.putString(AppConstant.EXT_CATEGORY, sltCategoryId);
+                                            bundle.putString(AppConstant.EXT_SUB_CATEGORY, sltSubCategoryId);
                                             bundle.putSerializable(AppConstant.EXT_SEARCH_DATA, response.body());
                                             searchHotel.putExtras(bundle);
                                             startActivity(searchHotel);
@@ -582,7 +634,7 @@ public class SearchActivity extends BaseActivity {
                 Utility.showProgress(this);
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<GetThingToDoCategoryRequestResponse> call = service.getThingToDoCategory(Utility.getLocale(),WebUtility.BASE_URL + WebUtility.GET_THING_TO_DO_CATEGORY);
+                Call<GetThingToDoCategoryRequestResponse> call = service.getThingToDoCategory(Utility.getLocale(), WebUtility.BASE_URL + WebUtility.GET_THING_TO_DO_CATEGORY);
                 call.enqueue(new Callback<GetThingToDoCategoryRequestResponse>() {
                     @Override
                     public void onResponse(Call<GetThingToDoCategoryRequestResponse> call, Response<GetThingToDoCategoryRequestResponse> response) {
@@ -618,6 +670,91 @@ public class SearchActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<GetThingToDoCategoryRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void suggestLocation(final String search) {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                //Utility.showProgress(this);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<ResponseBody> call = null;
+
+                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+                    call = service.getSuggestLocation(Utility.getLocale(), WebUtility.SUGGEST_ACCOMMODATION
+                            + "term=" + search
+                    );
+                } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                    call = service.getSuggestLocation(Utility.getLocale(), WebUtility.SUGGEST_THING_TO_DO
+                            + "term=" + search
+                    );
+                } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                    call = service.getSuggestLocation(Utility.getLocale(), WebUtility.SUGGEST_COUPON
+                            + "term=" + search
+                    );
+                } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
+                    call = service.getSuggestLocation(Utility.getLocale(), WebUtility.SUGGEST_PACKAGE
+                            + "term=" + search
+                    );
+                } else if (isFrom == AppConstant.IS_FROM_EVENT) {
+                    call = service.getSuggestLocation(Utility.getLocale(), WebUtility.SUGGEST_EVENTS
+                            + "term=" + search
+                    );
+                }
+
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                suggestLocationList.clear();
+                                String[] arr = null;
+                                if (response.body().toString().length() > 2){
+                                    try {
+                                        String resStr = response.body().string();
+                                        JSONArray jsonArray = new JSONArray(resStr);
+                                        arr = new String[jsonArray.length()];
+                                        for (int i = 0;i<jsonArray.length();i++){
+                                            SuggestLocationRequestResponse location = new SuggestLocationRequestResponse();
+                                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                            location.setId(jsonObject.getInt("id"));
+                                            location.setLabel(jsonObject.getString("label"));
+                                            location.setValue(jsonObject.getString("value"));
+                                            suggestLocationList.add(location);
+                                            arr[i] = jsonObject.getString("label");
+                                        }
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+
+                                    if (arr != null){
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchActivity.this,android.R.layout.simple_dropdown_item_1line, arr);
+                                        //LocationSuggestionAdapter adapter = new LocationSuggestionAdapter(SearchActivity.this,suggestLocationList);
+                                        edtLocation.setAdapter(adapter);
+                                    }
+                                }
+
+                            } else {
+                                //Utility.showError(getString(R.string.no_search_data));
+                            }
+                        } else {
+                            //Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        //Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Utility.log("" + t.getMessage());
                         hideProgress();
                         Utility.showError(t.getMessage());

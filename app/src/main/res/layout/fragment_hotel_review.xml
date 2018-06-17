@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
     android:background="@color/light_gray3"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:minHeight="@dimen/_400sdp"
         android:orientation="vertical">
@@ -64,10 +63,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/_5sdp"
                                 android:layout_marginStart="@dimen/_10sdp"
+                                android:isIndicator="false"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:numStars="5"
                                 android:rating="2.5"
-                                android:stepSize="0.5" />
+                                android:stepSize="1" />
 
                             <com.customviews.CustomRomanTextView
                                 android:id="@+id/tvReviewsCount"
@@ -76,7 +76,6 @@
                                 android:layout_marginBottom="@dimen/_1sdp"
                                 android:layout_marginEnd="@dimen/_2sdp"
                                 android:gravity="center"
-                                android:text="@string/_3_reviews"
                                 android:textColor="@color/dark_gray"
                                 android:textSize="@dimen/_10ssp" />
 
@@ -116,7 +115,6 @@
                                 android:layout_alignParentEnd="true"
                                 android:gravity="center"
                                 android:padding="@dimen/_5sdp"
-                                android:text="@string/all_120_review"
                                 android:textColor="@color/app_blue"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -129,64 +127,6 @@
             </LinearLayout>
 
         </ScrollView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/dark_gray1"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.customviews.CustomRomanTextView
-                android:id="@+id/tvPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/_3535"
-                android:textColor="@color/app_blue"
-                android:textSize="@dimen/_11ssp" />
-
-            <com.customviews.CustomRomanTextView
-                android:id="@+id/tvPerNight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/per_night"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llContinueBooking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@color/app_blue"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/_12sdp">
-
-            <com.customviews.CustomRomanTextView
-                android:id="@+id/tvBooking"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/continue_booking"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_11ssp" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

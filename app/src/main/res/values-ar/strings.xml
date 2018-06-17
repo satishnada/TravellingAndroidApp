@@ -93,14 +93,14 @@
     </string-array>
 
     <string-array name="side_menu">
-        <item>@drawable/ic_home_menu</item>
+        <item>@drawable/ic_menu_home</item>
         <item>@drawable/ic_menu_overview</item>
         <item>@drawable/ic_menu_notifaction</item>
         <item>@drawable/ic_menu_privacy_policy</item>
         <item>@drawable/ic_menu_term_and_conditions</item>
         <item>@drawable/ic_menu_help_support</item>
-        <item>@drawable/ic_bank_info_menu</item>
-        <item>@drawable/ic_home_menu</item>
+        <item>@drawable/ic_menu_bank_info</item>
+        <item>@drawable/ic_menu_login</item>
     </string-array>
 
     <string-array name="side_menu_str">
@@ -117,12 +117,13 @@
     <string name="menu_home">الرئيسية</string>
     <string name="menu_profile">الملف الشخصي</string>
     <string name="menu_overview">نظرة عامة</string>
-    <string name="menu_history">سجل الحجز</string>
+    <string name="menu_history">حجوزاتي</string>
     <string name="menu_notification">التنبيهات</string>
     <string name="menu_change_password">تغير كلمة المرور</string>
     <string name="menu_privacy_policy">سياسة الخصوصية </string>
     <string name="menu_term_and_condition">الشروط و الاحكام </string>
     <string name="menu_help">الدعم و المساعدة</string>
+    <string name="menu_bank_info">معلومات البنك</string>
     <string name="menu_logout">تسجيل الخروج</string>
     <string name="menu_login">تسجيل الدخول</string>
 
@@ -158,6 +159,8 @@
     <string name="top_offer_and_price">"افضل العروض "</string>
 
     <string name="get_additional_ndiscounts">احصل على خصم إضافي</string>
+    <string name="earn_and_pay">كسب &amp; دفع-n\nالسيولة النقدية</string>
+    <string name="faster_checkout">أسرع \nالخروج</string>
     <string name="confirm">تم ارسال رسالى تأكيد الى بريدك الالكتروني</string>
     <string name="check_email">تم ارسال التفاصيل الى بريدك الالكتروني</string>
     <string name="room_facilities">الغرف و المرافق</string>
@@ -194,6 +197,7 @@
     <string name="photo">الصور</string>
     <string name="host">مقدم الخدمة</string>
     <string name="review">التقييم </string>
+    <string name="review_ratting">+اضافة تقييم</string>
     <string name="check_in_out_time">وقت الدخول و وقت الخروج</string>
     <string name="cancellation_policy">سياسة الإلغاء</string>
     <string name="allowed">مسمموح</string>
@@ -212,7 +216,7 @@
     <string name="select_sub_category">اختر التصنيف الفرعي</string>
     <string name="no_data_available">لا تتوفر أي بياناتا</string>
     <string name="apply_coupon_optional">هل لديك كود خصم</string>
-    <string name="enter_coupon">ادخل كود الكوبون</string>
+    <string name="enter_coupon">ادخل كو الخصم</string>
     <string name="apply">تطبيق</string>
     <string name="proceed_further">الاستمرار</string>
     <string name="from">من</string>
@@ -225,7 +229,7 @@
     <string name="total_payable_before_discount">اجمالي القيمة المستحقة</string>
     <string name="discount_applied">الخصم</string>
     <string name="coupon_amount">الكوبون</string>
-    <string name="total_payable_after_discount">اجمالي صافي القبمة</string>
+    <string name="total_payable_after_discount">صافي المبلغ المستحق</string>
     <string name="pay_via_bank">حوالة بنكية</string>
     <string name="pay_via_credit_card">بطاقة ائتمان</string>
     <string name="check_in_">تسجيل دخول</string>
@@ -238,10 +242,8 @@
     <string name="discount_applied_">الخصم</string>
     <string name="book_now">احجز الان </string>
     <string name="price_per_night">ابتداء من </string>
-    <string name="_10_000">$10,000+</string>
     <string name="min_price">اقل سعر</string>
     <string name="max_price">اعلى سعر</string>
-    <string name="_10000">$10000</string>
     <string name="list">القائمة</string>
     <string name="apply_filters">تصفية</string>
     <string name="top_destination">افضل الوجهات</string>
@@ -270,12 +272,10 @@
     <string name="enter_first_name">الاسم الأول </string>
     <string name="enter_last_name">اسم العائلة</string>
     <string name="enter_mobile_number">رقم الجوال</string>
-    <string name="_00">$00</string>
-    <string name="_5000">$5000</string>
     <string name="start_ratting">تقيم النجوم</string>
     <string name="user_ratting">تقيمات المستخدمين</string>
     <string name="enter_location">ادخل الموقع</string>
-    <string name="add_your_review_ratting">اكتب تقيمك</string>
+    <string name="add_your_review_ratting">اضافة تقييم</string>
     <string name="enter_your_full_name">ادخل الاسم الكامل</string>
     <string name="write_your_message">اكتب  رسالتك</string>
     <string name="enter_your_message">نص الرسالة</string>
@@ -310,7 +310,7 @@
     <string name="choose_addons">اختر الإضافات </string>
     <string name="scheduled_date">التاريخ</string>
     <string name="no_search_found">لا توجد نتائج لهذا البحث</string>
-    <string name="offer_one">استراحة الدلفين</string>
+
     <string name="cat_not_available">هذا التصنيف غير متوفر</string>
     <string name="valid_sub_category">هذا التصنيف الفرعي غير متوفر نرجو اختيار تصنيف اخر</string>
     <string name="be_inspired_description">نسعى لان نقدم لكم افضل أماكن الإقامة والأنشطة السياحية والترفيهية والمغامرات داخل وخارج المملكة </string>
@@ -331,37 +331,48 @@
     <string name="upload_bank_receipt">تحميل استلام البنك</string>
     <string name="order_">طلب :</string>
     <string name="order_total">الطلب الكلي :</string>
+    <string name="login">دخول</string>
 
-    <string name="cancel_booking">Cancel Booking</string>
-    <string name="from_time">From Time : </string>
-    <string name="to_time">To Time : </string>
-    <string name="bank_info">Bank Info</string>
-    <string name="bank_account_info">Bank Name : Riyad Bank\nAccount Number : 1192104609940\nIBAN : SA9020000001192104609940</string>
-    <string name="discover_new">Discover New</string>
-    <string name="discover_description">Popular &amp; offbeat destinations across\nworld for you to plan your holiday</string>
-    <string name="sightseeing">Sightseeing</string>
-    <string name="sightseeing_description">Plan your trip &amp; discover things to do from \nour sightseeing destination across world</string>
-    <string name="map_intro">Map</string>
-    <string name="map_intro_description">Nearby and direction on the go</string>
-    <string name="stay">Stay</string>
-    <string name="stay_description">Read reviews of villa, resorts &amp;\nhomestays across world</string>
-    <string name="capture">Capture</string>
-    <string name="gallery">Gallery</string>
-    <string name="select_payment_mode">Select payment mode</string>
-    <string name="select_currency">Select currency</string>
-    <string name="select_interest">Select Interest</string>
-    <string name="select_language">Select language</string>
-    <string name="select_country_">Select country</string>
-    <string name="enter_address_1">Enter Address</string>
-    <string name="enter_web_site">Enter web site</string>
-    <string name="valid_profile_pic">Please allow the permission to update your profile picture</string>
-    <string name="login">Login</string>
-    <string name="valid_date">Please select other date</string>
-    <string name="no_search_data">No Search Data Found</string>
-    <string name="valid_full_name">Please enter your full name</string>
-    <string name="valid_message">Please enter your message</string>
-    <string name="valid_ratting">Please select ratting</string>
-    <string name="id_prof">ID Prof</string>
+    <string name="cancel_booking">إلغاء الحجز</string>
+    <string name="from_time">من وقت : </string>
+    <string name="to_time">الى وقت :</string>
+    <string name="bank_info">معلومات البنك</string>
 
+    <string name="bank_name">اسم البنك: بنك الرياض</string>
+    <string name="bank_account_no">رقم حساب :</string>
+    <string name="iban">IBAN:</string>
 
+    <string name="capture">أسر</string>
+    <string name="gallery">صالة عرض</string>
+    <string name="select_payment_mode">حدد وضع الدفع</string>
+    <string name="select_currency">اختر العملة</string>
+    <string name="select_interest">اختر الفائدة</string>
+    <string name="select_language">اختار اللغة</string>
+    <string name="select_country_">حدد الدولة</string>
+    <string name="enter_address_1">أدخل العنوان</string>
+    <string name="enter_web_site">ادخل موقع الويب</string>
+    <string name="valid_profile_pic">يرجى السماح للإذن بتحديث صورة ملفك الشخصي</string>
+    <string name="valid_date">يرجى تحديد تاريخ آخر</string>
+    <string name="no_search_data">لا توجد بيانات للبحث</string>
+    <string name="valid_full_name">من فضلك ادخل اسمك الكامل</string>
+    <string name="valid_message">أدرج رسالتك من فضلك</string>
+    <string name="valid_ratting">يرجى تحديدفأر</string>
+    <string name="id_prof">معرف البروفيسور</string>
+    <string name="sar">ر.س </string>
+    <string name="discount_on">٪ خصم على</string>
+
+    <string name="search">بحث</string>
+    <string name="notifications">إخطارات</string>
+    <string name="submit">خضع</string>
+
+    <string name="check_in_time">تحقق في الوقت:</string>
+    <string name="cancellation_price">سعر الإلغاء</string>
+    <string name="no_rules">لا توجد قواعد أخرى</string>
+    <string name="valid_scheduled_date">حدد التاريخ المجدول</string>
+
+    <string name="check_out_time">تحقق من الوقت :</string>
+    <string name="before_hours">"قبل ساعات"</string>
+    <string name="no_refund_before_hours">"لا استرداد الأموال قبل ساعات"</string>
+    <string name="startfrom">يبدأ من</string>
+    <string name="all">الكل</string>
 </resources>

@@ -49,7 +49,7 @@ public class AddonsListAdapter extends RecyclerView.Adapter<AddonsListAdapter.Vi
         }
 
         if (addonsList.get(position).getSubTotal().length() > 0){
-            holder.tvSubTotal.setText("SAR "+ addonsList.get(position).getSubTotal()+"");
+            holder.tvSubTotal.setText(context.getString(R.string.sar)+" "+ addonsList.get(position).getSubTotal()+"");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +60,7 @@ public class AddonsListAdapter extends RecyclerView.Adapter<AddonsListAdapter.Vi
         });
 
         holder.tvAddonsName.setText(datum.getInclusion().getTitle());
-        holder.tvUnitPrice.setText("SAR "+datum.getPrice() + "");
+        holder.tvUnitPrice.setText(context.getString(R.string.sar)+" "+datum.getPrice() + "");
         //holder.edtQuantity.setText(addonsList.get(holder.getAdapterPosition()).getQuantity());
         //holder.tvSubTotal.setText(datum.getSubTotal());
         //holder.tvKidsQ.setText(datum.getQuantity());

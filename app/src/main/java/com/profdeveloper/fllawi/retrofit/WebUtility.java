@@ -2,7 +2,7 @@ package com.profdeveloper.fllawi.retrofit;
 
 public class WebUtility {
 
-    public static final String BASE_URL = "https://v2.fllawi.com/api/v1/front/";
+    public static final String BASE_URL = "https://www.fllawi.com/api/v1/front/";
     public static final String USER_LOGIN = "login";
     public static final String USER_SIGN_UP = "register";
     public static final String USER_GET_PROFILE = "profile";
@@ -57,6 +57,12 @@ public class WebUtility {
     public static final String BOOKING_COUPON_CANCEL = "coupon/booking/view";
     public static final String BOOKING_UPLOAD_COUPON_BANK_RECEIPT = "coupon/booking/store_bank_receipt";
 
-    public static final String GET_HOME = "home";
+    public static final String SUGGEST_ACCOMMODATION = "home/suggest_accomodations?";
+    public static final String SUGGEST_THING_TO_DO = "home/suggest_thingstodo?";
+    public static final String SUGGEST_COUPON = "home/suggest_coupons?";
+    public static final String SUGGEST_PACKAGE = "home/suggest_packages?";
+    public static final String SUGGEST_EVENTS = "front/home/suggest_events?";
+
+    public static final String GET_HOME_TOP_DESTINATION = "home";
 
 }

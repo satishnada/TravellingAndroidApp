@@ -54,7 +54,7 @@ public class ArrData implements Serializable {
     private int discountApplicable;
     @SerializedName("discount")
     @Expose
-    private int discount;
+    private double discount;
     @SerializedName("contact_email")
     @Expose
     private String contactEmail;
@@ -234,11 +234,11 @@ public class ArrData implements Serializable {
         this.discountApplicable = discountApplicable;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

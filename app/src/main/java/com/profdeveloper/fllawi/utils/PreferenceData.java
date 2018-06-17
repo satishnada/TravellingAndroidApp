@@ -57,6 +57,46 @@ public class PreferenceData {
         return SharedPreferenceUtil.getString(AppConstant.USER_LANGUAGE,"");
     }
 
+    public static void setScheduleDate(String fromDate){
+        SharedPreferenceUtil.putValue(AppConstant.SCHEDULE_DATE,fromDate);
+    }
+
+    public static String getScheduleDate(){
+        return SharedPreferenceUtil.getString(AppConstant.SCHEDULE_DATE,"");
+    }
+
+    public static void setLocation(String location){
+        SharedPreferenceUtil.putValue(AppConstant.LOCATION,location);
+    }
+
+    public static String getLocation(){
+        return SharedPreferenceUtil.getString(AppConstant.LOCATION,"");
+    }
+
+    public static void setCategory(String category){
+        SharedPreferenceUtil.putValue(AppConstant.CATEGORY,category);
+    }
+
+    public static String getCategory(){
+        return SharedPreferenceUtil.getString(AppConstant.CATEGORY,"");
+    }
+
+    public static void setSubCategory(String subCategory){
+        SharedPreferenceUtil.putValue(AppConstant.SUB_CATEGORY,subCategory);
+    }
+
+    public static String getSubCategory(){
+        return SharedPreferenceUtil.getString(AppConstant.SUB_CATEGORY,"");
+    }
+
+    public static void setCoupon(String coupon){
+        SharedPreferenceUtil.putValue(AppConstant.COUPON,coupon);
+    }
+
+    public static String getCoupon(){
+        return SharedPreferenceUtil.getString(AppConstant.COUPON,"");
+    }
+
     public static void setFromDate(String fromDate){
         SharedPreferenceUtil.putValue(AppConstant.FROM_DATE,fromDate);
     }

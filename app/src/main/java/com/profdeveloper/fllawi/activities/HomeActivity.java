@@ -1,6 +1,7 @@
 package com.profdeveloper.fllawi.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -8,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +22,21 @@ import com.profdeveloper.fllawi.adapters.HomeListAdapter;
 import com.profdeveloper.fllawi.adapters.OffersAndPriceListAdapter;
 import com.profdeveloper.fllawi.adapters.OurServicesListAdapter;
 import com.profdeveloper.fllawi.R;
+import com.profdeveloper.fllawi.model.AccommodationBooking.AccommodationBookingRequestResponse;
+import com.profdeveloper.fllawi.model.HomeTopDestination.ArrTopCoupon;
+import com.profdeveloper.fllawi.model.HomeTopDestination.TopDestinationRequestResponse;
+import com.profdeveloper.fllawi.model.SearchHotel.Datum;
+import com.profdeveloper.fllawi.retrofit.WebServiceCaller;
+import com.profdeveloper.fllawi.retrofit.WebUtility;
 import com.profdeveloper.fllawi.utils.AppConstant;
 import com.profdeveloper.fllawi.utils.PreferenceData;
 import com.profdeveloper.fllawi.utils.Utility;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends BaseActivity {
 
@@ -37,8 +49,11 @@ public class HomeActivity extends BaseActivity {
     private ImageView ivTopHomeBack, ivTopHomeSearch;
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsing_toolbar;
-    private TextView tvEnglishTop;
-    private ImageView ivTopMenu,ivTopSearch;
+    private TextView tvEnglishTop, tvAdditionalDiscount, tvEarnAndPay, tvFasterCheckout;
+    private ImageView ivTopMenu, ivTopSearch;
+    private TextView tvSeeAllDestination,tvNoDataTopDestination;
+
+    private ArrayList<ArrTopCoupon> topCouponsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +62,36 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void setLayoutView() {
-        view = LayoutInflater.from(this).inflate(R.layout.activity_home, llContainer);
         mActivity = this;
-
         isHomeRunning = true;
+        serAllView();
+        setLanguage();
+    }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
+        view = LayoutInflater.from(this).inflate(R.layout.activity_home, llContainer);
+    }
+
+    private void serAllView() {
+        view = LayoutInflater.from(this).inflate(R.layout.activity_home, llContainer);
         ivTopMenu = view.findViewById(R.id.ivTopMenu);
         ivTopSearch = view.findViewById(R.id.ivTopSearch);
         tvEnglishTop = view.findViewById(R.id.tvEnglishTop);
-        tvEnglishTop.setOnClickListener(this);
+        tvSeeAllDestination = view.findViewById(R.id.tvSeeAllDestination);
+        tvNoDataTopDestination = view.findViewById(R.id.tvNoDataTopDestination);
 
+        tvAdditionalDiscount = view.findViewById(R.id.tvAdditionalDiscount);
+        tvEarnAndPay = view.findViewById(R.id.tvEarnAndPay);
+        tvFasterCheckout = view.findViewById(R.id.tvFasterCheckout);
+
+        tvAdditionalDiscount.setText(getString(R.string.get_additional_ndiscounts));
+        tvEarnAndPay.setText(getString(R.string.earn_and_pay));
+        tvFasterCheckout.setText(getString(R.string.faster_checkout));
+
+        tvEnglishTop.setOnClickListener(this);
         ivTopMenu.setOnClickListener(this);
         ivTopSearch.setOnClickListener(this);
 
@@ -79,103 +114,71 @@ public class HomeActivity extends BaseActivity {
         rvOurServices.setAdapter(ourServicesListAdapter);
 
         rvTopDestination.setLayoutManager(Utility.getLayoutManagerHorizontal(mActivity));
-        ArrayList<String> topDestinations = new ArrayList<>();
-        topDestinations.add("");
-        topDestinations.add("");
-        topDestinations.add("");
-        topDestinations.add("");
-        destinationsListAdapter = new DestinationsListAdapter(mActivity, topDestinations);
-        rvTopDestination.setAdapter(destinationsListAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mActivity, 2);
         rvTopOffers.setLayoutManager(gridLayoutManager);
         ArrayList<String> topOffers = new ArrayList<>();
-        topOffers.add(getString(R.string.offer_one));
-        topOffers.add(getString(R.string.offer_two));
-        topOffers.add(getString(R.string.offer_three));
-        topOffers.add(getString(R.string.offer_five));
         offersAndPriceListAdapter = new OffersAndPriceListAdapter(mActivity, topOffers);
         rvTopOffers.setAdapter(offersAndPriceListAdapter);
 
-       // ivTopHomeBack.setOnClickListener(this);
-       // ivTopHomeSearch.setOnClickListener(this);
-        setLanguage();
+        getTopDestination();
     }
 
-    private void setLanguage(){
-        if (PreferenceData.getUserLanguage() != null){
-            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")){
+    private void setLanguage() {
+        if (PreferenceData.getUserLanguage() != null) {
+            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")) {
                 changeLanguage("ar");
                 tvEnglishTop.setText("Eng");
-            }else{
-                tvEnglishTop.setText("التسجيل");
+            } else {
+                tvEnglishTop.setText("عربي");
                 changeLanguage("en");
             }
-        }else{
-            tvEnglishTop.setText("التسجيل");
+        } else {
+            tvEnglishTop.setText("عربي");
             changeLanguage("en");
         }
     }
 
-    private void setLanguageOnClick(){
-        if (PreferenceData.getUserLanguage() != null){
-            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")){
+    private void setLanguageOnClick() {
+        if (PreferenceData.getUserLanguage() != null) {
+            if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")) {
                 changeLanguage("en");
                 PreferenceData.setUserLang("en");
-                tvEnglishTop.setText("التسجيل");
-            }else{
+                tvEnglishTop.setText("عربي");
+            } else {
                 tvEnglishTop.setText("Eng");
                 PreferenceData.setUserLang("ar");
                 changeLanguage("ar");
             }
-        }else{
+        } else {
             PreferenceData.setUserLang("en");
-            tvEnglishTop.setText("التسجيل");
+            tvEnglishTop.setText("عربي");
             changeLanguage("en");
         }
     }
 
- /*   private void dynamicToolbarColor() {
-
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.profile_pic);
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-
-            @Override
-            public void onGenerated(Palette palette) {
-                collapsingToolbarLayout.setContentScrimColor(palette.getMutedColor(R.attr.colorPrimary));
-                collapsingToolbarLayout.setStatusBarScrimColor(palette.getMutedColor(R.attr.colorPrimaryDark);
-            }
-        });
-    }
-
-    private void toolbarTextAppernce() {
-        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
-        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
-    }*/
-
-    public void onOurServiceItemClick(int position){
-        if (position == 0){ // Accommodation
+    public void onOurServiceItemClick(int position) {
+        if (position == 0) { // Accommodation
             Intent searchIntent = new Intent(mActivity, SearchActivity.class);
-            searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ACCOMMODATION);
+            searchIntent.putExtra(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_ACCOMMODATION);
             startActivity(searchIntent);
             goNext();
-        } else if (position == 1){ // Things to do
+        } else if (position == 1) { // Things to do
             Intent searchIntent = new Intent(mActivity, SearchActivity.class);
-            searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_THING_TO_DO);
+            searchIntent.putExtra(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_THING_TO_DO);
             startActivity(searchIntent);
             goNext();
-        } else if (position == 2){ // Coupon
+        } else if (position == 2) { // Coupon
             Intent searchIntent = new Intent(mActivity, SearchActivity.class);
-            searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_COUPON);
+            searchIntent.putExtra(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_COUPON);
             startActivity(searchIntent);
             goNext();
-        } else if (position == 3){ // Transportation
+        } else if (position == 3) { // Transportation
            /* Intent searchIntent = new Intent(mActivity, SearchActivity.class);
             searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_TRANSPORTATION);
             startActivity(searchIntent);
             goNext();*/
-        } else if (position == 4){ // Event
+        } else if (position == 4) { // Event
          /*   Intent searchIntent = new Intent(mActivity, SearchActivity.class);
             searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_EVENT);
             startActivity(searchIntent);
@@ -183,10 +186,64 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    public void onItemClick() {
+    public void onAccommodationItemClick(Datum searchResultData) {
         Intent intent = new Intent(mActivity, HotelDetailsActivity.class);
+        intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_ACCOMMODATION);
+        intent.putExtra(AppConstant.EXT_HOTEL_NAME,searchResultData.getTitle());
+        intent.putExtra(AppConstant.EXT_HOTEL_IMAGE,searchResultData.getImage());
+        intent.putExtra(AppConstant.EXT_FROM_DATE,"");
+        intent.putExtra(AppConstant.EXT_TO_DATE,"");
+        intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
+        intent.putExtra(AppConstant.EXT_AVG_RATTING,searchResultData.getAvrageUserRatting()+"");
         startActivity(intent);
         goNext();
+    }
+
+    public void onCouponItemClick(ArrTopCoupon coupon) {
+        Intent intent = new Intent(mActivity, HotelDetailsActivity.class);
+        intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_COUPON);
+        intent.putExtra(AppConstant.EXT_HOTEL_NAME,coupon.getTitle());
+        intent.putExtra(AppConstant.EXT_HOTEL_IMAGE,"");
+        intent.putExtra(AppConstant.EXT_TO_DATE,"");
+        intent.putExtra(AppConstant.EXT_FROM_DATE,"");
+        intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,coupon.getId()+"");
+        intent.putExtra(AppConstant.EXT_AVG_RATTING,"0");
+        startActivity(intent);
+        goNext();
+    }
+
+    public void onThingToDoItemClick(com.profdeveloper.fllawi.model.ThingToDoSearch.Datum searchResultData) {
+        Intent intent = new Intent(mActivity, HotelDetailsActivity.class);
+        intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_THING_TO_DO);
+        intent.putExtra(AppConstant.EXT_HOTEL_NAME,searchResultData.getTitle());
+        intent.putExtra(AppConstant.EXT_HOTEL_IMAGE,searchResultData.getImage());
+        intent.putExtra(AppConstant.EXT_FROM_DATE,"");
+        intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
+        intent.putExtra(AppConstant.EXT_AVG_RATTING,searchResultData.getAvrageUserRating()+"");
+        startActivity(intent);
+        goNext();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            Log.i("HomeActivity", "onResume: ");
+            //serAllView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        try {
+            Log.i("HomeActivity", "onRestart: ");
+            recreate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -198,11 +255,15 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
 
-       switch (v.getId()) {
-           case R.id.tvEnglishTop:
-               setLanguageOnClick();
-               recreate();
-               break;
+        switch (v.getId()) {
+            case R.id.tvEnglishTop:
+                setLanguageOnClick();
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                serAllView();
+                break;
             case R.id.ivTopMenu:
                 closeSideMenu();
                 break;
@@ -216,6 +277,57 @@ public class HomeActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void getTopDestination() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<TopDestinationRequestResponse> call = service.getTopDestination(Utility.getLocale(), WebUtility.GET_HOME_TOP_DESTINATION);
+                call.enqueue(new Callback<TopDestinationRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<TopDestinationRequestResponse> call, Response<TopDestinationRequestResponse> response) {
+
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                topCouponsList.clear();
+                                topCouponsList = (ArrayList<ArrTopCoupon>) response.body().getArrTopCoupon();
+                                if (topCouponsList != null && !topCouponsList.isEmpty()){
+                                    destinationsListAdapter = new DestinationsListAdapter(mActivity, topCouponsList);
+                                    rvTopDestination.setAdapter(destinationsListAdapter);
+                                    tvSeeAllDestination.setVisibility(View.VISIBLE);
+                                    rvTopDestination.setVisibility(View.VISIBLE);
+                                    tvNoDataTopDestination.setVisibility(View.GONE);
+                                }else{
+                                    tvNoDataTopDestination.setVisibility(View.VISIBLE);
+                                    tvSeeAllDestination.setVisibility(View.GONE);
+                                    rvTopDestination.setVisibility(View.GONE);
+                                }
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(response.body().getMsg());
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<TopDestinationRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     boolean doubleBackToExitPressedOnce = false;
 

@@ -47,14 +47,13 @@
             android:orientation="vertical">
 
             <com.customviews.CustomLightTextView
-                android:id="@+id/tvEmail"
+                android:id="@+id/tvBankInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:gravity="start"
-                android:text="@string/bank_account_info"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="@dimen/_14ssp" />

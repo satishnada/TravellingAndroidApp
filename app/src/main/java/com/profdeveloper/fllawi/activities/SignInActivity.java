@@ -98,11 +98,11 @@ public class SignInActivity extends BaseActivity {
                 changeLanguage("ar");
                 tvEnglish.setText("Eng");
             } else {
-                tvEnglish.setText("التسجيل");
+                tvEnglish.setText("عربي");
                 changeLanguage("en");
             }
         } else {
-            tvEnglish.setText("التسجيل");
+            tvEnglish.setText("عربي");
             changeLanguage("en");
         }
     }
@@ -112,7 +112,7 @@ public class SignInActivity extends BaseActivity {
             if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")) {
                 changeLanguage("en");
                 PreferenceData.setUserLang("en");
-                tvEnglish.setText("التسجيل");
+                tvEnglish.setText("عربي");
             } else {
                 tvEnglish.setText("Eng");
                 PreferenceData.setUserLang("ar");
@@ -120,7 +120,7 @@ public class SignInActivity extends BaseActivity {
             }
         } else {
             PreferenceData.setUserLang("en");
-            tvEnglish.setText("التسجيل");
+            tvEnglish.setText("عربي");
             changeLanguage("en");
         }
     }

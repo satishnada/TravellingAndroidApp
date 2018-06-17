@@ -37,8 +37,6 @@ public class OffersAndPriceListAdapter extends RecyclerView.Adapter<OffersAndPri
         //holder.ivHotel
         //holder.tvFullAddress.setText();
         holder.tvHotelName.setText(offerAndPriceList.get(position));
-        holder.tvOffer.setText("SAR 32"+ position +"5");
-        holder.tvReviewCount.setText(position+"34 "+ context.getString(R.string.reviews));
         if (position == 0){
             holder.ivHotel.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_dummy_offere));
         }else if (position == 1){

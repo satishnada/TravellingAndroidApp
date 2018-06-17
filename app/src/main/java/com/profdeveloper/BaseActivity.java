@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.customviews.snackBarCustomViews.SnackBarInstance;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.activities.BookingHistoryActivity;
 import com.profdeveloper.fllawi.activities.ChangePasswordActivity;
@@ -60,11 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public TextView tvRightText;
     public static boolean isHomeRunning = false;
 
-    public RelativeLayout rlTopSearch;
-    public EditText etTopSearch;
-    public TextView tvTopSearchCancel;
     protected LinearLayout llBase;
-    private ImageView ivCancel;
 
     private int selectedFooterColor;
     protected Activity mActivity = BaseActivity.this;
@@ -73,12 +70,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public NavigationView nav_view;
     public DrawerLayout drawer_layout;
+    public ImageLoader mImageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         llContainer = (LinearLayout) findViewById(R.id.llContainer);
+        mImageLoader =  ImageLoader.getInstance();
 
         mPd = Utility.initProgress(mActivity);
         mPermissionManagerInstance = new PermissionManagerInstance(this);
@@ -95,11 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         tvTopSkip = (TextView) findViewById(R.id.tvTopSkip);
         ivTopSearch = (ImageView) findViewById(R.id.ivTopSearch);
         ivTopFilter = (ImageView) findViewById(R.id.ivTopFilter);
-        ivCancel = (ImageView) findViewById(R.id.ivCancel);
-        // top search
-        rlTopSearch = (RelativeLayout) findViewById(R.id.rlTopSearch);
-        etTopSearch = (EditText) findViewById(R.id.edtTopSearch);
-        tvTopSearchCancel = (TextView) findViewById(R.id.tvTopSearchCancel);
 
         tvLeftText = findViewById(R.id.tvLeftText);
         tvRightText = findViewById(R.id.tvRightText);
@@ -111,12 +105,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         ivTopBack.setOnClickListener(this);
         tvTopSkip.setOnClickListener(this);
-        ivCancel.setOnClickListener(this);
         tvTopLeftFirst.setOnClickListener(this);
         ivTopSearch.setOnClickListener(this);
         ivTopFilter.setOnClickListener(this);
-        rlTopSearch.setOnClickListener(this);
-        tvTopSearchCancel.setOnClickListener(this);
         tvLeftText.setOnClickListener(this);
         tvRightText.setOnClickListener(this);
 
@@ -393,6 +384,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         ImageView ivClose = (ImageView) layout.findViewById(R.id.ivClose);
         TextView tvYes = layout.findViewById(R.id.tvYes);
+        TextView tvBankInfo = layout.findViewById(R.id.tvBankInfo);
+
+        tvBankInfo.setText(getString(R.string.bank_name)+"\n"+getString(R.string.bank_account_no)+"1192104609940"+"\n"+getString(R.string.iban)+"SA9020000001192104609940");
 
         tvYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -477,11 +471,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     public void goNext() {
-        Utility.goNext(mActivity);
+        //Utility.goNext(mActivity);
+        overridePendingTransition(0,0);
     }
 
     public void goPrevious() {
-        Utility.goPrevious(mActivity);
+        overridePendingTransition(0,0);
+        //Utility.goPrevious(mActivity);
     }
 
 }

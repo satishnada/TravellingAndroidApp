@@ -26,8 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black_dark"
-                android:textSize="@dimen/_11ssp"
-                android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book"/>
+                android:textSize="@dimen/_11ssp" />
 
             <com.customviews.CustomLightTextView
                 android:id="@+id/tvTime"
@@ -35,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="@string/april_25_u00b7_10_30_pm"
                 android:textColor="@color/light_gray"
                 android:textSize="@dimen/_10ssp" />
 

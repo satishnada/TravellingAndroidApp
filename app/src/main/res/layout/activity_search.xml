@@ -109,14 +109,15 @@
                         android:textColor="@color/app_blue"
                         android:textSize="@dimen/_12ssp" />
 
-                    <com.customviews.CustomRomanEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edtLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_15sdp"
                         android:background="@drawable/edit_text_blue_bg"
                         android:hint="@string/enter_address"
-                        android:maxLength="200"
+                        android:ems="5"
+                        android:completionThreshold="2"
                         android:maxLines="1"
                         android:gravity="start"
                         android:inputType="textPostalAddress"
@@ -444,7 +445,7 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/btn_corner_app_blue_rect"
             android:gravity="center"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_7sdp"
             android:text="@string/search"
             android:textAllCaps="true"
             android:textColor="@color/white"

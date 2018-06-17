@@ -9,7 +9,7 @@
     android:layout_marginLeft="@dimen/_3sdp"
     android:layout_marginRight="@dimen/_3sdp"
     app:cardElevation="@dimen/_4sdp"
-    app:cardCornerRadius="@dimen/_2sdp">
+    app:cardCornerRadius="@dimen/_4sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,15 +34,17 @@
                 android:background="@drawable/gradian_item_shadow">
 
                 <com.customviews.CustomRomanTextView
-                    android:id="@+id/tvHotelPackage"
+                    android:id="@+id/tvHotelName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_above="@+id/tvPlaceName"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:gravity="start"
+                    android:gravity="end"
                     android:textColor="@color/white_dark"
-                    android:textSize="@dimen/_8ssp"
-                    android:visibility="gone"
-                    android:text="@string/_12_package"
+                    android:textSize="@dimen/_13ssp"
+                    android:visibility="visible"
                     tools:text="12 Package" />
 
                 <com.customviews.CustomRomanTextView
@@ -50,12 +52,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:gravity="end"
                     android:text="@string/place_name"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_9ssp"
+                    android:textSize="@dimen/_10ssp"
                     tools:text="Place Name" />
 
                 <com.customviews.CustomRomanTextView
@@ -68,10 +72,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:gravity="end"
-                    android:text="@string/starting_from_sar_2400"
+                    android:visibility="gone"
                     android:textColor="@color/white_dark"
-                    android:textSize="@dimen/_8ssp"
-                    tools:text="Starting from SAR 2400" />
+                    android:textSize="@dimen/_8ssp" />
 
             </RelativeLayout>
 

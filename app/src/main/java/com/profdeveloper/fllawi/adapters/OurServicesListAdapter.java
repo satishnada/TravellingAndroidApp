@@ -36,20 +36,20 @@ public class OurServicesListAdapter extends RecyclerView.Adapter<OurServicesList
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        if (position == 0){
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._72sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (position == 0) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._74sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.llMainItem.setLayoutParams(params);
-        } else if (position == 1){
+        } else if (position == 1) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._65sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.llMainItem.setLayoutParams(params);
-        }else if (position == 2){
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._48sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
+        } else if (position == 2) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._42sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.llMainItem.setLayoutParams(params);
-        }else if (position == 3){
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._68sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
+        } else if (position == 3) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._75sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.llMainItem.setLayoutParams(params);
-        }else if (position == 4){
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._48sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
+        } else if (position == 4) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._42sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.llMainItem.setLayoutParams(params);
         }
 

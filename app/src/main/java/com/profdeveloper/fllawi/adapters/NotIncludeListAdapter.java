@@ -25,7 +25,7 @@ public class NotIncludeListAdapter extends RecyclerView.Adapter<NotIncludeListAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_include, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_not_include, parent, false);
         return new ViewHolder(v);
     }
 

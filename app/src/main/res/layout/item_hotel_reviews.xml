@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/_10sdp"
+        android:layout_gravity="start"
         android:orientation="horizontal">
 
         <ImageView
@@ -71,7 +72,6 @@
                     android:gravity="start"
                     android:lines="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/apr_02_2017"
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/_8ssp" />
 
@@ -82,11 +82,11 @@
                 android:layout_width="match_parent"
                 android:ellipsize="end"
                 android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_gravity="top"
                 android:gravity="start"
                 android:lines="2"
                 android:layout_height="wrap_content"
-                android:text="@string/when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only_five_centuries"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/_8ssp" />
 

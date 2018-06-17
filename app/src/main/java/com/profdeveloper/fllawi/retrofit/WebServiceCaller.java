@@ -16,10 +16,12 @@ import com.profdeveloper.fllawi.model.CalculatedPriceRequestResponse;
 import com.profdeveloper.fllawi.model.CommonRequestResponse;
 import com.profdeveloper.fllawi.model.Coupons.CouponRequestResponse;
 import com.profdeveloper.fllawi.model.Coupons.GetCouponRequestResponse;
+import com.profdeveloper.fllawi.model.HomeTopDestination.TopDestinationRequestResponse;
 import com.profdeveloper.fllawi.model.InitPaymentRequestResponse;
 import com.profdeveloper.fllawi.model.LoginRequestResponse;
 import com.profdeveloper.fllawi.model.Reviews.ReviewsRequestResponse;
 import com.profdeveloper.fllawi.model.SearchHotel.SearchRequestResponse;
+import com.profdeveloper.fllawi.model.SuggestLocationRequestResponse;
 import com.profdeveloper.fllawi.model.ThingToDo.GetThingToDoCategoryRequestResponse;
 import com.profdeveloper.fllawi.model.ThingToDoDetails.ThingToDoDetailRequestResponse;
 import com.profdeveloper.fllawi.model.ThingToDoPriceCalcu.ThingToDoCalculatePriceRequestResponse;
@@ -33,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -375,7 +378,11 @@ public class WebServiceCaller {
                                                         @Field(AppConstant.result) String result);
 
         @GET
-        Call<ThingToDoTimeSlotRequestResponse> getTopDestination(@Header("locale") String locale,
-                                                                 @Url String url);
+        Call<TopDestinationRequestResponse> getTopDestination(@Header("locale") String locale,
+                                                              @Url String url);
+
+        @GET
+        Call<ResponseBody> getSuggestLocation(@Header("locale") String locale,
+                                              @Url String url);
     }
 }

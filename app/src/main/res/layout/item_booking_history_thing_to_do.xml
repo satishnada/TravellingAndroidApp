@@ -15,7 +15,7 @@
         <RelativeLayout
             android:id="@+id/rlImage"
             android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp">
+            android:layout_height="@dimen/_110sdp">
 
             <ImageView
                 android:id="@+id/ivOrder"
@@ -106,7 +106,7 @@
                     android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_8ssp"
-                    android:text="@string/from_"
+                    android:text="@string/from_time"
                     android:visibility="visible"
                     tools:text="From: " />
 
@@ -140,7 +140,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_8ssp"
                     android:visibility="visible"
-                    android:text="@string/to_" />
+                    android:text="@string/to_time" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvToDate"

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.model.ArrReview;
 import com.profdeveloper.fllawi.utils.Utility;
@@ -26,10 +27,13 @@ public class HotelReviewsListAdapter extends RecyclerView.Adapter<HotelReviewsLi
     private Context context;
     private ArrayList<ArrReview> reviewList;
     private SimpleDateFormat dateFormatter;
+    private ImageLoader mImageLoader;
+    private SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",Locale.US);
 
     public HotelReviewsListAdapter(Context context, ArrayList<ArrReview> reviews) {
         this.context = context;
         this.reviewList = reviews;
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -43,20 +47,21 @@ public class HotelReviewsListAdapter extends RecyclerView.Adapter<HotelReviewsLi
 
         ArrReview userReview = reviewList.get(position);
 
-        ImageLoader.getInstance().loadImage(Utility.BASE_URL + "/" +userReview.getCustomer().getProfileImage(), new SimpleImageLoadingListener() {
+        Glide.with(context).load(Utility.BASE_URL + "/" +userReview.getCustomer().getProfileImage())
+                .into(holder.ivReviewProfile);
+
+/*        mImageLoader.loadImage(Utility.BASE_URL + "/" +userReview.getCustomer().getProfileImage(), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
                 holder.ivReviewProfile.setImageBitmap(loadedImage);
             }
-        });
+        });*/
 
         holder.tvReviewTitle.setText(userReview.getName());
         holder.tvUserReview.setText(userReview.getMessage());
         holder.rattingReview.setRating(userReview.getRating());
         dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
         try {
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",Locale.US);
             Date reviewCreatedDate = format1.parse(userReview.getCreatedAt());
             String reviewDate = dateFormatter.format(reviewCreatedDate.getTime());
             holder.tvReviewTime.setText(reviewDate);

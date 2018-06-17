@@ -9,10 +9,10 @@ public class ArrMainCategory implements Serializable {
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private int id = 0;
     @SerializedName("title")
     @Expose
-    private String title;
+    private String title = "";
 
     public int getId() {
         return id;

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:scrollbars="none">
 
@@ -11,8 +12,14 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp"
+        app:fastScrollEnabled="true"
+        app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+        app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+        android:animateLayoutChanges="false"
+        android:smoothScrollbar="true"
         android:padding="@dimen/_10sdp"
-        android:overScrollMode="never"
         android:scrollbars="none" />
 
     <com.customviews.CustomRomanTextView
@@ -75,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_weight="2"
-                android:background="@drawable/rounded_corner_bg_orang"
+                android:background="@drawable/rounded_top_corner_app_purple_rect"
                 android:gravity="center"
                 android:padding="@dimen/_6sdp"
                 android:text="@string/apply"
@@ -91,7 +98,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_weight="2"
-            android:background="@drawable/rounded_corner_bg_orang"
+            android:background="@drawable/rounded_top_corner_app_purple_rect"
             android:gravity="center"
             android:padding="@dimen/_8sdp"
             android:text="@string/proceed_further"

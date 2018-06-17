@@ -31,7 +31,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_160sdp">
+                    android:layout_height="@dimen/_155sdp">
 
                     <ImageView
                         android:id="@+id/ivTopDetails"
@@ -45,16 +45,16 @@
                         android:id="@+id/progressBar"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:indeterminate="true"
-                        android:indeterminateTintMode="src_atop"
-                        android:indeterminateTint="@color/dark_gray1"
-                        android:progressDrawable="@color/dark_gray1"
                         android:layout_centerInParent="true"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/dark_gray1"
+                        android:indeterminateTintMode="src_atop"
+                        android:progressDrawable="@color/dark_gray1"
                         android:visibility="visible" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_alignParentBottom="true"
                         android:background="@drawable/gradian_item_shadow">
 
@@ -67,7 +67,7 @@
                             android:layout_marginStart="@dimen/_5sdp"
                             android:text="@string/riyadh"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_10ssp"
+                            android:textSize="@dimen/_11ssp"
                             tools:text="12 Package" />
 
                         <com.customviews.CustomRomanTextView
@@ -78,10 +78,10 @@
                             android:layout_alignParentStart="true"
                             android:layout_marginBottom="@dimen/_8sdp"
                             android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginStart="@dimen/_5sdp"
                             android:drawablePadding="@dimen/_5sdp"
-                            android:text="@string/start_from_sar_2400"
                             android:textColor="@color/white_dark"
-                            android:textSize="@dimen/_8ssp"
+                            android:textSize="@dimen/_9ssp"
                             tools:text="12 Package" />
 
                         <ImageView
@@ -92,7 +92,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="@dimen/_15sdp"
                             android:padding="@dimen/_1sdp"
-                            android:src="@drawable/ic_location_pin"
+                            android:src="@drawable/ic_location_small_pin"
                             android:text="@string/place_name"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_14ssp"
@@ -107,9 +107,10 @@
                             android:layout_centerVertical="true"
                             android:layout_marginBottom="@dimen/_8sdp"
                             android:layout_marginEnd="@dimen/_12sdp"
-                            android:text="MAP"
+                            android:text="@string/map"
+                            android:textAllCaps="true"
                             android:textColor="@color/white_dark"
-                            android:textSize="@dimen/_8ssp" />
+                            android:textSize="@dimen/_9ssp" />
 
                     </RelativeLayout>
 
@@ -168,6 +169,12 @@
                 app:tabSelectedTextColor="@color/app_blue"
                 app:tabTextColor="@color/black" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/light_gray" />
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -175,14 +182,122 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:keepScreenOn="true"
+        app:fastScrollEnabled="true"
+        app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+        app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+        android:animateLayoutChanges="false"
+        android:smoothScrollbar="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
-            android:id="@+id/llDetails"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/ViewInformation"
+                    layout="@layout/fragment_hotel_detail_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <include
+                    android:id="@+id/ViewPhoto"
+                    layout="@layout/fragment_hotel_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ViewHostInfo"
+                    layout="@layout/fragment_passenger_detail_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ViewReviewInfo"
+                    layout="@layout/fragment_hotel_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/light_gray" />
+
+            </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/llBooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/booking_button_bg"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="center"
+                android:textColor="@color/app_blue"
+                android:textSize="@dimen/_11ssp" />
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvPerNight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="@string/per_night"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llContinueBooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/app_blue"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+            <com.customviews.CustomRomanTextView
+                android:id="@+id/tvBooking"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/continue_booking"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11ssp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

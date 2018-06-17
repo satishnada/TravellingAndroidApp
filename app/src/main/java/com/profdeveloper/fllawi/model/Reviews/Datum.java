@@ -37,7 +37,6 @@ public class Datum implements Serializable {
     @SerializedName("customer")
     @Expose
     private Customer customer;
-    private final static long serialVersionUID = 8712029703930437835L;
 
     public int getId() {
         return id;

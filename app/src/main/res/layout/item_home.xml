@@ -49,12 +49,14 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:layout_marginStart="@dimen/_3sdp"
                     android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/_60sdp"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_80sdp"
                     android:drawableStart="@drawable/ic_location_small_pin"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:text="@string/south_michigan_united_states"
+                    android:drawablePadding="@dimen/_3sdp"
                     android:textColor="@color/white_dark"
                     android:textSize="@dimen/_10ssp"
                     tools:text="South Michigan, United states " />
@@ -66,23 +68,26 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:text="@string/_343_reviews"
+                    android:layout_marginStart="@dimen/_9sdp"
+                    android:layout_marginEnd="@dimen/_9sdp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_8ssp"
+                    android:textSize="@dimen/_11ssp"
                     tools:text="334 Reviews" />
 
                 <RatingBar
                     android:id="@+id/rattingBarReview"
-                    style="@style/CustomRatingBarSmall"
+                    style="@style/CustomRatingBarMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
                     android:layout_below="@+id/tvReviewCount"
                     android:numStars="5"
-                    android:rating="2.5"
-                    android:stepSize="0.5" />
+                    android:isIndicator="false"
+                    android:clickable="false"
+                    android:rating="3"
+                    android:stepSize="1" />
 
             </RelativeLayout>
 
@@ -93,7 +98,10 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:padding="@dimen/_5sdp">
+            android:paddingBottom="@dimen/_2sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingStart="@dimen/_5sdp">
 
             <com.customviews.CustomBoldTextView
                 android:id="@+id/tvHotelName"
@@ -101,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:text="Beauty of uttaranchal"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/_11ssp"
                 android:gravity="start"
                 android:maxLines="2"
                 tools:text="Beauty of uttaranchal " />
@@ -110,13 +118,12 @@
                 android:id="@+id/tvFullAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:text="Jasper, Alberta, Canada"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_8ssp"
+                android:textSize="@dimen/_9ssp"
                 android:gravity="start"
-                android:maxLines="1"
-                android:singleLine="true"
+                android:maxLines="2"
                 tools:text="Jasper, Alberta, Canada" />
 
             <com.customviews.CustomRomanTextView

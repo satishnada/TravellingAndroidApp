@@ -81,6 +81,8 @@ public class BookHotelActivity extends BaseActivity {
     private ArrThingsToDoSlot sltTimeSlot;
     private ArrayList<ArrThingsToDoSlot> thingsToDoTimeSlots = new ArrayList<>();
     private com.profdeveloper.fllawi.model.ThingToDoPriceCalcu.ArrCalculationBreakDown calculationBreakDownThingToDo;
+    private Date checkInDate;
+    private Date checkOutDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,16 +142,25 @@ public class BookHotelActivity extends BaseActivity {
             checkOutDateStr = bundle.getString(AppConstant.TO_DATE);
 
             llAccommodationDetails.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
+            /*ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     ivHotelPic.setImageBitmap(loadedImage);
                     //progressBar.setVisibility(View.GONE);
                 }
-            });
+            });*/
             tvHotelName.setText(name);
-            tvHotelAmount.setText(amount);
-            ratingBarHotelStar.setRating(Float.parseFloat(ratting));
+            tvHotelAmount.setText(getString(R.string.per_night) + " " + amount);
+            try {
+                if (ratting.length() > 0) {
+                    ratingBarHotelStar.setRating(Float.parseFloat(ratting));
+                } else {
+                    ratingBarHotelStar.setRating(0);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             llCouponDetails.setVisibility(View.GONE);
             tvCheckOutDate.setText(checkOutDateStr);
             tvCheckInDate.setText(checkInDateStr);
@@ -165,18 +176,27 @@ public class BookHotelActivity extends BaseActivity {
             amount = bundle.getString(AppConstant.EXT_HOTEL_AMOUNT);
             checkInDateStr = bundle.getString(AppConstant.FROM_DATE);
 
-            ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
+          /*  ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     ivHotelPic.setImageBitmap(loadedImage);
                     //progressBar.setVisibility(View.GONE);
                 }
-            });
+            });*/
             tvCheckIn.setText(R.string.scheduled_date);
             tvCheckInDate.setText(checkInDateStr);
             tvHotelName.setText(name);
-            tvHotelAmount.setText(amount);
-            ratingBarHotelStar.setRating(Float.parseFloat(ratting));
+            tvHotelAmount.setText(getString(R.string.per_night) + " " + amount);
+            try {
+                if (ratting.length() > 0) {
+                    ratingBarHotelStar.setRating(Float.parseFloat(ratting));
+                } else {
+                    ratingBarHotelStar.setRating(0);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             llAccommodationDetails.setVisibility(View.VISIBLE);
             llCouponDetails.setVisibility(View.GONE);
             llCheckOut.setVisibility(View.GONE);
@@ -184,6 +204,8 @@ public class BookHotelActivity extends BaseActivity {
 
             if (checkInDateStr != null && checkInDateStr.trim().toString().length() > 0) {
                 getThingToDoTimeSlot();
+            } else {
+                Utility.showError(getString(R.string.valid_scheduled_date));
             }
         } else if (isFrom == AppConstant.IS_FROM_COUPON) {
             accommodationId = bundle.getString(AppConstant.EXT_ACCOMMODATION_ID);
@@ -191,8 +213,9 @@ public class BookHotelActivity extends BaseActivity {
             imageUrl = bundle.getString(AppConstant.EXT_HOTEL_IMAGE);
             ratting = bundle.getString(AppConstant.EXT_HOTEL_RATTING);
             amount = bundle.getString(AppConstant.EXT_HOTEL_AMOUNT);
+            tvKidsQ.setText("1");
 
-            ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
+           /* ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL + "/" + imageUrl, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     ivHotelPic.setImageBitmap(loadedImage);
@@ -206,10 +229,19 @@ public class BookHotelActivity extends BaseActivity {
                     ivHotelPic.setImageBitmap(loadedImage);
                     //progressBar.setVisibility(View.GONE);
                 }
-            });
+            });*/
             tvHotelName.setText(name);
             tvHotelAmount.setText(amount);
-            ratingBarHotelStar.setRating(Float.parseFloat(ratting));
+            try {
+                if (ratting.length() > 0) {
+                    ratingBarHotelStar.setRating(Float.parseFloat(ratting));
+                } else {
+                    ratingBarHotelStar.setRating(0);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             llCouponDetails.setVisibility(View.VISIBLE);
             llAccommodationDetails.setVisibility(View.GONE);
             llTimeSlot.setVisibility(View.GONE);
@@ -242,8 +274,10 @@ public class BookHotelActivity extends BaseActivity {
 
                 sltTimeSlot = thingsToDoTimeSlots.get(position);
                 tvSltTimeSlot.setText(thingsToDoTimeSlots.get(position).getStartTime() + " - " + thingsToDoTimeSlots.get(position).getEndTime());
-                if (isThingTODoFirstTime){
-                    getThingToDoPrice(false);
+                if (isThingTODoFirstTime) {
+                    if (tvCheckInDate.getText().toString().trim().length() > 0) {
+                        getThingToDoPrice(false);
+                    }
                 }
             }
 
@@ -278,12 +312,13 @@ public class BookHotelActivity extends BaseActivity {
                     adultCount = adultCount - 1;
                 }
                 tvAdultCount.setText(adultCount + "");
+
                 if (tvCheckInDate.getText().toString().trim().length() > 0 &&
-                        tvCheckOutDate.getText().toString().trim().length() > 0) {
+                        tvCheckOutDate.getText().toString().trim().length() > 0 && adultCount != 0) {
                     if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
                         getPrice(false);
                     }
-                } else if (tvCheckInDate.getText().toString().trim().length() > 0) {
+                } else if (tvCheckInDate.getText().toString().trim().length() > 0 && adultCount != 0) {
                     if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
                         getThingToDoPrice(true);
                     }
@@ -360,45 +395,55 @@ public class BookHotelActivity extends BaseActivity {
                 break;
             case R.id.tvBookNow:
                 if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
-                    if (calculationBreakDown != null) {
-                        if (calculationBreakDown.getTotalBeforeDiscount() == 0) {
-                            Utility.showError(getString(R.string.valid_date));
+                    if (tvCheckInDate.getText().toString().trim().length() > 0 &&
+                            tvCheckOutDate.getText().toString().trim().length() > 0) {
+                        if (calculationBreakDown != null) {
+                            if (calculationBreakDown.getTotalBeforeDiscount() == 0) {
+                                Utility.showError(getString(R.string.valid_date));
+                            } else {
+                                Intent intent = new Intent(mActivity, AddonsListActivity.class);
+                                intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
+                                intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
+                                intent.putExtra(AppConstant.EXT_FROM_DATE, checkInDateStr);
+                                intent.putExtra(AppConstant.EXT_TO_DATE, checkOutDateStr);
+                                intent.putExtra(AppConstant.EXT_ADULTS, adultCount + "");
+                                intent.putExtra(AppConstant.EXT_KIDS, kidsCount + "");
+                                intent.putExtra(AppConstant.EXT_NAME, name);
+                                startActivity(intent);
+                                goNext();
+                            }
                         } else {
-                            Intent intent = new Intent(mActivity, AddonsListActivity.class);
-                            intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
-                            intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
-                            intent.putExtra(AppConstant.EXT_FROM_DATE, checkInDateStr);
-                            intent.putExtra(AppConstant.EXT_TO_DATE, checkOutDateStr);
-                            intent.putExtra(AppConstant.EXT_ADULTS, adultCount + "");
-                            intent.putExtra(AppConstant.EXT_KIDS, kidsCount + "");
-                            intent.putExtra(AppConstant.EXT_NAME, name);
-                            startActivity(intent);
-                            goNext();
+                            getPrice(true);
                         }
-                    } else {
-                        getPrice(true);
+                    }else{
+                        Utility.showError(getString(R.string.valid_scheduled_date));
                     }
                 } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
-                    if (calculationBreakDownThingToDo != null) {
-                        if (calculationBreakDownThingToDo.getTotalBeforeDiscount() == 0) {
-                            Utility.showError(getString(R.string.valid_date));
+                    if (tvCheckInDate.getText().toString().trim().length() > 0 && sltTimeSlot != null){
+                        if (calculationBreakDownThingToDo != null) {
+                            if (calculationBreakDownThingToDo.getTotalBeforeDiscount() == 0) {
+                                Utility.showError(getString(R.string.valid_date));
+                            } else {
+                                Intent intent = new Intent(mActivity, AddonsListActivity.class);
+                                intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
+                                intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
+                                intent.putExtra(AppConstant.EXT_FROM_DATE, checkInDateStr);
+                                intent.putExtra(AppConstant.EXT_ADULTS, adultCount + "");
+                                intent.putExtra(AppConstant.EXT_KIDS, kidsCount + "");
+                                intent.putExtra(AppConstant.EXT_NAME, name);
+                                intent.putExtra(AppConstant.EXT_START_TIME, sltTimeSlot.getStartTime());
+                                intent.putExtra(AppConstant.EXT_END_TIME, sltTimeSlot.getEndTime());
+                                intent.putExtra(AppConstant.EXT_TIME_SLOT_ID, sltTimeSlot.getId() + "");
+                                startActivity(intent);
+                                goNext();
+                            }
                         } else {
-                            Intent intent = new Intent(mActivity, AddonsListActivity.class);
-                            intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
-                            intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
-                            intent.putExtra(AppConstant.EXT_FROM_DATE, checkInDateStr);
-                            intent.putExtra(AppConstant.EXT_ADULTS, adultCount + "");
-                            intent.putExtra(AppConstant.EXT_KIDS, kidsCount + "");
-                            intent.putExtra(AppConstant.EXT_NAME, name);
-                            intent.putExtra(AppConstant.EXT_START_TIME, sltTimeSlot.getStartTime());
-                            intent.putExtra(AppConstant.EXT_END_TIME, sltTimeSlot.getEndTime());
-                            intent.putExtra(AppConstant.EXT_TIME_SLOT_ID, sltTimeSlot.getId() + "");
-                            startActivity(intent);
-                            goNext();
+                            getThingToDoPrice(true);
                         }
-                    } else {
-                        getThingToDoPrice(true);
+                    }else{
+                        Utility.showError(getString(R.string.valid_scheduled_date));
                     }
+
                 } else if (isFrom == AppConstant.IS_FROM_COUPON) {
                     if (calculationBreakDown != null) {
                         if (calculationBreakDown.getTotalBeforeDiscount() == 0) {
@@ -435,12 +480,16 @@ public class BookHotelActivity extends BaseActivity {
                 Utility.showProgress(mActivity);
 
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-                Date checkInDate = dateFormatter.parse(tvCheckInDate.getText().toString().trim());
-                Date checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString().trim());
-
                 SimpleDateFormat dateFormatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                checkInDateStr = dateFormatter1.format(checkInDate.getTime());
-                checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
+                if (tvCheckInDate.getText().toString().trim().length() > 0) {
+                    checkInDate = dateFormatter.parse(tvCheckInDate.getText().toString().trim());
+                    checkInDateStr = dateFormatter1.format(checkInDate.getTime());
+                }
+
+                if (tvCheckOutDate.getText().toString().trim().length() > 0) {
+                    checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString().trim());
+                    checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
+                }
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
                 Call<CalculatedPriceRequestResponse> call = service.getCalculatedPrice(Utility.getLocale(), WebUtility.ACCOMMODATION_CALCULATE_PRICE
@@ -456,9 +505,9 @@ public class BookHotelActivity extends BaseActivity {
 
                                 calculationBreakDown = response.body().getArrCalculationBreakDown();
 
-                                tvPriceBefore.setText("SAR " + calculationBreakDown.getTotalBeforeDiscount());
-                                tvAppliedDiscount.setText("SAR " + calculationBreakDown.getDiscountAmount());
-                                tvPriceAfter.setText("SAR " + calculationBreakDown.getTotalAfterDiscount());
+                                tvPriceBefore.setText(getString(R.string.sar) + " " + calculationBreakDown.getTotalBeforeDiscount());
+                                tvAppliedDiscount.setText(getString(R.string.sar) + " " + calculationBreakDown.getDiscountAmount());
+                                tvPriceAfter.setText(getString(R.string.sar) + " " + calculationBreakDown.getTotalAfterDiscount());
 
                                 /*if (isFromBookNow){
                                     Intent intent = new Intent(mActivity, AddonsListActivity.class);
@@ -503,11 +552,14 @@ public class BookHotelActivity extends BaseActivity {
                 Utility.showProgress(mActivity);
 
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-                Date checkInDate = dateFormatter.parse(tvCheckInDate.getText().toString().trim());
-//                Date checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString().trim());
-
                 SimpleDateFormat dateFormatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                checkInDateStr = dateFormatter1.format(checkInDate.getTime());
+
+                if (tvCheckInDate.getText().toString().trim().length() > 0) {
+                    Date checkInDate = dateFormatter.parse(tvCheckInDate.getText().toString().trim());
+                    checkInDateStr = dateFormatter1.format(checkInDate.getTime());
+                }
+
+//                Date checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString().trim());
 //                checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
@@ -527,9 +579,9 @@ public class BookHotelActivity extends BaseActivity {
                                 calculationBreakDownThingToDo = response.body().getArrCalculationBreakDown();
 
                                 if (calculationBreakDownThingToDo != null) {
-                                    tvPriceBefore.setText("SAR " + calculationBreakDownThingToDo.getTotalBeforeDiscount());
-                                    tvAppliedDiscount.setText("SAR " + calculationBreakDownThingToDo.getDiscountAmount());
-                                    tvPriceAfter.setText("SAR " + calculationBreakDownThingToDo.getTotalAfterDiscount());
+                                    tvPriceBefore.setText(getString(R.string.sar) + " " + calculationBreakDownThingToDo.getTotalBeforeDiscount());
+                                    tvAppliedDiscount.setText(getString(R.string.sar) + " " + calculationBreakDownThingToDo.getDiscountAmount());
+                                    tvPriceAfter.setText(getString(R.string.sar) + " " + calculationBreakDownThingToDo.getTotalAfterDiscount());
                                 }
 
                             } else {
@@ -562,11 +614,14 @@ public class BookHotelActivity extends BaseActivity {
                 Utility.showProgress(mActivity);
 
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-                Date checkInDate = dateFormatter.parse(tvCheckInDate.getText().toString().trim());
-                // Date checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString().trim());
-
                 SimpleDateFormat dateFormatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                checkInDateStr = dateFormatter1.format(checkInDate.getTime());
+
+                if (tvCheckInDate.getText().toString().trim().length() > 0) {
+                    Date checkInDate = dateFormatter.parse(tvCheckInDate.getText().toString().trim());
+                    checkInDateStr = dateFormatter1.format(checkInDate.getTime());
+                }
+
+                // Date checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString().trim());
                 // checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
 
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
@@ -580,7 +635,7 @@ public class BookHotelActivity extends BaseActivity {
                                 timeSlotAdapter = new TimeSlotAdapter(mActivity, thingsToDoTimeSlots);
                                 spinnerTimeSlot.setAdapter(timeSlotAdapter);
                                 if (thingsToDoTimeSlots != null && !thingsToDoTimeSlots.isEmpty()) {
-                                    if (!isThingTODoFirstTime){
+                                    if (!isThingTODoFirstTime) {
                                         isThingTODoFirstTime = true;
                                     }
                                     llTimeSlot.setVisibility(View.VISIBLE);
@@ -609,51 +664,6 @@ public class BookHotelActivity extends BaseActivity {
         }
     }
 
-    private void openPaymentMethodSelectionDialog() {
-        final Dialog popupWindowDialog = new Dialog(mActivity, android.R.style.Theme_Black_NoTitleBar);
-
-        final View layout = LayoutInflater.from(this).inflate(R.layout.dialog_image_options, null);
-        popupWindowDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (popupWindowDialog.getWindow() != null) {
-            popupWindowDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
-        }
-        popupWindowDialog.setContentView(layout);
-        popupWindowDialog.setCancelable(false);
-
-        ImageView ivClose = (ImageView) layout.findViewById(R.id.ivClose);
-        TextView tvTakePhoto = layout.findViewById(R.id.tvTakePhoto);
-        TextView tvLibrary = layout.findViewById(R.id.tvLibrary);
-
-        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindowDialog.dismiss();
-                Intent intent = new Intent(mActivity, BillingInfoActivity.class);
-                startActivity(intent);
-                goNext();
-            }
-        });
-
-        tvLibrary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindowDialog.dismiss();
-                Intent intent = new Intent(mActivity, BillingInfoActivity.class);
-                startActivity(intent);
-                goNext();
-            }
-        });
-
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindowDialog.dismiss();
-            }
-        });
-
-        popupWindowDialog.show();
-    }
-
     private void getCouponPrice() {
         try {
             if (!Utility.isNetworkAvailable(mActivity)) {
@@ -672,9 +682,9 @@ public class BookHotelActivity extends BaseActivity {
 
                                 calculationBreakDown = response.body().getArrCalculationBreakDown();
 
-                                tvPriceBefore.setText("SAR " + calculationBreakDown.getTotalBeforeDiscount());
-                                tvAppliedDiscount.setText("SAR " + calculationBreakDown.getDiscountAmount());
-                                tvPriceAfter.setText("SAR " + calculationBreakDown.getTotalAfterDiscount());
+                                tvPriceBefore.setText(getString(R.string.sar) + " " + calculationBreakDown.getTotalBeforeDiscount());
+                                tvAppliedDiscount.setText(getString(R.string.sar) + " " + calculationBreakDown.getDiscountAmount());
+                                tvPriceAfter.setText(getString(R.string.sar) + " " + calculationBreakDown.getTotalAfterDiscount());
 
                             } else {
                                 Utility.showError(response.body().getMsg());

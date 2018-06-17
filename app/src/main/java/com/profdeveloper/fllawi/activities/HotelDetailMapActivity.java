@@ -90,7 +90,7 @@ public class HotelDetailMapActivity extends BaseActivity implements OnMapReadyCa
 
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(latitude, longitude))
-                .title(mapLocation).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_pin)));
+                .title(mapLocation));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude),10));
 
     }
@@ -98,6 +98,6 @@ public class HotelDetailMapActivity extends BaseActivity implements OnMapReadyCa
     @Override
     public void onBackPressed() {
         finish();
-        goPrevious();
+        //goPrevious();
     }
 }

@@ -36,10 +36,12 @@ public class CommonListAdapter extends RecyclerView.Adapter<CommonListAdapter.Vi
     private ArrInterest interest = null;
     private ArrMainCategory mainCategory = null;
     private ArrSubCategory subCategory = null;
+    private String suggestLocation = null;
     private int selectedPosition = 0;
 
     private int type = 0;
     private OnCommonAdapterItemClickListener onItemClick;
+
 
     public CommonListAdapter(Context context,int type,ArrayList<Object> itemList,OnCommonAdapterItemClickListener onClick) {
         this.context = context;
@@ -113,8 +115,10 @@ public class CommonListAdapter extends RecyclerView.Adapter<CommonListAdapter.Vi
             }else{
                 holder.radioSelect.setChecked(false);
             }
+        }else if (type == 8) { //Location suggestion from search screen
+            suggestLocation = itemList.get(position).toString();
+            holder.tvItemName.setText(itemList.get(position).toString());
         }
-
         holder.radioSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

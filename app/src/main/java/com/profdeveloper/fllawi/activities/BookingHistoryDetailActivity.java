@@ -194,13 +194,13 @@ public class BookingHistoryDetailActivity extends BaseActivity {
                 tvFromDate.setText(bookingDetailAccommodation.getArrAccomodationBooking().getFromDate());
                 tvToDate.setText(bookingDetailAccommodation.getArrAccomodationBooking().getToDate());
                 tvOrderDate.setText(bookingDetailAccommodation.getArrAccomodationBooking().getCreatedAt().substring(0, 11));
-                tvDiscountApplied.setText(bookingDetailAccommodation.getArrAccomodationBooking().getDiscountInAmount() + " SAR");
-                tvTotalPayableAmount.setText(bookingDetailAccommodation.getArrAccomodationBooking().getTotalAmount() + " SAR");
-                tvCancelText.setText(bookingDetailAccommodation.getArrCancellationDetails().getStatus());
-                if (bookingDetailAccommodation.getArrCancellationDetails().getStatus().equalsIgnoreCase("Success")){
-                    tvCancelBooking.setVisibility(View.VISIBLE);
-                }else{
+                tvDiscountApplied.setText(bookingDetailAccommodation.getArrAccomodationBooking().getDiscountInAmount() +" "+ getString(R.string.sar));
+                tvTotalPayableAmount.setText(bookingDetailAccommodation.getArrAccomodationBooking().getTotalAmount() +" "+ getString(R.string.sar));
+                tvCancelText.setText(bookingDetailAccommodation.getArrCancellationDetails().getMsg());
+                if (bookingDetailAccommodation.getArrCancellationDetails().getStatus().equalsIgnoreCase("error")){
                     tvCancelBooking.setVisibility(View.GONE);
+                }else{
+                    tvCancelBooking.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -223,13 +223,13 @@ public class BookingHistoryDetailActivity extends BaseActivity {
                 tvFromDate.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getScheduleStartTime());
                 tvToDate.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getScheduleEndTime());
                 tvOrderDate.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getCreatedAt().substring(0, 11));
-                tvDiscountApplied.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getDiscountInAmount() + "SAR");
-                tvTotalPayableAmount.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getTotalAmount() + "SAR");
-
-                if (bookingDetailThingToDoResponse.getArrCancellationDetails().getStatus().equalsIgnoreCase("Success")){
-                    tvCancelBooking.setVisibility(View.VISIBLE);
-                }else{
+                tvDiscountApplied.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getDiscountInAmount() +" "+ getString(R.string.sar));
+                tvTotalPayableAmount.setText(bookingDetailThingToDoResponse.getThingtodoBooking().getTotalAmount() +" "+ getString(R.string.sar));
+                tvCancelText.setText(bookingDetailThingToDoResponse.getArrCancellationDetails().getMsg());
+                if (bookingDetailThingToDoResponse.getArrCancellationDetails().getStatus().equalsIgnoreCase("error")){
                     tvCancelBooking.setVisibility(View.GONE);
+                }else{
+                    tvCancelBooking.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -251,13 +251,13 @@ public class BookingHistoryDetailActivity extends BaseActivity {
                 tvFromDate.setText(bookingDetailCouponResponse.getBooking().getCoupon().getFromDate());
                 tvToDate.setText(bookingDetailCouponResponse.getBooking().getCoupon().getToDate());
                 tvOrderDate.setText(bookingDetailCouponResponse.getBooking().getCreatedAt().substring(0, 11));
-                tvDiscountApplied.setText(bookingDetailCouponResponse.getBooking().getDiscountInAmount() + " SAR");
-                tvTotalPayableAmount.setText(bookingDetailCouponResponse.getBooking().getTotalAmount() + " SAR");
-
-                if (bookingDetailCouponResponse.getArrCancellationDetails().getStatus().equalsIgnoreCase("Success")){
-                    tvCancelBooking.setVisibility(View.VISIBLE);
-                }else{
+                tvDiscountApplied.setText(bookingDetailCouponResponse.getBooking().getDiscountInAmount() +" "+ getString(R.string.sar));
+                tvTotalPayableAmount.setText(bookingDetailCouponResponse.getBooking().getTotalAmount() +" "+ getString(R.string.sar));
+                tvCancelText.setText(bookingDetailCouponResponse.getArrCancellationDetails().getMsg());
+                if (bookingDetailCouponResponse.getArrCancellationDetails().getStatus().equalsIgnoreCase("error")){
                     tvCancelBooking.setVisibility(View.GONE);
+                }else{
+                    tvCancelBooking.setVisibility(View.VISIBLE);
                 }
 
             }

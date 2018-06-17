@@ -11,8 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.profdeveloper.fllawi.activities.SearchResultActivity;
 import com.profdeveloper.fllawi.R;
+import com.profdeveloper.fllawi.app.FllawiApplication;
 import com.profdeveloper.fllawi.model.SearchHotel.Datum;
 import com.profdeveloper.fllawi.utils.Utility;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,10 +26,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     private Context context;
     private ArrayList<Datum> searchResultList;
+    private ImageLoader mImageLoader;
 
     public HomeListAdapter(Context context,ArrayList<Datum> searchList) {
         this.context = context;
         searchResultList = searchList;
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -48,22 +52,26 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             }
         });
 
-        ImageLoader.getInstance().loadImage(Utility.BASE_URL+"/"+searchResultList.get(position).getImage(), new SimpleImageLoadingListener() {
+        holder.progressBar.setVisibility(View.GONE);
+        Glide.with(context).load(Utility.BASE_URL+"/"+searchResultList.get(position).getImage())
+                .into(holder.ivHotel);
+
+
+ /*       mImageLoader.loadImage(Utility.BASE_URL+"/"+searchResultList.get(position).getImage(), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
                 holder.ivHotel.setImageBitmap(loadedImage);
                 holder.progressBar.setVisibility(View.GONE);
             }
-        });
+        });*/
 
         //ImageLoader.getInstance().displayImage(Utility.BASE_URL+"/"+searchResultList.get(position).getImage(),holder.ivHotel);
         holder.tvHotelAddress.setText(datum.getAddress());
         holder.rattingBarReview.setRating(datum.getAvrageUserRatting());
-        holder.tvReviewCount.setText(datum.getTotalReview()+context.getString(R.string.reviews));
+        holder.tvReviewCount.setText(datum.getTotalReview()+" "+context.getString(R.string.reviews));
         holder.tvFullAddress.setText(datum.getAddress());
         holder.tvHotelName.setText(datum.getTitle());
-        holder.tvHotelPrice.setText("SAR "+datum.getMaxPrice()+context.getString(R.string.per_unit));
+        holder.tvHotelPrice.setText(context.getString(R.string.sar)+" "+datum.getMaxPrice()+" "+context.getString(R.string.per_unit));
         holder.tvFullAddress.setText(datum.getDescription());
     }
 

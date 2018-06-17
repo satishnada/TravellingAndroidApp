@@ -4,7 +4,11 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="google_maps_key">AIzaSyBbzm1koLbD-cMj0RQhV8fEwyZjzRTkAkk</string>
+
+    <!--<string name="google_maps_key">AIzaSyC42JqO8cxVtGIIVPvJ9gWanuTw9cGip6E</string>-->
+    <string name="google_maps_key">AIzaSyBq1TGaZq8AGtRlF9LM06VB6M7Fz_xOvwg</string>
+
+    <!--<string name="google_maps_key">AIzaSyBbzm1koLbD-cMj0RQhV8fEwyZjzRTkAkk</string>-->
 
     <!--Permission Manager library -->
     <string name="str_default_rationale_message">We need this permission.Please allow.</string>
@@ -200,7 +204,7 @@
     <string name="help_and_support">Help and Support</string>
     <string name="privacy_and_policy">Privacy Policy</string>
     <string name="overview">Overview</string>
-    <string name="map">Map</string>
+    <string name="map">MAP</string>
     <string name="info">Info</string>
     <string name="photo">Photos</string>
     <string name="host">Host</string>
@@ -249,17 +253,15 @@
     <string name="discount_applied_">Discount Applied</string>
     <string name="book_now">BOOK NOW</string>
     <string name="price_per_night">Price Per Night</string>
-    <string name="_10_000">$10,000+</string>
     <string name="min_price">Min Price</string>
     <string name="max_price">Max Price</string>
-    <string name="_10000">$10000</string>
     <string name="list">List</string>
     <string name="apply_filters">APPLY FILTERS</string>
     <string name="top_destination">Top Destination</string>
     <string name="see_all">See All</string>
     <string name="riyadh">Riyadh</string>
     <string name="package_">12 Package</string>
-    <string name="start_from_sar_2400">Start from SAR 2400</string>
+    <string name="start_from">Start from</string>
     <string name="place_name">Place Name</string>
     <string name="smith_k_johan">Smith k Johan</string>
     <string name="first_name">First Name</string>
@@ -285,8 +287,8 @@
     <string name="enter_first_name">Enter first name</string>
     <string name="enter_last_name">Enter last name</string>
     <string name="enter_mobile_number">Enter mobile number</string>
-    <string name="_00">$00</string>
-    <string name="_5000">$5000</string>
+    <string name="_00">00</string>
+    <string name="_5000">5000</string>
     <string name="start_ratting">Start Ratting</string>
     <string name="user_ratting">User Ratting</string>
     <string name="enter_location">Enter Location</string>
@@ -300,7 +302,6 @@
     <string name="bank">Bank</string>
     <string name="description_">Description</string>
     <string name="description_text">Description text</string>
-    <string name="check_in_time_16_00_00_ncheck_out_time_12_00_00">Check in Time 16:00:00  Check out Time 12:00:00</string>
     <string name="cancellation_policy_">Cancellation policy</string>
     <string name="why_with_us">Why with us</string>
     <string name="why_with_us_detail">Why with us detail</string>
@@ -309,13 +310,10 @@
     <string name="additional_info_detail">Additional Info detail</string>
     <string name="other_rule">Other Rule</string>
     <string name="other_rule_detail">Other rule detail</string>
-    <string name="_3535">$ 3535</string>
     <string name="per_night">Per Night</string>
     <string name="continue_booking">CONTINUE BOOKING</string>
     <string name="reviews">Reviews</string>
-    <string name="_3_reviews">3 Reviews</string>
     <string name="review_ratting">+REVIEW RATTING</string>
-    <string name="all_120_review"><![CDATA[All 120 Review >]]></string>
     <string name="addons">Addons</string>
     <string name="addon_name">Addon Name</string>
     <string name="unit_price">Unit Price</string>
@@ -323,34 +321,18 @@
     <string name="qty_">Qty :</string>
     <string name="subtotal">Subtotal</string>
     <string name="service_name">Service Name</string>
-    <string name="south_michigan_united_states">South Michigan, United states</string>
-    <string name="_343_reviews">343 Reviews</string>
-    <string name="beauty_of_uttaranchal">Beauty of uttaranchal</string>
-    <string name="jasper_alberta_canada">Jasper, Alberta, Canada</string>
-    <string name="_3465">$ 3465</string>
-    <string name="_12_package">12 Package</string>
-    <string name="starting_from_sar_2400">Starting from SAR 2400</string>
     <string name="be_inspired">Be Inspired</string>
     <string name="we_bring_you_daily_travel_inspiration_through_carefully_curated_galleries_news_and_stories_about_trending_travel_destinations">we bring you daily travel inspiration through carefully curated galleries,news and stories about trending travel destinations.</string>
-    <string name="apr_02_2017">-Apr 02, 2017</string>
-    <string name="when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only_five_centuries">when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</string>
-    <string name="lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
-    <string name="april_25_u00b7_10_30_pm">April 25 · 10:30 PM</string>
-    <string name="jasper_alberta_canada_n65446_saudi_arabia">Jasper, Alberta, Canada  65446, Saudi Arabia</string>
-    <string name="startfrom">Start from SAR</string>
+    <string name="startfrom">Start from</string>
 
     <string name="as_follow">As Follow</string>
     <string name="arabic">Arabic</string>
     <string name="packages">Packages</string>
-    <string name="start_from">Starting from SAR 2300</string>
     <string name="per_unit">Per unit</string>
     <string name="choose_addons">Choose Addons</string>
     <string name="scheduled_date">Scheduled Date</string>
     <string name="no_search_found">No Search Data Found</string>
-    <string name="offer_one">Skoon Vacation House</string>
-    <string name="offer_two">Wadi Ainakheel Vacation</string>
-    <string name="offer_three">Alsheokh 1 Vacation</string>
-    <string name="offer_five">Skoon Vacation House</string>
+
     <string name="cat_not_available">Category not available</string>
     <string name="valid_sub_category">Sub category not available or Please select other category</string>
 
@@ -378,7 +360,9 @@
     <string name="from_time">From Time : </string>
     <string name="to_time">To Time : </string>
     <string name="bank_info">Bank Info</string>
-    <string name="bank_account_info">Bank Name : Riyad Bank\nAccount Number : 1192104609940\nIBAN : SA9020000001192104609940</string>
+    <string name="bank_name">Bank Name : Riyad Bank </string>
+    <string name="bank_account_no">Account Number : </string>
+    <string name="iban">IBAN : </string>
     <string name="discover_new">Discover New</string>
     <string name="discover_description">Popular &amp; offbeat destinations across\nworld for you to plan your holiday</string>
     <string name="sightseeing">Sightseeing</string>
@@ -407,6 +391,15 @@
     <string name="payment_method_bank">Payment method : Bank</string>
     <string name="payment_method_paytab">Payment method : Paytab</string>
     <string name="order_id_flw">Order ID: FLW#</string>
-    <string name="valid_till_date">Valid Till Date :</string>
+    <string name="sar">SAR</string>
+    <string name="discount_on">% Discount on</string>
+    <string name="check_in_time">Check in Time :</string>
+    <string name="cancellation_price">Cancellation price</string>
+    <string name="no_rules">There is no other rules</string>
+    <string name="valid_scheduled_date">Select Scheduled Date</string>
 
+    <string name="check_out_time">Check out Time :</string>
+    <string name="before_hours">" before hours "</string>
+    <string name="no_refund_before_hours">" no refund before hours "</string>
+    <string name="all">All</string>
 </resources>

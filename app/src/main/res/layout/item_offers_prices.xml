@@ -42,9 +42,7 @@
                     android:layout_marginBottom="@dimen/_3sdp"
                     android:layout_marginStart="@dimen/_4sdp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_9ssp"
-                    android:text="SAR 3535"
-                    tools:text="SAR 3535" />
+                    android:textSize="@dimen/_9ssp" />
 
                 <com.customviews.CustomRomanTextView
                     android:id="@+id/tvReviewCount"
@@ -53,7 +51,6 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginEnd="@dimen/_8sdp"
-                    android:text="343 Reviews"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8ssp"
                     tools:text="334 Reviews" />
@@ -88,7 +85,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="@dimen/_3sdp"
-                android:text="@string/beauty_of_uttaranchal"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 tools:text="Beauty of uttaranchal " />
@@ -102,10 +98,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/tvHotelName"
                 android:layout_marginStart="@dimen/_3sdp"
-                android:text="@string/jasper_alberta_canada_n65446_saudi_arabia"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_8ssp"
-                tools:text="Unnamed Road,AI Masarah\n65446, Saudi Arabia" />
+                android:textSize="@dimen/_8ssp" />
 
         </RelativeLayout>
 

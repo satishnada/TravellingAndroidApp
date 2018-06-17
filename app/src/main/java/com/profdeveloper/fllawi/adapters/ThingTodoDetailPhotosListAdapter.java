@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
 import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.activities.MediaFullScreenActvity;
 import com.profdeveloper.fllawi.model.AccommodationDetails.Gallery;
@@ -24,10 +25,12 @@ public class ThingTodoDetailPhotosListAdapter extends RecyclerView.Adapter<Thing
 
     private Context context;
     private ArrayList<com.profdeveloper.fllawi.model.ThingToDoDetails.Gallery> photosThingToDoList = new ArrayList<>();
+    private ImageLoader mImageLoader;
 
     public ThingTodoDetailPhotosListAdapter(Context context, ArrayList<com.profdeveloper.fllawi.model.ThingToDoDetails.Gallery> detailsPhotosList) {
         this.context = context;
         photosThingToDoList = detailsPhotosList;
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -42,14 +45,17 @@ public class ThingTodoDetailPhotosListAdapter extends RecyclerView.Adapter<Thing
 
         final com.profdeveloper.fllawi.model.ThingToDoDetails.Gallery photo = photosThingToDoList.get(position);
 
-        ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL+"/"+photo.getImage(), new SimpleImageLoadingListener() {
+        holder.progressBar.setVisibility(View.GONE);
+        Glide.with(context).load(Utility.BASE_GALLERY_URL+"/"+photo.getImage())
+                .into(holder.ivService);
+
+/*        mImageLoader.loadImage(Utility.BASE_GALLERY_URL+"/"+photo.getImage(), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
                 holder.ivService.setImageBitmap(loadedImage);
                 holder.progressBar.setVisibility(View.GONE);
             }
-        });
+        });*/
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

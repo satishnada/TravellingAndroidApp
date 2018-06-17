@@ -105,14 +105,10 @@ public class Utility {
         return px;
     }
 
-    public static String getLocale(){
-        if (PreferenceData.getUserData() !=null){
-             if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")){
-                 return "ar";
-             }else{
-                 return "en";
-             }
-        }else{
+    public static String getLocale() {
+        if (PreferenceData.getUserLanguage().equalsIgnoreCase("ar")) {
+            return "ar";
+        } else {
             return "en";
         }
     }
@@ -699,8 +695,6 @@ public class Utility {
     }
 
 
-
-
     public static void shareContent(Activity mActivity, int requestCode) {
         Intent intentShare = new Intent();
         intentShare.setAction(Intent.ACTION_SEND);
@@ -878,9 +872,9 @@ public class Utility {
         return inSampleSize;
     }
 
-    private static String getRealPathFromURI(String contentURI,Context mContext) {
-        Uri contentUri  = Uri.parse(contentURI);
-        Cursor cursor ;
+    private static String getRealPathFromURI(String contentURI, Context mContext) {
+        Uri contentUri = Uri.parse(contentURI);
+        Cursor cursor;
 
         cursor = mContext.getContentResolver().query(contentUri, null,
                 null, null, null);

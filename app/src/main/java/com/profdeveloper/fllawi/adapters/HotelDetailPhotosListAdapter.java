@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.activities.MediaFullScreenActvity;
 import com.profdeveloper.fllawi.model.AccommodationDetails.Gallery;
@@ -27,10 +28,12 @@ public class HotelDetailPhotosListAdapter extends RecyclerView.Adapter<HotelDeta
 
     private Context context;
     private ArrayList<Gallery> photosList = new ArrayList<>();
+    private ImageLoader mImageLoader;
 
     public HotelDetailPhotosListAdapter(Context context,ArrayList<Gallery> detailsPhotosList) {
         this.context = context;
         photosList = detailsPhotosList;
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -45,14 +48,18 @@ public class HotelDetailPhotosListAdapter extends RecyclerView.Adapter<HotelDeta
 
         final Gallery photo = photosList.get(position);
 
-        ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL+"/"+photo.getImage(), new SimpleImageLoadingListener() {
+        Glide.with(context).load(Utility.BASE_GALLERY_URL+"/"+photo.getImage())
+                .into(holder.ivService);
+
+        holder.progressBar.setVisibility(View.GONE);
+
+    /*    mImageLoader.loadImage(Utility.BASE_GALLERY_URL+"/"+photo.getImage(), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
                 holder.ivService.setImageBitmap(loadedImage);
                 holder.progressBar.setVisibility(View.GONE);
             }
-        });
+        });*/
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

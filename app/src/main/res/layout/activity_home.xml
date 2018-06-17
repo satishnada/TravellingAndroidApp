@@ -128,7 +128,8 @@
                         android:id="@+id/rvOurServices"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_68sdp"
-                        android:layout_gravity="center"
+                        android:scrollbars="none"
+                        android:layout_gravity="center_horizontal"
                         android:orientation="horizontal"
                         tools:listitem="@layout/item_our_services">
 
@@ -155,6 +156,7 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <com.customviews.CustomBoldTextView
+                    android:id="@+id/tvSeeAllDestination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -162,7 +164,7 @@
                     android:layout_marginTop="@dimen/_12sdp"
                     android:gravity="center"
                     android:text="@string/see_all"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:textColor="@color/app_blue"
                     android:textSize="@dimen/_9ssp" />
 
@@ -176,7 +178,7 @@
                 android:background="@color/light_gray3"
                 android:orientation="horizontal"
                 android:scrollbars="none"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:listitem="@layout/item_destinations">
 
             </android.support.v7.widget.RecyclerView>
@@ -253,24 +255,20 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/_10sdp">
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:layout_weight="1"
-                    android:background="@color/light_gray3"
-                    android:backgroundTintMode="src_over"
-                    android:elevation="@dimen/_3sdp"
+                    android:background="@drawable/rounded_corner_gray_border_white_rect"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/_15sdp"
-                    app:cardCornerRadius="@dimen/_3sdp"
-                    app:cardElevation="@dimen/_3sdp">
+                    android:padding="@dimen/_5sdp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_70sdp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/home_bg"
@@ -286,9 +284,9 @@
 
                         <com.customviews.CustomRomanTextView
                             android:id="@+id/tvAdditionalDiscount"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:text="@string/get_additional_ndiscounts"
@@ -297,25 +295,22 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:layout_weight="1"
-                    android:background="@color/light_gray3"
-                    android:elevation="@dimen/_3sdp"
+                    android:background="@drawable/rounded_corner_gray_border_white_rect"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/_15sdp"
-                    app:cardCornerRadius="@dimen/_3sdp"
-                    app:cardElevation="@dimen/_3sdp">
+                    android:padding="@dimen/_5sdp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_70sdp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/home_bg"
@@ -343,25 +338,22 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:layout_weight="1"
-                    android:background="@color/light_gray3"
-                    android:elevation="@dimen/_3sdp"
+                    android:background="@drawable/rounded_corner_gray_border_white_rect"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/_15sdp"
-                    app:cardCornerRadius="@dimen/_3sdp"
-                    app:cardElevation="@dimen/_3sdp">
+                    android:padding="@dimen/_5sdp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_70sdp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/home_bg"
@@ -389,7 +381,7 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
             </LinearLayout>
 

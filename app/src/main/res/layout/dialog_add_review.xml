@@ -106,13 +106,12 @@
                 android:id="@+id/ratingBarReviewStar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/CustomRatingBarLarge"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:focusableInTouchMode="false"
                 android:isIndicator="false"
                 android:numStars="5"
-                android:rating="0"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
+                android:stepSize="1"
                 android:theme="@style/CustomRatingBarMedium" />
 
             <com.customviews.CustomBoldTextView

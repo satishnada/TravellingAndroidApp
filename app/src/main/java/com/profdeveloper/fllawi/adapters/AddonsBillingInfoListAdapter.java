@@ -43,7 +43,7 @@ public class AddonsBillingInfoListAdapter extends RecyclerView.Adapter<AddonsBil
         }
 
         holder.tvAddonsName.setText(addonsList.get(position).getInclusion().getTitle()+" : "+ quantiry);
-        holder.tvAddonsAmount.setText("SAR "+addonsList.get(position).getSubTotal());
+        holder.tvAddonsAmount.setText(context.getString(R.string.sar)+" "+addonsList.get(position).getSubTotal());
 
     }
 

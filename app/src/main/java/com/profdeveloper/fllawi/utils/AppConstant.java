@@ -15,6 +15,7 @@ public class AppConstant {
     public static final int IS_FROM_ADD_REVIEW = 7; // FROM ADD REVIEW
     public static final int IS_FROM_SIDE_MENU = 8; // FROM SIDE MENU
     public static final String EXT_IS_FROM = "IS_FROM";
+    public static final String EXT_AVG_RATTING = "IS_AVG_RATTING";
     public static final String EXT_HOTEL_IMAGE = "HOTEL_IMAGE";
     public static final String EXT_HOTEL_RATTING = "HOTEL_RATTING";
     public static final String EXT_HOTEL_AMOUNT = "HOTEL_AMOUNT";
@@ -52,6 +53,11 @@ public class AppConstant {
     public static final String USER_NAME = "USER_NAME";
     public static final String USER_LANGUAGE = "USER_LANGUAGE";
     public static final String FROM_DATE = "FROM_DATE";
+    public static final String SCHEDULE_DATE = "SCHEDULE_DATE";
+    public static final String LOCATION = "LOCATION";
+    public static final String CATEGORY = "CATEGORY";
+    public static final String SUB_CATEGORY = "SUB_CATEGORY";
+    public static final String COUPON = "COUPON";
     public static final String TO_DATE = "TO_DATE";
     public static final String ROOM = "ROOM";
     public static final String MEMBER = "MEMBER";

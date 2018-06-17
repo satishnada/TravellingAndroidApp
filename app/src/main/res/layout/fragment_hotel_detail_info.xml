@@ -32,7 +32,7 @@
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/description_"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -70,7 +70,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/check_in_out_time"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -84,7 +84,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
-                    android:text="@string/check_in_time_16_00_00_ncheck_out_time_12_00_00"
                     android:textColor="@color/black_light"
                     android:textSize="@dimen/_9ssp" />
 
@@ -109,7 +108,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/cancellation_policy"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -147,7 +146,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/why_with_us"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -186,7 +185,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/room_facilities"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -198,11 +197,12 @@
                     android:id="@+id/rvRoomFacilities"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
                     android:visibility="gone"
+                    android:minHeight="@dimen/_30sdp"
                     tools:listitem="@layout/item_room_facilities" />
 
                 <com.customviews.CustomRomanTextView
@@ -213,7 +213,7 @@
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/there_is_no_data_available"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_light"
                     android:textSize="@dimen/_8ssp"
                     android:visibility="gone" />
 
@@ -239,7 +239,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/allowed"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -253,9 +253,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:orientation="horizontal"
                     android:visibility="gone"
+                    android:minHeight="@dimen/_30sdp"
                     tools:listitem="@layout/item_allowed" />
 
                 <com.customviews.CustomRomanTextView
@@ -266,7 +267,7 @@
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/there_is_no_data_available"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_light"
                     android:textSize="@dimen/_9ssp"
                     android:visibility="visible" />
 
@@ -292,7 +293,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/not_allowed"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -306,7 +307,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:scrollbars="none"
+                    android:minHeight="@dimen/_30sdp"
                     android:visibility="visible"
                     tools:listitem="@layout/item_not_allowed" />
 
@@ -318,7 +322,7 @@
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/there_is_no_data_available"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black_light"
                     android:textSize="@dimen/_9ssp"
                     android:visibility="visible" />
 
@@ -343,7 +347,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/include"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -356,6 +360,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:minHeight="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
                     android:visibility="gone"
                     tools:listitem="@layout/item_include" />
@@ -368,7 +375,7 @@
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/there_is_no_data_available"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black_light"
                     android:textSize="@dimen/_9ssp"
                     android:visibility="visible" />
 
@@ -387,7 +394,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/not_include"
-                    android:textColor="@color/black1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <View
@@ -400,6 +407,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:minHeight="@dimen/_30sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
@@ -414,7 +422,7 @@
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/there_is_no_data_available"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_light"
                     android:textSize="@dimen/_9ssp"
                     android:visibility="visible" />
 
@@ -461,7 +469,7 @@
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/there_is_no_data_available"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_light"
                     android:textSize="@dimen/_9ssp"
                     android:visibility="visible" />
 
@@ -548,66 +556,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/dark_gray1"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.customviews.CustomRomanTextView
-                android:id="@+id/tvPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:gravity="center"
-                android:text="@string/_3535"
-                android:textColor="@color/app_blue"
-                android:textSize="@dimen/_11ssp" />
-
-            <com.customviews.CustomRomanTextView
-                android:id="@+id/tvPerNight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:gravity="center"
-                android:text="@string/per_night"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llContinueBooking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@color/app_blue"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/_10sdp">
-
-            <com.customviews.CustomRomanTextView
-                android:id="@+id/tvBooking"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/continue_booking"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_11ssp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </RelativeLayout>

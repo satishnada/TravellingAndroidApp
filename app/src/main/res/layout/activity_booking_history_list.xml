@@ -27,7 +27,13 @@
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/_2sdp"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
+        app:fastScrollEnabled="true"
+        app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+        app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+        android:animateLayoutChanges="false"
+        android:smoothScrollbar="true"
         android:scrollbars="none" />
 
     <com.customviews.CustomRomanTextView

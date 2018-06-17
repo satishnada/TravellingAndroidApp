@@ -2,9 +2,11 @@ package com.profdeveloper.fllawi.activities;
 
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.profdeveloper.BaseActivity;
 import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.utils.AppConstant;
@@ -46,17 +55,19 @@ public class MediaFullScreenActvity extends BaseActivity {
         ivClose.setOnClickListener(this);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
+        if (bundle != null) {
             imageUrl = bundle.getString(AppConstant.EXT_HOTEL_IMAGE);
 
-            ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL+"/"+imageUrl, new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    // Do whatever you want with Bitmap
-                    ivFullScreen.setImageBitmap(loadedImage);
-                    pbLoading.setVisibility(View.GONE);
-                }
-            });
+            Glide.with(this)
+                    .asBitmap()
+                    .load(Utility.BASE_GALLERY_URL + "/" + imageUrl)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                            ivFullScreen.setImageBitmap(resource);
+                            pbLoading.setVisibility(View.GONE);
+                        }
+                    });
         }
     }
 

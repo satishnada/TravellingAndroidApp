@@ -164,6 +164,7 @@ public class SearchResultActivity extends BaseActivity {
         intent.putExtra(AppConstant.EXT_FROM_DATE,fromDate);
         intent.putExtra(AppConstant.EXT_TO_DATE,toDate);
         intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
+        intent.putExtra(AppConstant.EXT_AVG_RATTING,searchResultData.getAvrageUserRatting()+"");
         startActivity(intent);
         goNext();
     }
@@ -176,6 +177,7 @@ public class SearchResultActivity extends BaseActivity {
         intent.putExtra(AppConstant.EXT_TO_DATE,toDate);
         intent.putExtra(AppConstant.EXT_FROM_DATE,fromDate);
         intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
+        intent.putExtra(AppConstant.EXT_AVG_RATTING,searchResultData.getAvrage_user_rating()+"");
         startActivity(intent);
         goNext();
     }
@@ -187,6 +189,7 @@ public class SearchResultActivity extends BaseActivity {
         intent.putExtra(AppConstant.EXT_HOTEL_IMAGE,searchResultData.getImage());
         intent.putExtra(AppConstant.EXT_FROM_DATE,scheduledDate);
         intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
+        intent.putExtra(AppConstant.EXT_AVG_RATTING,searchResultData.getAvrageUserRating()+"");
         startActivity(intent);
         goNext();
     }
@@ -207,12 +210,14 @@ public class SearchResultActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.llSort:
                 Intent sortIntent = new Intent(mActivity, SortHotelActivity.class);
+                sortIntent.putExtra(AppConstant.EXT_IS_FROM,isFrom);
                 startActivityForResult(sortIntent, RESULT_SORT_CODE);
                 goNext();
                 break;
             case R.id.llFilter:
                 Intent filterIntent = new Intent(mActivity, FilterHotelActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putInt(AppConstant.EXT_IS_FROM,isFrom);
                 bundle.putSerializable(AppConstant.EXT_CATEGORY,categoryList);
                 bundle.putSerializable(AppConstant.EXT_SUB_CATEGORY,subCategoryList);
                 filterIntent.putExtras(bundle);
@@ -243,20 +248,20 @@ public class SearchResultActivity extends BaseActivity {
         }
     }
 
-    private void setListData(SearchRequestResponse searchResponseData) {
-        searchResponseData = (SearchRequestResponse) searchResponseData;
-        searchHotelListData = (ArrayList<Datum>) searchResponseData.getSearchResultMainData().getSearchHotelList().getData();
-
-        if (searchResponseData.getSearchResultMainData().getCategory() != null) {
-            categoryList = (ArrayList<ArrMainCategory>) searchResponseData.getSearchResultMainData().getCategory();
+    private void setListData() {
+        if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+            searchHotelListData = (ArrayList<Datum>) searchResponseData.getSearchResultMainData().getSearchHotelList().getData();
+            homeListAdapter = new HomeListAdapter(mActivity, searchHotelListData);
+            recyclerHome.setAdapter(homeListAdapter);
+        }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+            searchThingToDoListData = (ArrayList<com.profdeveloper.fllawi.model.ThingToDoSearch.Datum>) thingToDoResponseData.getData().getObjData().getData();
+            thingToDoListAdapter = new ThingToDoListAdapter(mActivity,searchThingToDoListData);
+            recyclerHome.setAdapter(thingToDoListAdapter);
+        }else if (isFrom == AppConstant.IS_FROM_COUPON){
+            searchCouponListData = (ArrayList<com.profdeveloper.fllawi.model.Coupons.Datum>) couponResponseData.getData().getObjData().getData();
+            couponListAdapter = new CouponListAdapter(mActivity,searchCouponListData);
+            recyclerHome.setAdapter(couponListAdapter);
         }
-
-        if (searchResponseData.getSearchResultMainData().getSubCategory() != null) {
-            subCategoryList = (ArrayList<ArrSubCategory>) searchResponseData.getSearchResultMainData().getSubCategory();
-        }
-
-        homeListAdapter = new HomeListAdapter(mActivity, searchHotelListData);
-        recyclerHome.setAdapter(homeListAdapter);
     }
 
     @Override
@@ -265,12 +270,24 @@ public class SearchResultActivity extends BaseActivity {
         try {
             if (resultCode == RESULT_FILTER_CODE && requestCode == RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                SearchRequestResponse requestResponse = (SearchRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
-                setListData(requestResponse);
+                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+                    searchResponseData = (SearchRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
+                }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+                    thingToDoResponseData = (GetThingToDoRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
+                }else if (isFrom == AppConstant.IS_FROM_COUPON){
+                    couponResponseData = (GetCouponRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
+                }
+                setListData();
             } else { // SORT CODE
                 Bundle bundle = data.getExtras();
-                SearchRequestResponse requestResponse = (SearchRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
-                setListData(requestResponse);
+                if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+                    searchResponseData = (SearchRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
+                }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+                    thingToDoResponseData = (GetThingToDoRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
+                }else if (isFrom == AppConstant.IS_FROM_COUPON){
+                    couponResponseData = (GetCouponRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
+                }
+                setListData();
             }
         } catch (Exception e) {
             e.printStackTrace();

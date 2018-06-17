@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
 import com.profdeveloper.fllawi.R;
 import com.profdeveloper.fllawi.activities.MediaFullScreenActvity;
 import com.profdeveloper.fllawi.model.AccommodationDetails.Gallery;
@@ -42,14 +43,18 @@ public class CouponDetailPhotosListAdapter extends RecyclerView.Adapter<CouponDe
 
         final com.profdeveloper.fllawi.model.couponDetails.Gallery photo = photosCouponList.get(position);
 
-        ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL+"/"+photo.getImage(), new SimpleImageLoadingListener() {
+        Glide.with(context).load(Utility.BASE_GALLERY_URL+"/"+photo.getImage())
+                .into(holder.ivService);
+        holder.progressBar.setVisibility(View.GONE);
+
+/*        ImageLoader.getInstance().loadImage(Utility.BASE_GALLERY_URL+"/"+photo.getImage(), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 // Do whatever you want with Bitmap
                 holder.ivService.setImageBitmap(loadedImage);
                 holder.progressBar.setVisibility(View.GONE);
             }
-        });
+        });*/
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
