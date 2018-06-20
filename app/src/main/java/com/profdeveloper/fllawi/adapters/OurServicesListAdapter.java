@@ -51,6 +51,9 @@ public class OurServicesListAdapter extends RecyclerView.Adapter<OurServicesList
         } else if (position == 4) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._42sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.llMainItem.setLayoutParams(params);
+        } else if (position == 5) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen._65sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
+            holder.llMainItem.setLayoutParams(params);
         }
 
         holder.ivService.setImageResource(serviceImg.getResourceId(position, -1));

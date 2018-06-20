@@ -10,6 +10,9 @@ public class ThingToDoCalculatePriceRequestResponse implements Serializable {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("msg")
+    @Expose
+    private String msg;
     @SerializedName("arr_calculation_break_down")
     @Expose
     private ArrCalculationBreakDown arrCalculationBreakDown;
@@ -23,6 +26,14 @@ public class ThingToDoCalculatePriceRequestResponse implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public ArrCalculationBreakDown getArrCalculationBreakDown() {

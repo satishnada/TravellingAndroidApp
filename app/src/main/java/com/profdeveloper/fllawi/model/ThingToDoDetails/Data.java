@@ -11,7 +11,7 @@ public class Data implements Serializable {
 
     @SerializedName("price")
     @Expose
-    private Double price;
+    private double price;
     @SerializedName("arr_allowable")
     @Expose
     private List<String> arrAllowable = null;
@@ -40,11 +40,11 @@ public class Data implements Serializable {
     @Expose
     private String jsonAvailDate;
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

@@ -145,11 +145,11 @@ public class BillingInfoActivity extends BaseActivity {
 
             if (accommodationBookingResponse != null) {
                 if (accommodationBookingResponse != null) {
-                    tvSubTotal.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getSubTotal() + "");
-                    tvTotalPayableBefore.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getTotalBeforeDiscount() + "");
-                    tvTotalPayableAfter.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getTotalAfterDiscount() + "");
-                    tvDiscount.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getDiscountAmount() + "");
-                    tvCouponAmount.setText(getString(R.string.sar)+" " + accommodationBookingResponse.getDiscountAmount());
+                    tvSubTotal.setText(getString(R.string.sar) + " " + accommodationBookingResponse.getSubTotal() + "");
+                    tvTotalPayableBefore.setText(getString(R.string.sar) + " " + accommodationBookingResponse.getTotalBeforeDiscount() + "");
+                    tvTotalPayableAfter.setText(getString(R.string.sar) + " " + accommodationBookingResponse.getTotalAfterDiscount() + "");
+                    tvDiscount.setText(getString(R.string.sar) + " " + accommodationBookingResponse.getDiscountAmount() + "");
+                    tvCouponAmount.setText(getString(R.string.sar) + " " + accommodationBookingResponse.getDiscountAmount());
                 }
             }
 
@@ -184,10 +184,10 @@ public class BillingInfoActivity extends BaseActivity {
 
             if (couponBreakDown != null) {
                 if (couponBreakDown != null) {
-                    tvTotalPayableBefore.setText(getString(R.string.sar)+" " + couponBreakDown.getTotalBeforeDiscount() + "");
-                    tvTotalPayableAfter.setText(getString(R.string.sar)+" " + couponBreakDown.getTotalAfterDiscount() + "");
-                    tvDiscount.setText(getString(R.string.sar)+" " + couponBreakDown.getDiscountAmount() + "");
-                    tvCouponAmount.setText(getString(R.string.sar)+" " + couponBreakDown.getDiscountAmount());
+                    tvTotalPayableBefore.setText(getString(R.string.sar) + " " + couponBreakDown.getTotalBeforeDiscount() + "");
+                    tvTotalPayableAfter.setText(getString(R.string.sar) + " " + couponBreakDown.getTotalAfterDiscount() + "");
+                    tvDiscount.setText(getString(R.string.sar) + " " + couponBreakDown.getDiscountAmount() + "");
+                    tvCouponAmount.setText(getString(R.string.sar) + " " + couponBreakDown.getDiscountAmount());
                 }
 
             }
@@ -210,11 +210,11 @@ public class BillingInfoActivity extends BaseActivity {
             tvAdult.setText(adults);
             tvKids.setText(kids);
             if (breakDown != null) {
-                tvSubTotal.setText(getString(R.string.sar)+" " + breakDown.getSubTotal() + "");
-                tvTotalPayableBefore.setText(getString(R.string.sar)+" " + breakDown.getTotalBeforeDiscount() + "");
-                tvTotalPayableAfter.setText(getString(R.string.sar)+" " + breakDown.getTotalAfterDiscount() + "");
-                tvDiscount.setText(getString(R.string.sar)+" " + breakDown.getDiscountAmount() + "");
-                tvCouponAmount.setText(getString(R.string.sar)+" " + breakDown.getDiscountAmount());
+                tvSubTotal.setText(getString(R.string.sar) + " " + breakDown.getSubTotal() + "");
+                tvTotalPayableBefore.setText(getString(R.string.sar) + " " + breakDown.getTotalBeforeDiscount() + "");
+                tvTotalPayableAfter.setText(getString(R.string.sar) + " " + breakDown.getTotalAfterDiscount() + "");
+                tvDiscount.setText(getString(R.string.sar) + " " + breakDown.getDiscountAmount() + "");
+                tvCouponAmount.setText(getString(R.string.sar) + " " + breakDown.getDiscountAmount());
             }
             setAddonsList();
             recyclerAddons.setVisibility(View.VISIBLE);
@@ -226,6 +226,34 @@ public class BillingInfoActivity extends BaseActivity {
 
         } else if (isFrom == AppConstant.IS_FROM_EVENT) {
 
+        } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+            accommodationId = bundle.getString(AppConstant.EXT_ACCOMMODATION_ID);
+            fromDate = bundle.getString(AppConstant.EXT_FROM_DATE);
+            isFrom = bundle.getInt(AppConstant.EXT_IS_FROM);
+            adults = bundle.getString(AppConstant.EXT_ADULTS);
+            kids = bundle.getString(AppConstant.EXT_KIDS);
+            name = bundle.getString(AppConstant.EXT_NAME);
+            addonsList = (ArrayList<Datum>) bundle.getSerializable(AppConstant.EXT_ADDONS_SELECTED_LIST);
+            breakDown = (com.profdeveloper.fllawi.model.ThingToDoPriceCalcu.ArrCalculationBreakDown) bundle.getSerializable(AppConstant.EXT_ACCOMMODATION_BOOKING);
+
+            tvTitle.setText(name);
+            tvFromDate.setText(fromDate);
+            tvToDate.setText(toDate);
+            tvAdult.setText(adults);
+            tvKids.setText(kids);
+            if (breakDown != null) {
+                tvSubTotal.setText(getString(R.string.sar) + " " + breakDown.getSubTotal() + "");
+                tvTotalPayableBefore.setText(getString(R.string.sar) + " " + breakDown.getTotalBeforeDiscount() + "");
+                tvTotalPayableAfter.setText(getString(R.string.sar) + " " + breakDown.getTotalAfterDiscount() + "");
+                tvDiscount.setText(getString(R.string.sar) + " " + breakDown.getDiscountAmount() + "");
+                tvCouponAmount.setText(getString(R.string.sar) + " " + breakDown.getDiscountAmount());
+            }
+            setAddonsList();
+            recyclerAddons.setVisibility(View.VISIBLE);
+            llAddons.setVisibility(View.VISIBLE);
+            tvSubTotalText.setText(getString(R.string.sub_total));
+            llTopInfo.setVisibility(View.VISIBLE);
+            tvAddress.setVisibility(View.GONE);
         }
 
     }
@@ -273,7 +301,7 @@ public class BillingInfoActivity extends BaseActivity {
                 paymentMode = "bank";
                 if (!PreferenceData.isLogin()) {
                     Intent intent = new Intent(mActivity, SignInActivity.class);
-                    intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_BOOKING);
+                    intent.putExtra(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_BOOKING);
                     startActivityForResult(intent, LOGIN_REQUEST);
                     goNext();
                 } else {
@@ -283,6 +311,8 @@ public class BillingInfoActivity extends BaseActivity {
                         thingToDoInitPayment();
                     } else if (isFrom == AppConstant.IS_FROM_COUPON) {
                         couponInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+                        packageInitPayment();
                     }
                 }
                 break;
@@ -290,7 +320,7 @@ public class BillingInfoActivity extends BaseActivity {
                 paymentMode = "paytab";
                 if (!PreferenceData.isLogin()) {
                     Intent intent = new Intent(mActivity, SignInActivity.class);
-                    intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_BOOKING);
+                    intent.putExtra(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_BOOKING);
                     startActivityForResult(intent, LOGIN_REQUEST);
                     goNext();
                 } else {
@@ -300,6 +330,8 @@ public class BillingInfoActivity extends BaseActivity {
                         thingToDoInitPayment();
                     } else if (isFrom == AppConstant.IS_FROM_COUPON) {
                         couponInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+                        packageInitPayment();
                     }
                 }
                 break;
@@ -391,7 +423,6 @@ public class BillingInfoActivity extends BaseActivity {
         goPrevious();
     }
 
-
     private void thingToDoInitPayment() {
         try {
             if (!Utility.isNetworkAvailable(mActivity)) {
@@ -440,6 +471,94 @@ public class BillingInfoActivity extends BaseActivity {
                         breakDown.getTotalAfterDiscount() + "",
                         startTime,
                         endTime
+                );
+/*
+calculationBreakDownJson.toString(),
+                        scheduleTimeJson.toString(),
+                        appliedCouponJson.toString(), "", ""*/
+
+                call.enqueue(new Callback<InitPaymentRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<InitPaymentRequestResponse> call, Response<InitPaymentRequestResponse> response) {
+
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                if (paymentMode.equalsIgnoreCase("bank")) {
+                                    orderId = response.body().getData().getOrderId();
+                                    orderInitAmount = response.body().getData().getAmount();
+                                    Utility.showError(response.body().getMsg());
+                                    goToHome();
+                                } else {
+                                    orderId = response.body().getData().getOrderId();
+                                    orderInitAmount = response.body().getData().getAmount();
+                                    startPaymentActivity();
+                                }
+
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<InitPaymentRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void packageInitPayment() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+
+                JsonObject appliedCouponJson = new JsonObject();
+                appliedCouponJson.addProperty("coupon_code_row_id", "");
+                appliedCouponJson.addProperty("is_applyied", false);
+
+                JsonObject calculationBreakDownJson = new JsonObject();
+                calculationBreakDownJson.addProperty("total_after_discount", breakDown.getTotalAfterDiscount() + "");
+
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("payment_mode", paymentMode);
+                jsonObject.addProperty("thing_to_do_id", accommodationId);
+                jsonObject.addProperty("user_id", accommodationId);
+                jsonObject.addProperty("schedule_date", fromDate);
+                jsonObject.addProperty("schedule_type", "0");
+                jsonObject.addProperty("adults", adults);
+                jsonObject.addProperty("kids", kids);
+
+                jsonObject.addProperty("addons[19]", 2);
+
+                //jsonObject.addProperty("addons",addonsJson.toString());
+
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                RequestBody requestBody = RequestBody.create(JSON, jsonObject.toString());
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<InitPaymentRequestResponse> call = service.packageInitPayment(
+                        Utility.getLocale(),
+                        paymentMode,
+                        accommodationId,
+                        adults,
+                        kids,
+                        fromDate,
+                        "0",
+                        PreferenceData.getUserData().getId(),
+                        "1",
+                        breakDown.getTotalAfterDiscount() + ""
                 );
 /*
 calculationBreakDownJson.toString(),
@@ -722,22 +841,24 @@ calculationBreakDownJson.toString(),
 
         int isResultFrom = 0;
         if (requestCode == LOGIN_REQUEST) {
-                if (data != null) {
-                    isResultFrom = data.getIntExtra(AppConstant.EXT_IS_FROM, 0);
-                    if (isResultFrom == AppConstant.IS_FROM_BOOKING) {
-                        if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
-                            accommodationInitPayment();
-                        } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
-                            thingToDoInitPayment();
-                        } else if (isFrom == AppConstant.IS_FROM_COUPON) {
-                            couponInitPayment();
-                        } else if (isFrom == AppConstant.IS_FROM_EVENT) {
+            if (data != null) {
+                isResultFrom = data.getIntExtra(AppConstant.EXT_IS_FROM, 0);
+                if (isResultFrom == AppConstant.IS_FROM_BOOKING) {
+                    if (isFrom == AppConstant.IS_FROM_ACCOMMODATION) {
+                        accommodationInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_THING_TO_DO) {
+                        thingToDoInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+                        couponInitPayment();
+                    } else if (isFrom == AppConstant.IS_FROM_EVENT) {
 
-                        } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
+                    } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
 
-                        }
+                    } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+                        packageInitPayment();
                     }
                 }
+            }
         } else {
             SharedPreferences shared_prefs = getSharedPreferences(AppConstant.PAY_TAB_RESPONSE, MODE_PRIVATE);
             String pt_response_code = shared_prefs.getString("pt_response_code", "");

@@ -67,6 +67,7 @@
         <item>@drawable/ic_coupons</item>
         <item>@drawable/ic_transportation</item>
         <item>@drawable/ic_event</item>
+        <item>@drawable/ic_things_to_do</item>
     </string-array>
 
     <string-array name="side_menu_login">
@@ -138,6 +139,7 @@
         <item>@string/coupons</item>
         <item>@string/transportation</item>
         <item>@string/event</item>
+        <item>@string/packagee</item>
     </string-array>
 
     <string name="accommodation">Accommodation</string>
@@ -145,6 +147,7 @@
     <string name="coupons">Coupons</string>
     <string name="transportation">Transportation</string>
     <string name="event">Event</string>
+    <string name="packagee">Package</string>
 
     <string name="search">Search</string>
     <string name="notifications">Notifications</string>
@@ -260,7 +263,6 @@
     <string name="top_destination">Top Destination</string>
     <string name="see_all">See All</string>
     <string name="riyadh">Riyadh</string>
-    <string name="package_">12 Package</string>
     <string name="start_from">Start from</string>
     <string name="place_name">Place Name</string>
     <string name="smith_k_johan">Smith k Johan</string>
@@ -402,4 +404,8 @@
     <string name="before_hours">" before hours "</string>
     <string name="no_refund_before_hours">" no refund before hours "</string>
     <string name="all">All</string>
+
+    <string name="places">Places</string>
+    <string name="nights">Nights</string>
+    <string name="days">Days</string>
 </resources>

@@ -13,13 +13,13 @@ public class Datum implements Serializable {
     private int id;
     @SerializedName("tag")
     @Expose
-    private Integer tag;
+    private int tag;
     @SerializedName("parent")
     @Expose
-    private Integer parent;
+    private int parent;
     @SerializedName("is_active")
     @Expose
-    private Integer isActive;
+    private int isActive;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -47,27 +47,27 @@ public class Datum implements Serializable {
         this.id = id;
     }
 
-    public Integer getTag() {
+    public int getTag() {
         return tag;
     }
 
-    public void setTag(Integer tag) {
+    public void setTag(int tag) {
         this.tag = tag;
     }
 
-    public Integer getParent() {
+    public int getParent() {
         return parent;
     }
 
-    public void setParent(Integer parent) {
+    public void setParent(int parent) {
         this.parent = parent;
     }
 
-    public Integer getIsActive() {
+    public int getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(Integer isActive) {
+    public void setIsActive(int isActive) {
         this.isActive = isActive;
     }
 

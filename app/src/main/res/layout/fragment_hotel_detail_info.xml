@@ -58,6 +58,60 @@
                 android:background="@color/light_gray" />
 
             <LinearLayout
+                android:id="@+id/llPlaces"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_90sdp"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <com.customviews.CustomBoldTextView
+                    android:id="@+id/tvPlaces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/places"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/light_gray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPlaces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:minHeight="@dimen/_30sdp"
+                    tools:listitem="@layout/item_allowed" />
+
+                <com.customviews.CustomRomanTextView
+                    android:id="@+id/tvNoDataFoundPlaces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_gray4"
+                    android:gravity="center"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/there_is_no_data_available"
+                    android:textColor="@color/black_light"
+                    android:textSize="@dimen/_9ssp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
                 android:id="@+id/llCheckInOutTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

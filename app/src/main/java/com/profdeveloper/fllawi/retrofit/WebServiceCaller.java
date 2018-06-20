@@ -19,6 +19,8 @@ import com.profdeveloper.fllawi.model.Coupons.GetCouponRequestResponse;
 import com.profdeveloper.fllawi.model.HomeTopDestination.TopDestinationRequestResponse;
 import com.profdeveloper.fllawi.model.InitPaymentRequestResponse;
 import com.profdeveloper.fllawi.model.LoginRequestResponse;
+import com.profdeveloper.fllawi.model.Package.PackageDetaisRequestResponse;
+import com.profdeveloper.fllawi.model.Package.PackageRequestResponse;
 import com.profdeveloper.fllawi.model.Reviews.ReviewsRequestResponse;
 import com.profdeveloper.fllawi.model.SearchHotel.SearchRequestResponse;
 import com.profdeveloper.fllawi.model.SuggestLocationRequestResponse;
@@ -139,6 +141,14 @@ public class WebServiceCaller {
         @POST(WebUtility.APPLY_COUPON)
         Call<CouponRequestResponse> applyCoupon(@Header("locale") String locale,
                                                 @Field(AppConstant.coupon_code) String coupon_code);
+        @FormUrlEncoded
+        @POST(WebUtility.APPLY_COUPON_PACKAGE)
+        Call<CouponRequestResponse> applyCouponPackage(@Header("locale") String locale,
+                                                @Field(AppConstant.coupon_code) String coupon_code);
+        @FormUrlEncoded
+        @POST(WebUtility.APPLY_COUPON_THING_TO_DO)
+        Call<CouponRequestResponse> applyCouponThingToDo(@Header("locale") String locale,
+                                                @Field(AppConstant.coupon_code) String coupon_code);
 
         @GET
         Call<SearchRequestResponse> searchAccommodation(@Header("locale") String locale,
@@ -197,6 +207,15 @@ public class WebServiceCaller {
                                                        @Field(AppConstant.name) String name);
 
         @FormUrlEncoded
+        @POST(WebUtility.PACKAGE_CREATE)
+        Call<CommonRequestResponse> addPackage(@Header("locale") String locale,
+                                               @Field(AppConstant.user_id) String user_id,
+                                               @Field(AppConstant.thingtodo_id) String thingtodo_id,
+                                               @Field(AppConstant.rating) String rating,
+                                               @Field(AppConstant.message) String message,
+                                               @Field(AppConstant.name) String name);
+
+        @FormUrlEncoded
         @POST(WebUtility.COUPON_REVIEW_CREATE)
         Call<CommonRequestResponse> addReviewCoupon(@Header("locale") String locale,
                                                     @Field(AppConstant.user_id) String user_id,
@@ -222,6 +241,14 @@ public class WebServiceCaller {
                                                           @Url String url);
 
         @GET
+        Call<PackageRequestResponse> getPackage(@Header("locale") String locale,
+                                                @Url String url);
+
+        @GET
+        Call<PackageDetaisRequestResponse> getPackageDetails(@Header("locale") String locale,
+                                                             @Url String url);
+
+        @GET
         Call<GetCouponDetailsRequestResponse> getCouponDetails(@Header("locale") String locale,
                                                                @Url String url);
 
@@ -244,6 +271,10 @@ public class WebServiceCaller {
         @GET
         Call<ThingToDoCalculatePriceRequestResponse> getThingToDoCalculatePrice(@Header("locale") String locale,
                                                                                 @Url String url);
+
+        @GET
+        Call<ThingToDoCalculatePriceRequestResponse> getPackagePrice(@Header("locale") String locale,
+                                                                     @Url String url);
 
         @FormUrlEncoded
         @POST(WebUtility.ACCOMMODATION_INIT_PAYMENT)
@@ -296,6 +327,19 @@ public class WebServiceCaller {
                                                               @Field(AppConstant.CALCULATION_AFTER_DISCOUNT) String afterDiscount,
                                                               @Field(AppConstant.ARR_SCHEDULE_START_TIME) String startTime,
                                                               @Field(AppConstant.ARR_SCHEDULE_END_TIME) String endTime);
+
+        @FormUrlEncoded
+        @POST(WebUtility.PACKAGE_INIT_PAYMENT)
+        Call<InitPaymentRequestResponse> packageInitPayment(@Header("locale") String locale,
+                                                            @Field(AppConstant.payment_mode) String payment_mode,
+                                                            @Field(AppConstant.thing_to_do_id) String thing_to_do_id,
+                                                            @Field(AppConstant.adults) String adults,
+                                                            @Field(AppConstant.kids) String kids,
+                                                            @Field(AppConstant.schedule_date) String schedule_date,
+                                                            @Field(AppConstant.schedule_type) String schedule_type,
+                                                            @Field(AppConstant.user_id) int user_id,
+                                                            @Field(AppConstant.addons_t) String addons,
+                                                            @Field(AppConstant.CALCULATION_AFTER_DISCOUNT) String afterDiscount);
 
         /*@Field(AppConstant.arr_calculation_break_down) String arr_calculation_break_down,
         @Field(AppConstant.arr_schedule_time) String scheduleJson,
@@ -384,5 +428,9 @@ public class WebServiceCaller {
         @GET
         Call<ResponseBody> getSuggestLocation(@Header("locale") String locale,
                                               @Url String url);
+
+        @GET
+        Call<GetThingToDoCategoryRequestResponse> getPackageCategory(@Header("locale") String locale,
+                                                                     @Url String url);
     }
 }

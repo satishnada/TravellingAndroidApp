@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.profdeveloper.fllawi.R;
+import com.profdeveloper.fllawi.model.SearchHotel.ArrMainCategory;
 import com.profdeveloper.fllawi.model.ThingToDo.Datum;
 
 import java.util.ArrayList;
@@ -16,13 +17,22 @@ import java.util.List;
 public class CategoryAdapter extends BaseAdapter {
     private Activity mActivity;
     private ArrayList<Datum> categoryList = new ArrayList<>();
+    private ArrayList<ArrMainCategory> categoryPackageList = new ArrayList<>();
     private ViewHolder holder;
     private LayoutInflater inflater;
+    private int type = 0;
 
     public CategoryAdapter(Activity mActivity, ArrayList<Datum> catList) {
         this.mActivity = mActivity;
         this.categoryList = catList;
         inflater = LayoutInflater.from(mActivity);
+    }
+
+    public CategoryAdapter(Activity mActivity, int type, ArrayList<ArrMainCategory> categoryPackageList) {
+        this.mActivity = mActivity;
+        this.categoryPackageList = categoryPackageList;
+        inflater = LayoutInflater.from(mActivity);
+        this.type = type;
     }
 
     @Override
@@ -50,8 +60,14 @@ public class CategoryAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Datum areaResponse = categoryList.get(position);
-        holder.txtName.setText(areaResponse.getTitle());
+        if (type == 0){
+            Datum areaResponse = categoryList.get(position);
+            holder.txtName.setText(areaResponse.getTitle());
+        }else if (type == 1){
+            ArrMainCategory areaResponse = categoryPackageList.get(position);
+            holder.txtName.setText(areaResponse.getTitle());
+        }
+
         return convertView;
     }
 

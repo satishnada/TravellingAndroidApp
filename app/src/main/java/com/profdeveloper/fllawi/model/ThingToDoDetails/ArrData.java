@@ -13,19 +13,19 @@ public class ArrData implements Serializable {
     private int id;
     @SerializedName("main_category_id")
     @Expose
-    private Integer mainCategoryId;
+    private int mainCategoryId;
     @SerializedName("category_id")
     @Expose
-    private Integer categoryId;
+    private int categoryId;
     @SerializedName("subcategory_id")
     @Expose
-    private Integer subcategoryId;
+    private int subcategoryId;
     @SerializedName("user_id")
     @Expose
-    private Integer userId;
+    private int userId;
     @SerializedName("type")
     @Expose
-    private Integer type;
+    private int type;
     @SerializedName("lat")
     @Expose
     private String lat;
@@ -37,37 +37,37 @@ public class ArrData implements Serializable {
     private String address;
     @SerializedName("reservation_amount")
     @Expose
-    private Integer reservationAmount;
+    private double reservationAmount;
     @SerializedName("seat")
     @Expose
-    private Integer seat;
+    private int seat;
     @SerializedName("weekend_one")
     @Expose
-    private Double weekendOne;
+    private double weekendOne;
     @SerializedName("weekend_two")
     @Expose
-    private Double weekendTwo;
+    private double weekendTwo;
     @SerializedName("bird_discount_before")
     @Expose
-    private Integer birdDiscountBefore;
+    private double birdDiscountBefore;
     @SerializedName("bird_discount")
     @Expose
-    private Integer birdDiscount;
+    private double birdDiscount;
     @SerializedName("cancel_refund_applicable")
     @Expose
-    private Integer cancelRefundApplicable;
+    private double cancelRefundApplicable;
     @SerializedName("cancellation_charge")
     @Expose
-    private Integer cancellationCharge;
+    private double cancellationCharge;
     @SerializedName("quantity")
     @Expose
-    private Integer quantity;
+    private int quantity;
     @SerializedName("cancellation_duration")
     @Expose
-    private Integer cancellationDuration;
+    private double cancellationDuration;
     @SerializedName("no_refund_duration")
     @Expose
-    private Integer noRefundDuration;
+    private double noRefundDuration;
     @SerializedName("contact_email")
     @Expose
     private String contactEmail;
@@ -101,6 +101,9 @@ public class ArrData implements Serializable {
     @SerializedName("price")
     @Expose
     private List<Price> price = null;
+    @SerializedName("places")
+    @Expose
+    private List<Places> places = null;
     @SerializedName("title")
     @Expose
     private String title;
@@ -204,19 +207,19 @@ public class ArrData implements Serializable {
         this.address = address;
     }
 
-    public Integer getReservationAmount() {
+    public double getReservationAmount() {
         return reservationAmount;
     }
 
-    public void setReservationAmount(Integer reservationAmount) {
+    public void setReservationAmount(double reservationAmount) {
         this.reservationAmount = reservationAmount;
     }
 
-    public Integer getSeat() {
+    public int getSeat() {
         return seat;
     }
 
-    public void setSeat(Integer seat) {
+    public void setSeat(int seat) {
         this.seat = seat;
     }
 
@@ -236,59 +239,59 @@ public class ArrData implements Serializable {
         this.weekendTwo = weekendTwo;
     }
 
-    public Integer getBirdDiscountBefore() {
+    public double getBirdDiscountBefore() {
         return birdDiscountBefore;
     }
 
-    public void setBirdDiscountBefore(Integer birdDiscountBefore) {
+    public void setBirdDiscountBefore(double birdDiscountBefore) {
         this.birdDiscountBefore = birdDiscountBefore;
     }
 
-    public Integer getBirdDiscount() {
+    public double getBirdDiscount() {
         return birdDiscount;
     }
 
-    public void setBirdDiscount(Integer birdDiscount) {
+    public void setBirdDiscount(double birdDiscount) {
         this.birdDiscount = birdDiscount;
     }
 
-    public Integer getCancelRefundApplicable() {
+    public double getCancelRefundApplicable() {
         return cancelRefundApplicable;
     }
 
-    public void setCancelRefundApplicable(Integer cancelRefundApplicable) {
+    public void setCancelRefundApplicable(double cancelRefundApplicable) {
         this.cancelRefundApplicable = cancelRefundApplicable;
     }
 
-    public Integer getCancellationCharge() {
+    public double getCancellationCharge() {
         return cancellationCharge;
     }
 
-    public void setCancellationCharge(Integer cancellationCharge) {
+    public void setCancellationCharge(double cancellationCharge) {
         this.cancellationCharge = cancellationCharge;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public Integer getCancellationDuration() {
+    public double getCancellationDuration() {
         return cancellationDuration;
     }
 
-    public void setCancellationDuration(Integer cancellationDuration) {
+    public void setCancellationDuration(int cancellationDuration) {
         this.cancellationDuration = cancellationDuration;
     }
 
-    public Integer getNoRefundDuration() {
+    public double getNoRefundDuration() {
         return noRefundDuration;
     }
 
-    public void setNoRefundDuration(Integer noRefundDuration) {
+    public void setNoRefundDuration(double noRefundDuration) {
         this.noRefundDuration = noRefundDuration;
     }
 
@@ -378,6 +381,14 @@ public class ArrData implements Serializable {
 
     public void setPrice(List<Price> price) {
         this.price = price;
+    }
+
+    public List<Places> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Places> places) {
+        this.places = places;
     }
 
     public String getTitle() {

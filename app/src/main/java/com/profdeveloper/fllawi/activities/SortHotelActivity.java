@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
@@ -53,6 +54,8 @@ public class SortHotelActivity extends BaseActivity {
     private int isFrom = 0;
     private CardView cardViewRatting;
     private String searchLocation = "";
+    private RatingBar ratingBarStar;
+    private RatingBar ratingBarUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class SortHotelActivity extends BaseActivity {
         tvMinAmount = view.findViewById(R.id.tvMinAmount);
         tvMaxAmount = view.findViewById(R.id.tvMaxAmount);
         seekBar = view.findViewById(R.id.rangeSeekBar);
+        ratingBarStar = view.findViewById(R.id.ratingBarStar);
+        ratingBarUser = view.findViewById(R.id.ratingBarUser);
         cardViewRatting = view.findViewById(R.id.cardViewRatting);
         tvApply = view.findViewById(R.id.tvApply);
         edtLocationSort = view.findViewById(R.id.edtLocationSort);
@@ -142,6 +147,9 @@ public class SortHotelActivity extends BaseActivity {
                     searchThingToDo();
                 } else if (isFrom == AppConstant.IS_FROM_COUPON) {
                     searchCoupon();
+                } else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+                    PreferenceData.setLocation(edtLocationSort.getText().toString().trim());
+                    searchPackage();
                 }
                 break;
             case R.id.tvRightText: // Reset
@@ -360,6 +368,82 @@ public class SortHotelActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<GetCouponRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void searchPackage() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                SimpleDateFormat dateFormatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                String scheduleDateStr = "";
+                if (PreferenceData.getScheduleDate().length() > 0) {
+                    Date scheduleDate = dateFormatter.parse(PreferenceData.getScheduleDate());
+                    scheduleDateStr = dateFormatter1.format(scheduleDate.getTime());
+                }
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<GetThingToDoRequestResponse> call = service.searchThingToDo(
+                        Utility.getLocale(), WebUtility.GET_PACKAGE
+                                + "q=" + edtLocationSort.getText().toString().trim()
+                                + "&schedule_date=" + scheduleDateStr
+                                + "&filterBy[min_price]" + minPrice
+                                + "&filterBy[max_price]" + maxPrice
+                                + "&filterBy[star_rating]" + ratingBarStar.getRating()+""
+                                + "&filterBy[user_rating]" + ratingBarUser.getRating()
+                 );
+
+                call.enqueue(new Callback<GetThingToDoRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<GetThingToDoRequestResponse> call, Response<GetThingToDoRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                if (response.body() != null) {
+                                    if (response.body().getData() != null) {
+                                        if (response.body().getData().getObjData() != null && response.body().getData().getObjData().getData().size() == 0) {
+                                            Utility.showError(getString(R.string.no_search_found));
+                                        } else {
+                                            Utility.BASE_URL = response.body().getImageUrl();
+                                            Intent searchHotel = new Intent(mActivity, SearchResultActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt(AppConstant.EXT_IS_FROM,isFrom);
+                                            bundle.putSerializable(AppConstant.EXT_SEARCH_DATA, response.body());
+                                            searchHotel.putExtras(bundle);
+                                            setResult(13, searchHotel);
+                                            goPrevious();
+                                            finish();
+                                        }
+                                    } else {
+                                        Utility.showError(getString(R.string.no_search_found));
+                                    }
+                                } else {
+                                    Utility.showError(getString(R.string.no_search_found));
+                                }
+
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetThingToDoRequestResponse> call, Throwable t) {
                         Utility.log("" + t.getMessage());
                         hideProgress();
                         Utility.showError(t.getMessage());

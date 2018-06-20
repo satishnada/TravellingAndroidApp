@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.profdeveloper.fllawi.R;
+import com.profdeveloper.fllawi.model.SearchHotel.ArrSubCategory;
 import com.profdeveloper.fllawi.model.ThingToDo.ChildCategory;
 import com.profdeveloper.fllawi.model.ThingToDo.Datum;
 
@@ -16,13 +17,22 @@ import java.util.ArrayList;
 public class SubCategoryAdapter extends BaseAdapter {
     private Activity mActivity;
     private ArrayList<ChildCategory> subCategoryList = new ArrayList<>();
+    private ArrayList<ArrSubCategory> subCategoryPackageList = new ArrayList<>();
     private ViewHolder holder;
     private LayoutInflater inflater;
+    private int type = 0;
 
     public SubCategoryAdapter(Activity mActivity, ArrayList<ChildCategory> catList) {
         this.mActivity = mActivity;
         this.subCategoryList = catList;
         inflater = LayoutInflater.from(mActivity);
+    }
+
+    public SubCategoryAdapter(Activity mActivity,int type ,ArrayList<ArrSubCategory> catPackageList) {
+        this.mActivity = mActivity;
+        this.subCategoryPackageList = catPackageList;
+        inflater = LayoutInflater.from(mActivity);
+        this.type = type;
     }
 
     @Override
@@ -50,8 +60,13 @@ public class SubCategoryAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        ChildCategory areaResponse = subCategoryList.get(position);
-        holder.txtName.setText(areaResponse.getTitle());
+        if (type == 0){
+            ChildCategory areaResponse = subCategoryList.get(position);
+            holder.txtName.setText(areaResponse.getTitle());
+        }else if (type == 1){
+            ArrSubCategory areaResponse = subCategoryPackageList.get(position);
+            holder.txtName.setText(areaResponse.getTitle());
+        }
         return convertView;
     }
 

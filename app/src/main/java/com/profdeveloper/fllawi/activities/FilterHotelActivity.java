@@ -182,6 +182,8 @@ public class FilterHotelActivity extends BaseActivity implements OnCommonAdapter
                     searchThingToDo();
                 }else if (isFrom == AppConstant.IS_FROM_COUPON){
                     searchCoupon();
+                }else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+                    searchPackage();
                 }
                 break;
             case R.id.tvRightText: // Reset
@@ -302,6 +304,8 @@ public class FilterHotelActivity extends BaseActivity implements OnCommonAdapter
                                 + "&schedule_date=" + scheduleDateStr
                                 + "filterBy[min_price]=" + minPrice
                                 + "&filterBy[max_price]=" + maxPrice
+                                + "&filterBy[category][]" + sltCategoryId
+                                + "&filterBy[subcategory][]" + sltSubCategoryId
                 );
 
                 call.enqueue(new Callback<GetThingToDoRequestResponse>() {
@@ -418,6 +422,83 @@ public class FilterHotelActivity extends BaseActivity implements OnCommonAdapter
             e.printStackTrace();
         }
     }
+
+    private void searchPackage() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                SimpleDateFormat dateFormatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                String scheduleDateStr = "";
+                if (PreferenceData.getScheduleDate().length() > 0) {
+                    Date scheduleDate = dateFormatter.parse(PreferenceData.getScheduleDate());
+                    scheduleDateStr = dateFormatter1.format(scheduleDate.getTime());
+                }
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<GetThingToDoRequestResponse> call = service.searchThingToDo(
+                        Utility.getLocale(), WebUtility.GET_PACKAGE
+                                + "q=" + PreferenceData.getLocation()
+                                + "&schedule_date=" + scheduleDateStr
+                                + "filterBy[min_price]=" + minPrice
+                                + "&filterBy[max_price]=" + maxPrice
+                                + "&filterBy[category][]" + sltCategoryId
+                                + "&filterBy[subcategory][]" + sltSubCategoryId
+                );
+
+                call.enqueue(new Callback<GetThingToDoRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<GetThingToDoRequestResponse> call, Response<GetThingToDoRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                if (response.body() != null) {
+                                    if (response.body().getData() != null) {
+                                        if (response.body().getData().getObjData() != null && response.body().getData().getObjData().getData().size() == 0) {
+                                            Utility.showError(getString(R.string.no_search_found));
+                                        } else {
+                                            Utility.BASE_URL = response.body().getImageUrl();
+                                            Intent searchHotel = new Intent(mActivity, SearchResultActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt(AppConstant.EXT_IS_FROM,isFrom);
+                                            bundle.putSerializable(AppConstant.EXT_SEARCH_DATA, response.body());
+                                            searchHotel.putExtras(bundle);
+                                            setResult(12, searchHotel);
+                                            goPrevious();
+                                            finish();
+                                        }
+                                    } else {
+                                        Utility.showError(getString(R.string.no_search_found));
+                                    }
+                                } else {
+                                    Utility.showError(getString(R.string.no_search_found));
+                                }
+
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetThingToDoRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void openItemSelectList(Activity context, CommonListAdapter arrayListAdapter) {
         final Dialog popupWindowDialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar);

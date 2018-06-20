@@ -174,7 +174,7 @@ public class HomeActivity extends BaseActivity {
             startActivity(searchIntent);
             goNext();
         } else if (position == 3) { // Transportation
-           /* Intent searchIntent = new Intent(mActivity, SearchActivity.class);
+            /*Intent searchIntent = new Intent(mActivity, SearchActivity.class);
             searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_TRANSPORTATION);
             startActivity(searchIntent);
             goNext();*/
@@ -183,7 +183,13 @@ public class HomeActivity extends BaseActivity {
             searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_EVENT);
             startActivity(searchIntent);
             goNext();*/
+        } else if(position == 5){
+            Intent searchIntent = new Intent(mActivity, SearchActivity.class);
+            searchIntent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_PACKAGE);
+            startActivity(searchIntent);
+            goNext();
         }
+
     }
 
     public void onAccommodationItemClick(Datum searchResultData) {

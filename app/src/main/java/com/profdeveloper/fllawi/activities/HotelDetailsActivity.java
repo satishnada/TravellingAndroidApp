@@ -11,6 +11,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ import com.profdeveloper.fllawi.adapters.HotelReviewsListAdapter;
 import com.profdeveloper.fllawi.adapters.IncludeListAdapter;
 import com.profdeveloper.fllawi.adapters.NotAllowedListAdapter;
 import com.profdeveloper.fllawi.adapters.NotIncludeListAdapter;
+import com.profdeveloper.fllawi.adapters.PlacesListAdapter;
 import com.profdeveloper.fllawi.adapters.RequireListAdapter;
 import com.profdeveloper.fllawi.adapters.ThingTodoDetailPhotosListAdapter;
 import com.profdeveloper.fllawi.model.AccommodationDetails.AccommodationDetailsRequestResponse;
@@ -46,6 +48,7 @@ import com.profdeveloper.fllawi.model.AccommodationDetails.Data;
 import com.profdeveloper.fllawi.model.AccommodationDetails.Gallery;
 import com.profdeveloper.fllawi.model.AccommodationDetails.HostProvider;
 import com.profdeveloper.fllawi.model.CommonRequestResponse;
+import com.profdeveloper.fllawi.model.Package.PackageDetaisRequestResponse;
 import com.profdeveloper.fllawi.model.Reviews.ReviewsRequestResponse;
 import com.profdeveloper.fllawi.model.ThingToDoDetails.ThingToDoDetailRequestResponse;
 import com.profdeveloper.fllawi.model.couponDetails.GetCouponDetailsRequestResponse;
@@ -88,6 +91,7 @@ public class HotelDetailsActivity extends BaseActivity {
     private Data hotelDetail;
     private com.profdeveloper.fllawi.model.couponDetails.Data couponDetail;
     private com.profdeveloper.fllawi.model.ThingToDoDetails.Data thingToDoDetail;
+    private com.profdeveloper.fllawi.model.ThingToDoDetails.Data packageDetail;
     private String pricePerNight = "";
     private String detailId = "";
     private String hotelTopImageUrl = "";
@@ -98,7 +102,7 @@ public class HotelDetailsActivity extends BaseActivity {
     private String scheduledDate = "";
 
     // INFORMATION VIEW
-    private RecyclerView rvRoomFacilities, rvAllowed, rvNotAllowed, rvInclude, rvNotInclude, rvRequirement;
+    private RecyclerView rvRoomFacilities, rvAllowed, rvPlaces,rvNotAllowed, rvInclude, rvNotInclude, rvRequirement;
     private GridLayoutManager gridLayoutManager;
     private FacilitiesListAdapter facilitiesListAdapter;
     private LinearLayout llContinueBooking;
@@ -106,11 +110,11 @@ public class HotelDetailsActivity extends BaseActivity {
     private ArrayList<Amenity> amenitiesList = new ArrayList<>();
     private List<String> allowList = new ArrayList<>();
     private TextView tvDescriptionText, tvPrice, tvCheckInOutTime, tvCheckInOutTimeDetail,
-            tvCancellationPolicyDetail, tvNoDataFoundFacility,
+            tvCancellationPolicyDetail, tvNoDataFoundPlaces,tvNoDataFoundFacility,
             tvNoDataFoundAllowed, tvNoDataFoundNotAllowed, tvNoDataFoundInclude,
             tvNoDataFoundNotInclude, tvNoDataFoundRequirement, tvWhyWithUsDetail, tvWhyWithUs,
             tvAdditionalInfoDetails, tvOtherRuleDetails, tvBooking, tvPerNight;
-    private LinearLayout llCheckInOutTime, llCancellationPolicy,
+    private LinearLayout llCheckInOutTime, llCancellationPolicy,llPlaces,
             llAllowed, llNotAllowed, llInclude, llNotInclude, llRequirement;
     private LinearLayout llRoomsAndFacility, llWhyWithUs, llAdditionalInfo, llOtherRule;
     private View viewDividerRoomAndFacility, viewCheckInOut, viewWhyWithUse,
@@ -167,6 +171,7 @@ public class HotelDetailsActivity extends BaseActivity {
         tvPrice = view.findViewById(R.id.tvPrice);
         tvBooking = view.findViewById(R.id.tvBooking);
         llContinueBooking = view.findViewById(R.id.llContinueBooking);
+        llPlaces = view.findViewById(R.id.llPlaces);
         tvPerNight = view.findViewById(R.id.tvPerNight);
 
         viewInformation = view.findViewById(R.id.ViewInformation);
@@ -206,6 +211,9 @@ public class HotelDetailsActivity extends BaseActivity {
 
             } else if (isFrom == AppConstant.IS_FROM_EVENT) {
 
+            } else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+                scheduledDate = bundle.getString(AppConstant.FROM_DATE);
+                getPackageDetails();
             }
         }
 
@@ -287,6 +295,8 @@ public class HotelDetailsActivity extends BaseActivity {
 
         } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
 
+        } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+            bookNow(AppConstant.IS_FROM_PACKAGE);
         }
     }
 
@@ -328,6 +338,17 @@ public class HotelDetailsActivity extends BaseActivity {
 
         } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
 
+        } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+            Intent intent = new Intent(mActivity, BookHotelActivity.class);
+            intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID, detailId);
+            intent.putExtra(AppConstant.EXT_IS_FROM, isFrom);
+            intent.putExtra(AppConstant.EXT_FROM_DATE, scheduledDate);
+            intent.putExtra(AppConstant.EXT_HOTEL_NAME, hotelName);
+            intent.putExtra(AppConstant.EXT_HOTEL_IMAGE, hotelTopImageUrl);
+            intent.putExtra(AppConstant.EXT_HOTEL_AMOUNT, packageDetail.getPrice()+""); //tvHotelStartFrom.getText().toString()
+            intent.putExtra(AppConstant.EXT_HOTEL_RATTING, rattingAvg+"");
+            startActivity(intent);
+            goNext();
         }
     }
 
@@ -438,6 +459,41 @@ public class HotelDetailsActivity extends BaseActivity {
 
         tvPrice.setText(getString(R.string.sar) + " " + pricePerNight);
         hostThingToDoDetail = thingToDoDetail.getArrData().getHostProvider();
+
+        setInformationData();
+
+        setPhotoData();
+
+        setHostViewData();
+
+        setReviewViewData();
+
+    }
+
+    private void setPackageDetails(PackageDetaisRequestResponse data) {
+        packageDetail = data.getData();
+        detailId = packageDetail.getArrData().getId() + "";
+        hostThingToDOProvider = data.getData().getArrData().getHostProvider();
+        latitude = packageDetail.getArrData().getLat();
+        longitude = packageDetail.getArrData().getLng();
+        location = packageDetail.getArrData().getAddress();
+        tvHotelName.setText(hotelName);
+        tvHotelStartFrom.setText(getString(R.string.startfrom) + " " + getString(R.string.sar) + " " + packageDetail.getPrice());
+        photosThingToDoList = (ArrayList<com.profdeveloper.fllawi.model.ThingToDoDetails.Gallery>) data.getData().getArrData().getGallery();
+        reviewList = (ArrayList<ArrReview>) packageDetail.getArrReview();
+        pricePerNight = packageDetail.getPrice() + "";
+        Utility.BASE_GALLERY_URL = data.getImageUrl();
+        Utility.BASE_URL = data.getProfileImageUrl();
+        mImageLoader.loadImage(Utility.BASE_GALLERY_URL + "/" + hotelTopImageUrl, new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                ivTopDetails.setImageBitmap(loadedImage);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        tvPrice.setText(getString(R.string.sar) + " " + pricePerNight);
+        hostThingToDoDetail = packageDetail.getArrData().getHostProvider();
 
         setInformationData();
 
@@ -603,6 +659,46 @@ public class HotelDetailsActivity extends BaseActivity {
         }
     }
 
+    private void getPackageDetails() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<PackageDetaisRequestResponse> call = service.getPackageDetails(Utility.getLocale(), WebUtility.GET_PACKAGE_DETAILS + hotelId);
+                call.enqueue(new Callback<PackageDetaisRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<PackageDetaisRequestResponse> call, Response<PackageDetaisRequestResponse> response) {
+
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                PackageDetaisRequestResponse detailsRequestResponse = response.body();
+                                setPackageDetails(detailsRequestResponse);
+
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<PackageDetaisRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /*  private void getAccommodationReviewList() {
           try {
               if (!Utility.isNetworkAvailable(mActivity)) {
@@ -695,11 +791,13 @@ public class HotelDetailsActivity extends BaseActivity {
         viewNotAllowDivider = viewInformation.findViewById(R.id.viewNotAllowDivider);
 
         rvAllowed = viewInformation.findViewById(R.id.rvAllowed);
+        rvPlaces = viewInformation.findViewById(R.id.rvPlaces);
         rvNotAllowed = viewInformation.findViewById(R.id.rvNotAllowed);
         rvInclude = viewInformation.findViewById(R.id.rvInclude);
         rvNotInclude = viewInformation.findViewById(R.id.rvNotInclude);
         rvRequirement = viewInformation.findViewById(R.id.rvRequirement);
 
+        tvNoDataFoundPlaces = viewInformation.findViewById(R.id.tvNoDataFoundPlaces);
         tvCancellationPolicyDetail = viewInformation.findViewById(R.id.tvCancellationPolicyDetail);
         tvNoDataFoundFacility = viewInformation.findViewById(R.id.tvNoDataFoundFacility);
     }
@@ -745,6 +843,12 @@ public class HotelDetailsActivity extends BaseActivity {
                 tvReviewsCount.setText(reviewList.size() + getString(R.string.reviews));
             }
         } else if (isFrom == AppConstant.IS_FROM_COUPON) {
+            if (reviewList != null) {
+                hotelReviewsListAdapter = new HotelReviewsListAdapter(this, reviewList);
+                rvReviews.setAdapter(hotelReviewsListAdapter);
+                tvReviewsCount.setText(reviewList.size() + getString(R.string.reviews));
+            }
+        }  else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
             if (reviewList != null) {
                 hotelReviewsListAdapter = new HotelReviewsListAdapter(this, reviewList);
                 rvReviews.setAdapter(hotelReviewsListAdapter);
@@ -820,6 +924,28 @@ public class HotelDetailsActivity extends BaseActivity {
                     tvHostContact.setText("");
                 }
             }
+        }else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+            if (hostThingToDoDetail != null) {
+                mImageLoader.loadImage(Utility.BASE_URL + "/" + hostThingToDoDetail.getProfileImage(), new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        ivProfilePic.setImageBitmap(loadedImage);
+                        progressBarHost.setVisibility(View.GONE);
+                    }
+                });
+
+                if (hostThingToDoDetail.getFirstName() != null && hostThingToDoDetail.getLastName() != null) {
+                    tvHostName.setText(hostThingToDoDetail.getFirstName() + " " + hostThingToDoDetail.getLastName());
+                } else {
+                    tvHostName.setText("");
+                }
+
+                if (hostThingToDoDetail.getContactNo() != null) {
+                    tvHostContact.setText(hostThingToDoDetail.getContactNo());
+                } else {
+                    tvHostContact.setText("");
+                }
+            }
         }
     }
 
@@ -839,6 +965,11 @@ public class HotelDetailsActivity extends BaseActivity {
                 photosThingToDoListAdapter = new ThingTodoDetailPhotosListAdapter(this, photosThingToDoList);
                 rvHotelPhotos.setAdapter(photosThingToDoListAdapter);
             }
+        } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+            if (photosThingToDoList != null && !photosThingToDoList.isEmpty()) {
+                photosThingToDoListAdapter = new ThingTodoDetailPhotosListAdapter(this, photosThingToDoList);
+                rvHotelPhotos.setAdapter(photosThingToDoListAdapter);
+            }
         }
     }
 
@@ -850,6 +981,8 @@ public class HotelDetailsActivity extends BaseActivity {
             setThingToDoDetails();
         } else if (isFrom == AppConstant.IS_FROM_COUPON) {
             setCouponDetails();
+        } else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+            setPackageDetails();
         }
     }
 
@@ -1276,6 +1409,173 @@ public class HotelDetailsActivity extends BaseActivity {
         }
     }
 
+    private void setPackageDetails() {
+        if (packageDetail != null) {
+            allowList = packageDetail.getArrAllowable();
+            pricePerNight = packageDetail.getPrice() + "";
+            tvPrice.setText(getString(R.string.sar) + " " + packageDetail.getPrice() + "");
+            tvDescriptionText.setText(packageDetail.getArrData().getDescription());
+            //tvCheckInOutTimeDetail.setText("Check in Time : " + packageDetail.getArrData().getAccomodationRule().getCheckIn() + "\nCheck out Time : " + packageDetail.getArrData().getAccomodationRule().getCheckOut());
+            String cancellationPolicy = getString(R.string.cancellation_price) + packageDetail.getArrData().getCancellationCharge() + " " + getString(R.string.before_hours) + " " + packageDetail.getArrData().getCancellationDuration() + " " + getString(R.string.no_refund_before_hours) + " " + packageDetail.getArrData().getNoRefundDuration();
+            tvCancellationPolicyDetail.setText(cancellationPolicy);
+
+            if (packageDetail.getArrData().getAdditionalInformation() != null) {
+                llAdditionalInfo.setVisibility(View.VISIBLE);
+                tvAdditionalInfoDetails.setText(packageDetail.getArrData().getAdditionalInformation());
+            } else {
+                llAdditionalInfo.setVisibility(View.GONE);
+            }
+
+            if (packageDetail.getArrData().getOtherRules() != null) {
+                tvOtherRuleDetails.setText(packageDetail.getArrData().getOtherRules() + "");
+            } else {
+                tvOtherRuleDetails.setText(R.string.no_rules);
+            }
+
+            llRoomsAndFacility.setVisibility(View.GONE);
+            viewDividerRoomAndFacility.setVisibility(View.GONE);
+
+            llCheckInOutTime.setVisibility(View.GONE);
+            viewCheckInOut.setVisibility(View.GONE);
+
+            llWhyWithUs.setVisibility(View.VISIBLE);
+            tvWhyWithUsDetail.setText(packageDetail.getArrData().getWhyYou());
+            viewWhyWithUse.setVisibility(View.VISIBLE);
+
+            llPlaces.setVisibility(View.VISIBLE);
+
+            //Places List Data
+            if (packageDetail.getArrData().getPlaces() != null && !packageDetail.getArrData().getPlaces().isEmpty()) {
+                rvPlaces.setVisibility(View.VISIBLE);
+                tvNoDataFoundPlaces.setVisibility(View.GONE);
+                ViewGroup.LayoutParams parms = rvPlaces.getLayoutParams();
+                if (packageDetail.getArrData().getPlaces().size() == 1) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._20sdp) * packageDetail.getArrData().getPlaces().size());
+                } else {
+                    parms.height = (int) (getResources().getDimension(R.dimen._15sdp) * packageDetail.getArrData().getPlaces().size());
+                }
+                rvPlaces.setLayoutParams(parms);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                rvPlaces.setLayoutManager(linearLayoutManager);
+                PlacesListAdapter placesListAdapter = new PlacesListAdapter(this,packageDetail.getArrData().getPlaces());
+                rvPlaces.setAdapter(placesListAdapter);
+            } else {
+                rvPlaces.setVisibility(View.GONE);
+                tvNoDataFoundPlaces.setVisibility(View.VISIBLE);
+            }
+
+            //Allowed List Data
+            if (packageDetail.getArrAllowable() != null && !packageDetail.getArrAllowable().isEmpty()) {
+                rvAllowed.setVisibility(View.VISIBLE);
+                tvNoDataFoundAllowed.setVisibility(View.GONE);
+                ViewGroup.LayoutParams parms = rvAllowed.getLayoutParams();
+                if (packageDetail.getArrAllowable().size() == 1) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._25sdp) * packageDetail.getArrAllowable().size());
+                } else if (packageDetail.getArrAllowable().size() % 2 != 0) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._20sdp) * packageDetail.getArrAllowable().size());
+                } else {
+                    parms.height = (int) (getResources().getDimension(R.dimen._15sdp) * packageDetail.getArrAllowable().size());
+                }
+                rvAllowed.setLayoutParams(parms);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+                rvAllowed.setLayoutManager(gridLayoutManager);
+                AllowedListAdapter allowedListAdapter = new AllowedListAdapter(this, packageDetail.getArrAllowable());
+                rvAllowed.setAdapter(allowedListAdapter);
+            } else {
+                rvAllowed.setVisibility(View.GONE);
+                tvNoDataFoundAllowed.setVisibility(View.VISIBLE);
+            }
+
+            //Not Allowed List Data
+            if (packageDetail.getArrNotAllowable() != null && !packageDetail.getArrNotAllowable().isEmpty()) {
+                rvNotInclude.setVisibility(View.VISIBLE);
+                tvNoDataFoundNotAllowed.setVisibility(View.GONE);
+                ViewGroup.LayoutParams parms = rvNotInclude.getLayoutParams();
+                if (packageDetail.getArrNotAllowable().size() == 1) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._25sdp) * packageDetail.getArrNotAllowable().size());
+                } else if (packageDetail.getArrNotAllowable().size() % 2 != 0) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._20sdp) * packageDetail.getArrNotAllowable().size());
+                } else {
+                    parms.height = (int) (getResources().getDimension(R.dimen._15sdp) * packageDetail.getArrNotAllowable().size());
+                }
+                rvNotAllowed.setLayoutParams(parms);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+                rvNotAllowed.setLayoutManager(gridLayoutManager);
+                NotAllowedListAdapter notAllowedListAdapter = new NotAllowedListAdapter(this, packageDetail.getArrNotAllowable());
+                rvNotAllowed.setAdapter(notAllowedListAdapter);
+            } else {
+                rvNotInclude.setVisibility(View.GONE);
+                tvNoDataFoundNotAllowed.setVisibility(View.VISIBLE);
+            }
+
+            //Include List Data
+            if (packageDetail.getArrIncluded() != null && !packageDetail.getArrIncluded().isEmpty()) {
+                rvInclude.setVisibility(View.VISIBLE);
+                tvNoDataFoundInclude.setVisibility(View.GONE);
+                ViewGroup.LayoutParams parms = rvInclude.getLayoutParams();
+                if (packageDetail.getArrIncluded().size() == 1) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._25sdp) * packageDetail.getArrIncluded().size());
+                } else if (packageDetail.getArrIncluded().size() % 2 != 0) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._20sdp) * packageDetail.getArrIncluded().size());
+                } else {
+                    parms.height = (int) (getResources().getDimension(R.dimen._15sdp) * packageDetail.getArrIncluded().size());
+                }
+                rvInclude.setLayoutParams(parms);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+                rvInclude.setLayoutManager(gridLayoutManager);
+                IncludeListAdapter includeListAdapter = new IncludeListAdapter(this, packageDetail.getArrIncluded());
+                rvInclude.setAdapter(includeListAdapter);
+            } else {
+                rvInclude.setVisibility(View.GONE);
+                tvNoDataFoundInclude.setVisibility(View.VISIBLE);
+            }
+
+            //Not Include List Data
+            if (packageDetail.getArrNotIncluded() != null && !packageDetail.getArrNotIncluded().isEmpty()) {
+                rvNotInclude.setVisibility(View.VISIBLE);
+                tvNoDataFoundNotInclude.setVisibility(View.GONE);
+                ViewGroup.LayoutParams parms = rvNotInclude.getLayoutParams();
+                if (packageDetail.getArrNotIncluded().size() == 1) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._25sdp) * packageDetail.getArrNotIncluded().size());
+                } else if (packageDetail.getArrNotIncluded().size() % 2 != 0) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._20sdp) * packageDetail.getArrNotIncluded().size());
+                } else {
+                    parms.height = (int) (getResources().getDimension(R.dimen._15sdp) * packageDetail.getArrNotIncluded().size());
+                }
+                rvNotInclude.setLayoutParams(parms);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+                rvNotInclude.setLayoutManager(gridLayoutManager);
+                NotIncludeListAdapter notIncludeListAdapter = new NotIncludeListAdapter(this, packageDetail.getArrNotIncluded());
+                rvNotInclude.setAdapter(notIncludeListAdapter);
+            } else {
+                rvNotInclude.setVisibility(View.GONE);
+                tvNoDataFoundNotInclude.setVisibility(View.VISIBLE);
+            }
+
+            //Require List Data
+            if (packageDetail.getArrRequirment() != null && !packageDetail.getArrRequirment().isEmpty()) {
+                rvRequirement.setVisibility(View.VISIBLE);
+                tvNoDataFoundRequirement.setVisibility(View.GONE);
+                ViewGroup.LayoutParams parms = rvRequirement.getLayoutParams();
+                if (packageDetail.getArrRequirment().size() == 1) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._25sdp) * packageDetail.getArrRequirment().size());
+                } else if (packageDetail.getArrRequirment().size() % 2 != 0) {
+                    parms.height = (int) (getResources().getDimension(R.dimen._20sdp) * packageDetail.getArrRequirment().size());
+                } else {
+                    parms.height = (int) (getResources().getDimension(R.dimen._15sdp) * packageDetail.getArrRequirment().size());
+                }
+                rvRequirement.setLayoutParams(parms);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+                rvRequirement.setLayoutManager(gridLayoutManager);
+                RequireListAdapter requireListAdapter = new RequireListAdapter(this, packageDetail.getArrRequirment());
+                rvRequirement.setAdapter(requireListAdapter);
+            } else {
+                rvRequirement.setVisibility(View.GONE);
+                tvNoDataFoundNotInclude.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     public void openAddReviewDialog() {
         final Dialog popupWindowDialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar);
 
@@ -1459,6 +1759,47 @@ public class HotelDetailsActivity extends BaseActivity {
         }
     }
 
+    private void addPackageReview(String rating, String name, String message) {
+        try {
+            if (!Utility.isNetworkAvailable(this)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CommonRequestResponse> call = service.addPackage(Utility.getLocale(),
+                        PreferenceData.getUserData().getId() + "",
+                        hotelId, rating, message, name);
+                call.enqueue(new Callback<CommonRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CommonRequestResponse> call, Response<CommonRequestResponse> response) {
+                        Utility.log(response.getClass().getSimpleName() + " : " + new Gson().toJson(response.body()));
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                Utility.showError(response.body().getMessage());
+
+                            } else {
+                                Utility.showError(response.body().getMessage());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommonRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void getAccommodationReviewList() {
         try {
             if (!Utility.isNetworkAvailable(this)) {
@@ -1598,6 +1939,8 @@ public class HotelDetailsActivity extends BaseActivity {
 
                     } else if (isFrom == AppConstant.IS_FROM_TRANSPORTATION) {
 
+                    } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+                        addPackageReview(reviewRatting + "", reviewName, reviewMessage);
                     }
                 }
             }

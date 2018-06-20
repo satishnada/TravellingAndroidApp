@@ -111,6 +111,13 @@ public class AddonsListActivity extends BaseActivity {
             kids = bundle.getString(AppConstant.EXT_KIDS);
             name = bundle.getString(AppConstant.EXT_NAME);
             getAddonsList(accommodationId);
+        }else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+            accommodationId = bundle.getString(AppConstant.EXT_ACCOMMODATION_ID);
+            fromDate = bundle.getString(AppConstant.EXT_FROM_DATE);
+            adults = bundle.getString(AppConstant.EXT_ADULTS);
+            kids = bundle.getString(AppConstant.EXT_KIDS);
+            name = bundle.getString(AppConstant.EXT_NAME);
+            getAddonsList(accommodationId);
         }
 
         tvApply.setOnClickListener(this);
@@ -135,14 +142,26 @@ public class AddonsListActivity extends BaseActivity {
                 if (edtCoupon.getText().toString().trim().length() == 0) {
                     Utility.showError(getString(R.string.enter_coupon));
                 } else {
-                    applyCouponCode(true);
+                    if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+                        applyCouponCode(true);
+                    }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+                        applyCouponCodeThingToDo(true);
+                    }else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+                        applyCouponCodePackage(true);
+                    }
                 }
                 break;
             case R.id.tvProcessFurther:
                 if (edtCoupon.getText().toString().trim().length() == 0) {
                     processFurther();
                 }else{
-                    applyCouponCode(false);
+                    if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+                        applyCouponCode(false);
+                    }else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+                        applyCouponCodeThingToDo(false);
+                    }else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+                        applyCouponCodePackage(false);
+                    }
                 }
                 break;
             default:
@@ -179,10 +198,99 @@ public class AddonsListActivity extends BaseActivity {
                 }
             }
             AccommodationBookingCalculation();
+        }else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+            addonsParameters = "";
+            if (adapter.getAddonsSelectedList() != null &&
+                    !adapter.getAddonsSelectedList().isEmpty()) {
+                for (int i = 0; i < adapter.getAddonsSelectedList().size(); i++) {
+                    addonsParameters =  addonsParameters+"&addons[" + adapter.getAddonsSelectedList().get(i).getId() + "]=" + adapter.getAddonsSelectedList().get(i).getQuantity();
+                }
+            }
+            getPackagePrice();
         }
     }
 
     private void applyCouponCode(final boolean isFromApply) {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CouponRequestResponse> call = service.applyCoupon(Utility.getLocale(),edtCoupon.getText().toString().trim());
+                call.enqueue(new Callback<CouponRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CouponRequestResponse> call, Response<CouponRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                if (isFromApply){
+                                    Utility.showError(response.body().getMsg());
+                                }else{
+                                    processFurther();
+                                }
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(response.body().getMsg());
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<CouponRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void applyCouponCodeThingToDo(final boolean isFromApply) {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<CouponRequestResponse> call = service.applyCoupon(Utility.getLocale(),edtCoupon.getText().toString().trim());
+                call.enqueue(new Callback<CouponRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<CouponRequestResponse> call, Response<CouponRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                if (isFromApply){
+                                    Utility.showError(response.body().getMsg());
+                                }else{
+                                    processFurther();
+                                }
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(response.body().getMsg());
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<CouponRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void applyCouponCodePackage(final boolean isFromApply) {
         try {
             if (!Utility.isNetworkAvailable(mActivity)) {
                 Utility.showError(getString(R.string.no_internet_connection));
@@ -353,6 +461,73 @@ public class AddonsListActivity extends BaseActivity {
         }
     }
 
+    private void getPackagePrice() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(mActivity);
+
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                Date checkInDate = dateFormatter.parse(fromDate);
+//                Date checkOutDate = dateFormatter.parse(tvCheckOutDate.getText().toString().trim());
+
+                SimpleDateFormat dateFormatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                scheduleDate = dateFormatter1.format(checkInDate.getTime());
+//                checkOutDateStr = dateFormatter1.format(checkOutDate.getTime());
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<ThingToDoCalculatePriceRequestResponse> call = service.getPackagePrice(Utility.getLocale(),WebUtility.PACKAGE_CALCULATE_PRICE
+                        + "thing_to_do_id=" + accommodationId
+                        + "&schedule_date=" + fromDate
+                        + "&adults=" + adults
+                        + "&kids=" + kids
+                        + "&schedule_type=0"
+                        + addonsParameters);
+                call.enqueue(new Callback<ThingToDoCalculatePriceRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<ThingToDoCalculatePriceRequestResponse> call, Response<ThingToDoCalculatePriceRequestResponse> response) {
+                        Utility.log(response.getClass().getSimpleName() + " : " + new Gson().toJson(response.body()));
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+                                thingToDoBookingResponse = response.body();
+                                Intent intent = new Intent(mActivity, BillingInfoActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt(AppConstant.EXT_IS_FROM,isFrom);
+                                bundle.putString(AppConstant.EXT_ACCOMMODATION_ID, accommodationId);
+                                bundle.putString(AppConstant.EXT_FROM_DATE, fromDate);
+                                bundle.putString(AppConstant.EXT_NAME,name);
+                                bundle.putString(AppConstant.EXT_TO_DATE, toDate);
+                                bundle.putString(AppConstant.EXT_ADULTS, adults);
+                                bundle.putString(AppConstant.EXT_KIDS, kids);
+                                bundle.putSerializable(AppConstant.EXT_ADDONS_SELECTED_LIST,adapter.getAddonsSelectedList());
+                                bundle.putSerializable(AppConstant.EXT_ACCOMMODATION_BOOKING, thingToDoBookingResponse.getArrCalculationBreakDown());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                                goNext();
+
+                            } else {
+                                //Utility.showError(response.body().get());
+                            }
+                        } else {
+                            // Utility.showError(response.body().getMsg());
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ThingToDoCalculatePriceRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        Utility.hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void CouponBookingCalculation() {
         try {
             if (!Utility.isNetworkAvailable(mActivity)) {
@@ -421,11 +596,21 @@ public class AddonsListActivity extends BaseActivity {
             } else {
                 Utility.showProgress(mActivity);
                 WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
-                Call<AddonsRequestResponse> call = service.getAccommodationAddons(Utility.getLocale(),WebUtility.GET_ACCOMMODATION_ADDONS + accommodationId);
+
+                Call<AddonsRequestResponse> call = null;
+               // if (isFrom == AppConstant.IS_FROM_ACCOMMODATION){
+                    call = service.getAccommodationAddons(Utility.getLocale(),WebUtility.GET_ACCOMMODATION_ADDONS + accommodationId);
+                 /*}else if (isFrom == AppConstant.IS_FROM_THING_TO_DO){
+                    call = service.getAccommodationAddons(Utility.getLocale(),WebUtility.GET_ACCOMMODATION_ADDONS + accommodationId);
+                } else if (isFrom == AppConstant.IS_FROM_COUPON){
+                    call = service.getAccommodationAddons(Utility.getLocale(),WebUtility.GET_ACCOMMODATION_ADDONS + accommodationId);
+                } else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+                    call = service.getAccommodationAddons(Utility.getLocale(),WebUtility.GET_ACCOMMODATION_ADDONS + accommodationId);
+                }
+*/
                 call.enqueue(new Callback<AddonsRequestResponse>() {
                     @Override
                     public void onResponse(Call<AddonsRequestResponse> call, Response<AddonsRequestResponse> response) {
-                        Utility.log(response.getClass().getSimpleName() + " : " + new Gson().toJson(response.body()));
                         if (response.isSuccessful()) {
                             if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
 

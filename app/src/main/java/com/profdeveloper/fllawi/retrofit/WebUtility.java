@@ -15,20 +15,27 @@ public class WebUtility {
 
     public static final String SEARCH_COUPON = "coupon?";
     public static final String GET_ACCOMMODATION_ADDONS = "accommodation/booking/choose_addons/";
+    public static final String GET_THING_TO_DO_ADDONS = "thingtodo/booking/choose_addons/";
+    public static final String GET_COUPON_ADDONS = "coupon/booking/choose_addons/";
+    public static final String GET_PACKAGE_ADDONS = "package/booking/choose_addons/";
     public static final String GET_COUPON_DETAILS = "coupon/details/";
     public static final String SEARCH_THING_TO_DO = "thingtodo?";
     public static final String GET_THING_TO_DO_DETAILS = "thingtodo/details/";
     public static final String GET_THING_TO_DO_CATEGORY = "thingtodo/get_category";
     public static final String COUPON_CALCULATE_PRICE = "coupon/booking/calculate_price?";
     public static final String APPLY_COUPON = "accommodation/booking/apply_coupon?";
+    public static final String APPLY_COUPON_THING_TO_DO = "thingtodo/booking/apply_coupon?";
+    public static final String APPLY_COUPON_PACKAGE = "package/booking/apply_coupon?";
     public static final String ACCOMMODATION_BOOKING_CALCULATION = "accommodation/booking/calculate_price?";
     public static final String THING_TO_DO_TIME_SLOT = "thingtodo/booking/get_time_slot?";
     public static final String THING_TO_DO_CALCULATE_PRICE = "thingtodo/booking/calculate_price?";
     public static final String THING_TO_DO_BOOKING_CALCULATION = "thingtodo/booking/calculate_price?";
+    public static final String PACKAGE_CALCULATE_PRICE = "package/booking/calculate_price?";
 
     public static final String ACCOMMODATION_INIT_PAYMENT = "accommodation/booking/init_payment_process";
     public static final String COUPON_INIT_PAYMENT = "coupon/booking/init_payment_process";
     public static final String THING_TO_DO_INIT_PAYMENT = "thingtodo/booking/init_payment_process";
+    public static final String PACKAGE_INIT_PAYMENT = "package/booking/init_payment_process";
 
     public static final String COUPON_BOOKING_UPDATE = "coupon/booking/booking_update";
     public static final String THING_TO_DO_BOOKING_UPDATE = "thingtodo/booking/booking_update";
@@ -37,10 +44,12 @@ public class WebUtility {
     public static final String ACCOMMODATION_REVIEW_CREATE = "accommodation/review/create";
     public static final String THING_TO_REVIEW_CREATE = "thingtodo/review/create";
     public static final String COUPON_REVIEW_CREATE = "coupon/review/create";
+    public static final String PACKAGE_CREATE = "package/review/create";
 
     public static final String ACCOMMODATION_REVIEW_LIST = "accommodation/review/list?";
     public static final String THING_TO_DO_REVIEW_LIST = "thingtodo/review/list?";
     public static final String COUPON_REVIEW_LIST = "coupon/review/list?";
+    public static final String PACKAGE_REVIEW_LIST = "package/review/list?";
 
     public static final String BOOKING_HISTORY_ACCOMMODATION_LIST = "accommodation/booking/list";
     public static final String BOOKING_HISTORY_ACCOMMODATION_DETAIL = "accommodation/booking/view";
@@ -61,8 +70,12 @@ public class WebUtility {
     public static final String SUGGEST_THING_TO_DO = "home/suggest_thingstodo?";
     public static final String SUGGEST_COUPON = "home/suggest_coupons?";
     public static final String SUGGEST_PACKAGE = "home/suggest_packages?";
-    public static final String SUGGEST_EVENTS = "front/home/suggest_events?";
+    public static final String SUGGEST_EVENTS = "home/suggest_events?";
 
     public static final String GET_HOME_TOP_DESTINATION = "home";
+
+    public static final String GET_PACKAGE_CATEGORY = "package/get_category";
+    public static final String GET_PACKAGE = "package?";
+    public static final String GET_PACKAGE_DETAILS = "package/details/";
 
 }

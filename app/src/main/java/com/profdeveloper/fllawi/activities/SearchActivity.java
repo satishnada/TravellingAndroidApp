@@ -41,6 +41,10 @@ import com.profdeveloper.fllawi.adapters.CommonListAdapter;
 import com.profdeveloper.fllawi.adapters.LocationSuggestionAdapter;
 import com.profdeveloper.fllawi.adapters.SubCategoryAdapter;
 import com.profdeveloper.fllawi.model.Coupons.GetCouponRequestResponse;
+import com.profdeveloper.fllawi.model.Package.PackageDatum;
+import com.profdeveloper.fllawi.model.Package.PackageRequestResponse;
+import com.profdeveloper.fllawi.model.SearchHotel.ArrMainCategory;
+import com.profdeveloper.fllawi.model.SearchHotel.ArrSubCategory;
 import com.profdeveloper.fllawi.model.SearchHotel.SearchRequestResponse;
 import com.profdeveloper.fllawi.model.SearchHotel.SearchResultMainData;
 import com.profdeveloper.fllawi.model.SuggestLocationRequestResponse;
@@ -57,6 +61,7 @@ import com.profdeveloper.fllawi.utils.Utility;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -91,6 +96,8 @@ public class SearchActivity extends BaseActivity {
     private CheckBox checkBoxTickets, checkBoxCoupons;
     private boolean isTicketSelected = true;
     private boolean isCouponSelected = false;
+    private ArrayList<ArrMainCategory> categoryPackageList = new ArrayList<>();
+    private ArrayList<ArrSubCategory> subCategoryPackageList = new ArrayList<>();
     private ArrayList<Datum> categoryList = new ArrayList<>();
     private ArrayList<ChildCategory> subCategoryList = new ArrayList<>();
     private ArrayList<SuggestLocationRequestResponse> suggestLocationList = new ArrayList<>();
@@ -105,6 +112,7 @@ public class SearchActivity extends BaseActivity {
     private Date checkInDate;
     private Date checkOutDate;
     private String searchLocation = "";
+    private boolean isSearching = false;
 
     @Override
     public void setLayoutView() {
@@ -150,7 +158,10 @@ public class SearchActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                suggestLocation(searchLocation);
+                if (!isSearching){
+                    isSearching = true;
+                    suggestLocation(searchLocation);
+                }
             }
         });
 
@@ -219,6 +230,15 @@ public class SearchActivity extends BaseActivity {
 
         } else if (isFrom == AppConstant.IS_FROM_EVENT) {
 
+        }else if (isFrom == AppConstant.IS_FROM_PACKAGE){
+            rlCategory.setVisibility(View.VISIBLE);
+            rlSubCategory.setVisibility(View.VISIBLE);
+            llLocation.setVisibility(View.VISIBLE);
+            llScheduleDate.setVisibility(View.VISIBLE);
+            llCheckIn.setVisibility(View.GONE);
+            llCheckOut.setVisibility(View.GONE);
+            llRoom.setVisibility(View.GONE);
+            getPackageCategoryList();
         }
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -327,6 +347,12 @@ public class SearchActivity extends BaseActivity {
                 } else if (isFrom == AppConstant.IS_FROM_COUPON) {
                     PreferenceData.setCoupon(couponType);
                     searchCoupon();
+                } else if (isFrom == AppConstant.IS_FROM_PACKAGE) {
+                    PreferenceData.setScheduleDate(tvScheduleDate.getText().toString());
+                    PreferenceData.setLocation(edtLocation.getText().toString().trim());
+                    PreferenceData.setCategory(sltCategoryId);
+                    PreferenceData.setSubCategory(sltSubCategoryId);
+                    searchPackage();
                 }
                 break;
             case R.id.tvCategory:
@@ -717,33 +743,37 @@ public class SearchActivity extends BaseActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
+                                isSearching = false;
                                 suggestLocationList.clear();
                                 String[] arr = null;
-                                if (response.body().toString().length() > 2){
-                                    try {
-                                        String resStr = response.body().string();
-                                        JSONArray jsonArray = new JSONArray(resStr);
-                                        arr = new String[jsonArray.length()];
-                                        for (int i = 0;i<jsonArray.length();i++){
-                                            SuggestLocationRequestResponse location = new SuggestLocationRequestResponse();
-                                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                            location.setId(jsonObject.getInt("id"));
-                                            location.setLabel(jsonObject.getString("label"));
-                                            location.setValue(jsonObject.getString("value"));
-                                            suggestLocationList.add(location);
-                                            arr[i] = jsonObject.getString("label");
+                                try {
+                                    if (response.body().string().length() > 2){
+                                        try {
+                                            String responseStr = response.body().string();
+                                            JSONArray jsonArray = new JSONArray(responseStr);
+                                            arr = new String[jsonArray.length()];
+                                            for (int i = 0;i<jsonArray.length();i++){
+                                                SuggestLocationRequestResponse location = new SuggestLocationRequestResponse();
+                                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                                location.setId(jsonObject.getInt("id"));
+                                                location.setLabel(jsonObject.getString("label"));
+                                                location.setValue(jsonObject.getString("value"));
+                                                suggestLocationList.add(location);
+                                                arr[i] = jsonObject.getString("label");
+                                            }
+                                        }catch (Exception e){
+                                            e.printStackTrace();
                                         }
-                                    }catch (Exception e){
-                                        e.printStackTrace();
-                                    }
 
-                                    if (arr != null){
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchActivity.this,android.R.layout.simple_dropdown_item_1line, arr);
-                                        //LocationSuggestionAdapter adapter = new LocationSuggestionAdapter(SearchActivity.this,suggestLocationList);
-                                        edtLocation.setAdapter(adapter);
+                                        if (arr != null){
+                                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchActivity.this,android.R.layout.simple_dropdown_item_1line, arr);
+                                            //LocationSuggestionAdapter adapter = new LocationSuggestionAdapter(SearchActivity.this,suggestLocationList);
+                                            edtLocation.setAdapter(adapter);
+                                        }
                                     }
+                                }catch (IOException e){
+                                    e.printStackTrace();
                                 }
-
                             } else {
                                 //Utility.showError(getString(R.string.no_search_data));
                             }
@@ -755,6 +785,119 @@ public class SearchActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getPackageCategoryList() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<GetThingToDoCategoryRequestResponse> call = service.getThingToDoCategory(Utility.getLocale(), WebUtility.BASE_URL + WebUtility.GET_PACKAGE_CATEGORY);
+                call.enqueue(new Callback<GetThingToDoCategoryRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<GetThingToDoCategoryRequestResponse> call, Response<GetThingToDoCategoryRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                if (response.body() != null) {
+                                    if (response.body().getData() != null) {
+                                        categoryList.clear();
+                                        Datum category = new Datum();
+                                        category.setTitle(getString(R.string.none));
+                                        categoryList.add(0, category);
+                                        for (Datum datum : response.body().getData()) {
+                                            categoryList.add(datum);
+                                        }
+                                        categoryAdapter = new CategoryAdapter(SearchActivity.this, categoryList);
+                                        spinnerCategory.setAdapter(categoryAdapter);
+
+                                        subCategoryAdapter = new SubCategoryAdapter(SearchActivity.this, subCategoryList);
+                                        spinnerSubCategory.setAdapter(subCategoryAdapter);
+                                    }
+                                } else {
+                                    Utility.showError(getString(R.string.no_search_found));
+                                }
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetThingToDoCategoryRequestResponse> call, Throwable t) {
+                        Utility.log("" + t.getMessage());
+                        hideProgress();
+                        Utility.showError(t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void searchPackage() {
+        try {
+            if (!Utility.isNetworkAvailable(mActivity)) {
+                Utility.showError(getString(R.string.no_internet_connection));
+            } else {
+                Utility.showProgress(this);
+
+                WebServiceCaller.ApiInterface service = WebServiceCaller.getClient();
+                Call<PackageRequestResponse> call = service.getPackage(Utility.getLocale(), WebUtility.BASE_URL + WebUtility.GET_PACKAGE);
+                call.enqueue(new Callback<PackageRequestResponse>() {
+                    @Override
+                    public void onResponse(Call<PackageRequestResponse> call, Response<PackageRequestResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equalsIgnoreCase(AppConstant.STATUS_SUCCESS)) {
+
+                                if (response.body() != null) {
+                                    if (response.body().getData() != null) {
+                                        if (response.body().getData().getObjData() != null && response.body().getData().getObjData().getData().size() == 0) {
+                                            Utility.showError(getString(R.string.no_search_found));
+                                        } else {
+                                            Utility.BASE_URL = response.body().getImageUrl();
+                                            Intent searchHotel = new Intent(mActivity, SearchResultActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt(AppConstant.EXT_IS_FROM, AppConstant.IS_FROM_PACKAGE);
+                                            bundle.putString(AppConstant.EXT_FROM_DATE, tvScheduleDate.getText().toString());
+                                            bundle.putString(AppConstant.EXT_CATEGORY, sltCategoryId);
+                                            bundle.putString(AppConstant.EXT_SUB_CATEGORY, sltSubCategoryId);
+                                            bundle.putSerializable(AppConstant.EXT_SEARCH_DATA, response.body());
+                                            searchHotel.putExtras(bundle);
+                                            startActivity(searchHotel);
+                                            goNext();
+                                        }
+                                    }
+                                } else {
+                                    Utility.showError(getString(R.string.no_search_found));
+                                }
+                            } else {
+                                Utility.showError(response.body().getMsg());
+                            }
+                        } else {
+                            Utility.showError(getResources().getString(R.string.message_something_wrong));
+                        }
+                        Utility.hideProgress();
+                    }
+
+                    @Override
+                    public void onFailure(Call<PackageRequestResponse> call, Throwable t) {
                         Utility.log("" + t.getMessage());
                         hideProgress();
                         Utility.showError(t.getMessage());

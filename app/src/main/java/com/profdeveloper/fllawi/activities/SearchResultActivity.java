@@ -16,8 +16,11 @@ import com.profdeveloper.BaseActivity;
 import com.profdeveloper.fllawi.adapters.CouponListAdapter;
 import com.profdeveloper.fllawi.adapters.HomeListAdapter;
 import com.profdeveloper.fllawi.R;
+import com.profdeveloper.fllawi.adapters.PackageListAdapter;
 import com.profdeveloper.fllawi.adapters.ThingToDoListAdapter;
 import com.profdeveloper.fllawi.model.Coupons.GetCouponRequestResponse;
+import com.profdeveloper.fllawi.model.Package.PackageDatum;
+import com.profdeveloper.fllawi.model.Package.PackageRequestResponse;
 import com.profdeveloper.fllawi.model.SearchHotel.ArrMainCategory;
 import com.profdeveloper.fllawi.model.SearchHotel.ArrSubCategory;
 import com.profdeveloper.fllawi.model.SearchHotel.Datum;
@@ -38,15 +41,16 @@ public class SearchResultActivity extends BaseActivity {
     private LinearLayout llSort, llFilter;
     private SearchRequestResponse searchResponseData;
 
+    private PackageRequestResponse packageResponse;
     private GetCouponRequestResponse couponResponseData;
     private CouponListAdapter couponListAdapter;
     private ArrayList<Datum> searchHotelListData = new ArrayList<>();
+    private PackageListAdapter packageListAdapter;
 
     private GetThingToDoRequestResponse thingToDoResponseData;
     private ThingToDoListAdapter thingToDoListAdapter;
-    private ArrayList<ArrMainCategory> categoryThingToDoList = new ArrayList<>();
-    private ArrayList<ArrSubCategory> subCategoryThingToDoList = new ArrayList<>();
 
+    private ArrayList<PackageDatum> searchPackageListData = new ArrayList<>();
     private ArrayList<com.profdeveloper.fllawi.model.Coupons.Datum> searchCouponListData = new ArrayList<>();
     private ArrayList<com.profdeveloper.fllawi.model.ThingToDoSearch.Datum> searchThingToDoListData = new ArrayList<>();
     private ArrayList<ArrMainCategory> categoryList = new ArrayList<>();
@@ -128,14 +132,6 @@ public class SearchResultActivity extends BaseActivity {
 
                     searchThingToDoListData = (ArrayList<com.profdeveloper.fllawi.model.ThingToDoSearch.Datum>) thingToDoResponseData.getData().getObjData().getData();
 
-                    if (thingToDoResponseData.getData().getArrMainCategory() != null) {
-                        categoryThingToDoList = (ArrayList<ArrMainCategory>) thingToDoResponseData.getData().getArrMainCategory();
-                    }
-
-                    if (thingToDoResponseData.getData().getArrSubCategory() != null) {
-                        subCategoryThingToDoList = (ArrayList<ArrSubCategory>) thingToDoResponseData.getData().getArrSubCategory();
-                    }
-
                     thingToDoListAdapter = new ThingToDoListAdapter(mActivity,searchThingToDoListData);
                     recyclerHome.setAdapter(thingToDoListAdapter);
                 } else if (isFrom == AppConstant.IS_FROM_COUPON){
@@ -143,6 +139,19 @@ public class SearchResultActivity extends BaseActivity {
                     searchCouponListData = (ArrayList<com.profdeveloper.fllawi.model.Coupons.Datum>) couponResponseData.getData().getObjData().getData();
                     couponListAdapter = new CouponListAdapter(mActivity,searchCouponListData);
                     recyclerHome.setAdapter(couponListAdapter);
+                }else{
+
+                    packageResponse = (PackageRequestResponse) bundle.getSerializable(AppConstant.EXT_SEARCH_DATA);
+                    searchPackageListData = (ArrayList<PackageDatum>) packageResponse.getData().getObjData().getData();
+                    if (packageResponse.getData().getArrMainCategory() != null) {
+                        categoryList = (ArrayList<ArrMainCategory>) packageResponse.getData().getArrMainCategory();
+                    }
+
+                    if (packageResponse.getData().getArrSubCategory() != null) {
+                        subCategoryList = (ArrayList<ArrSubCategory>) packageResponse.getData().getArrSubCategory();
+                    }
+                    packageListAdapter = new PackageListAdapter(mActivity,searchPackageListData);
+                    recyclerHome.setAdapter(packageListAdapter);
                 }
             }
         } catch (Exception e) {
@@ -185,6 +194,18 @@ public class SearchResultActivity extends BaseActivity {
     public void onThingToDoItemClick(com.profdeveloper.fllawi.model.ThingToDoSearch.Datum searchResultData) {
         Intent intent = new Intent(mActivity, HotelDetailsActivity.class);
         intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_THING_TO_DO);
+        intent.putExtra(AppConstant.EXT_HOTEL_NAME,searchResultData.getTitle());
+        intent.putExtra(AppConstant.EXT_HOTEL_IMAGE,searchResultData.getImage());
+        intent.putExtra(AppConstant.EXT_FROM_DATE,scheduledDate);
+        intent.putExtra(AppConstant.EXT_ACCOMMODATION_ID,searchResultData.getId()+"");
+        intent.putExtra(AppConstant.EXT_AVG_RATTING,searchResultData.getAvrageUserRating()+"");
+        startActivity(intent);
+        goNext();
+    }
+
+    public void onPackageItemClick(com.profdeveloper.fllawi.model.Package.PackageDatum searchResultData) {
+        Intent intent = new Intent(mActivity, HotelDetailsActivity.class);
+        intent.putExtra(AppConstant.EXT_IS_FROM,AppConstant.IS_FROM_PACKAGE);
         intent.putExtra(AppConstant.EXT_HOTEL_NAME,searchResultData.getTitle());
         intent.putExtra(AppConstant.EXT_HOTEL_IMAGE,searchResultData.getImage());
         intent.putExtra(AppConstant.EXT_FROM_DATE,scheduledDate);
